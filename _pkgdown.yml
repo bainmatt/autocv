@@ -1,4 +1,11 @@
-url: https://bainmatt.github.io/autocv/
+# url: https://bainmatt.github.io/autocv/
+repo:
+  url:
+    home: https://github.com/bainmatt/autocv/
+    source: https://github.com/bainmatt/autocv/blob/HEAD/
+    issue: https://github.com/bainmatt/autocv/issues/
+    user: https://github.com/bainmatt
+
 template:
   bootstrap: 5
 

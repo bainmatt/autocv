@@ -1,6 +1,9 @@
 # autocv
 
-[![pkgdown](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/bainmatt/autocv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bainmatt/autocv/actions/workflows/R-CMD-check.yaml){.pkgdown-devel}
+[![pkgdown](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml){.pkgdown-docs}
+<!-- badges: end -->
 
 This package houses the code and template data files used to construct 
 variations of my data-driven curriculum vitae. 
