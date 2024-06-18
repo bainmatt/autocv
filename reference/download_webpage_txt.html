@@ -52,7 +52,7 @@ download_webpage_pdf saves output to a .pdf file."><!-- mathjax --><script src="
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Save the text from a webpage url.</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/bainmatt/autocv/blob/HEAD/R/extract_job_posting.R" class="external-link"><code>R/extract_job_posting.R</code></a></small>
       <div class="d-none name"><code>download_webpage_txt.Rd</code></div>
     </div>
 
@@ -100,8 +100,8 @@ download_webpage_pdf saves output to a .pdf file."><!-- mathjax --><script src="
 <span class="r-in"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://en.wikipedia.org/wiki/R_(programming_language)"</span></span></span>
 <span class="r-in"><span><span class="va">fil</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"file"</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, fileext <span class="op">=</span> <span class="st">".txt"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">download_webpage_txt</span><span class="op">(</span><span class="va">url</span>, <span class="va">fil</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> posting file created at ../../../../../../../tmp/RtmphGNDAg/file9adc6cfa4cee.txt</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> writing posting to '../../../../../../../tmp/RtmphGNDAg/file9adc6cfa4cee.txt'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> posting file created at ../../../../../../../tmp/RtmpIbg6jJ/file992d7cc9d74e.txt</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> writing posting to '../../../../../../../tmp/RtmpIbg6jJ/file992d7cc9d74e.txt'</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">fil</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "R (programming language) - Wikipedia(function(){var className=\"client-js vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-enabled vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available\";var cookie=document.cookie.match(/(?:^|; )enwikimwclientpreferences=([^;]+)/);if(cookie){cookie[1].split('%2C').forEach(function(pref){className=className.replace(new RegExp('(^| )'+pref.replace(/-clientpref-\\w+$|[^\\w-]+/g,'')+'-clientpref-\\\\w+( |$)'),'$1'+pref+'$2');});}document.documentElement.className=className;}());RLCONF={\"wgBreakFrames\":false,\"wgSeparatorTransformTable\":[\"\",\"\"],\"wgDigitTransformTable\":["</span>
 <span class="r-in"><span></span></span>

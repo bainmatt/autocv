@@ -1,156 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://bainmatt.github.io/autocv/404.html</loc>
+    <loc>/404.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/LICENSE-text.html</loc>
+    <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/LICENSE.html</loc>
+    <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/articles/example-cv.html</loc>
+    <loc>/articles/example-cv.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/articles/index.html</loc>
+    <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/authors.html</loc>
+    <loc>/authors.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/index.html</loc>
+    <loc>/index.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/append_skills_to_bullets.html</loc>
+    <loc>/reference/append_skills_to_bullets.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/autocv-package.html</loc>
+    <loc>/reference/autocv-package.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/autocv_resources.html</loc>
+    <loc>/reference/autocv_resources.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/build_app_directory.html</loc>
+    <loc>/reference/build_app_directory.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/build_skill_bars.html</loc>
+    <loc>/reference/build_skill_bars.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/build_skill_list.html</loc>
+    <loc>/reference/build_skill_list.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/build_skill_table.html</loc>
+    <loc>/reference/build_skill_table.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/construct_app_filepath.html</loc>
+    <loc>/reference/construct_app_filepath.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/construct_app_metadata.html</loc>
+    <loc>/reference/construct_app_metadata.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/count_terms.html</loc>
+    <loc>/reference/count_terms.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/download_webpage_txt.html</loc>
+    <loc>/reference/download_webpage_txt.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/example_skill_data.html</loc>
+    <loc>/reference/example_skill_data.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/get_app_info.html</loc>
+    <loc>/reference/get_app_info.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/get_path_to.html</loc>
+    <loc>/reference/get_path_to.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/index.html</loc>
+    <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/load_application_data.html</loc>
+    <loc>/reference/load_application_data.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/load_job_info.html</loc>
+    <loc>/reference/load_job_info.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/load_log.html</loc>
+    <loc>/reference/load_log.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/make_markdown_contacts.html</loc>
+    <loc>/reference/make_markdown_contacts.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/match_pattern.html</loc>
+    <loc>/reference/match_pattern.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/omit_hidden_fields.html</loc>
+    <loc>/reference/omit_hidden_fields.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/prepare_bio.html</loc>
+    <loc>/reference/prepare_bio.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/prepare_description_bullets.html</loc>
+    <loc>/reference/prepare_description_bullets.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/prepare_links.html</loc>
+    <loc>/reference/prepare_links.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/prepare_timeline.html</loc>
+    <loc>/reference/prepare_timeline.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/preprocess_contacts.html</loc>
+    <loc>/reference/preprocess_contacts.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/preprocess_entries.html</loc>
+    <loc>/reference/preprocess_entries.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/preprocess_text.html</loc>
+    <loc>/reference/preprocess_text.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/print_contact_info.html</loc>
+    <loc>/reference/print_contact_info.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/print_latex_section.html</loc>
+    <loc>/reference/print_latex_section.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/print_section.html</loc>
+    <loc>/reference/print_section.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/print_txt_section.html</loc>
+    <loc>/reference/print_txt_section.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/render_all.html</loc>
+    <loc>/reference/render_all.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/render_cv_as_html.html</loc>
+    <loc>/reference/render_cv_as_html.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/render_cv_as_pdf.html</loc>
+    <loc>/reference/render_cv_as_pdf.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/render_resume.html</loc>
+    <loc>/reference/render_resume.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/render_resume_plain.html</loc>
+    <loc>/reference/render_resume_plain.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/run_skill_count.html</loc>
+    <loc>/reference/run_skill_count.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/run_skill_report.html</loc>
+    <loc>/reference/run_skill_report.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/sort_skills.html</loc>
+    <loc>/reference/sort_skills.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/str_to_filename.html</loc>
+    <loc>/reference/str_to_filename.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/validate_id.html</loc>
+    <loc>/reference/validate_id.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/write_app_metadata.html</loc>
+    <loc>/reference/write_app_metadata.html</loc>
   </url>
   <url>
-    <loc>https://bainmatt.github.io/autocv/reference/write_log_entry.html</loc>
+    <loc>/reference/write_log_entry.html</loc>
   </url>
 </urlset>
