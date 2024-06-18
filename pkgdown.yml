@@ -3,5 +3,8 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   example-cv: example-cv.html
-last_built: 2024-06-18T21:25Z
+last_built: 2024-06-18T22:35Z
+urls:
+  reference: https://bainmatt.github.io/autocv/reference
+  article: https://bainmatt.github.io/autocv/articles
 
