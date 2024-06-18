@@ -1,5 +1,7 @@
 # autocv
 
+[![pkgdown](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml)
+
 This package houses the code and template data files used to construct 
 variations of my data-driven curriculum vitae. 
 

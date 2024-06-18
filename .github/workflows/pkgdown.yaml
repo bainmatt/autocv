@@ -40,16 +40,16 @@ jobs:
           use-public-rspm: true
       
       # NOTE: These steps replace the 'setup-r-dependencies@v2' action
-      # - name: Build R package dependencies
-      #   run: |
-      #     Rscript -e 'install.packages("renv")'
-      #     Rscript -e 'renv::restore()'
-      #   shell: bash
+      - name: Build R package dependencies
+        run: |
+          Rscript -e 'install.packages("renv")'
+          Rscript -e 'renv::restore()'
+        shell: bash
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::pkgdown, local::.
-          needs: website
+      # - uses: r-lib/actions/setup-r-dependencies@v2
+      #   with:
+      #     extra-packages: any::pkgdown, local::.
+      #     needs: website
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
