@@ -1,0 +1,47 @@
+Package: autocv
+Title: Generate ATS- and Web-Friendly Resume Documents from Spreadsheets
+Version: 0.0.1
+Authors@R: 
+  person("Matthew", "Bain", , "bainmatt@outlook.com", role = c("aut", "cre"))
+Description: autocv is a collection of functions for generating 
+  your resume from data stored in a spreadsheet. It includes tools for 
+  retrieving job postings from the web, analyzing their key words,
+  and assessing your resume based on its alignment with those key words.
+  Spreadsheet templates are provided with conditional formatting to evaluate
+  the quality of the content and skills included in your resume.
+  Functions and spreadsheets for generating cover letters, as well as
+  HTML, PDF, LaTeX, and plain text resumes, are included. The HTML version
+  is optimized for long-form web-hosted CVs, while the LaTeX version is
+  optimized for ATS compatibility.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Imports:
+    fs,
+    cli,
+    yaml,
+    glue,
+    here,
+    rlang,
+    rvest,
+    stats,
+    dplyr,
+    purrr,
+    tidyr,
+    tibble,
+    readxl,
+    writexl,
+    stringr,
+    ggplot2,
+    usethis,
+    magrittr,
+    pagedown,
+    assertthat
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+LazyData: true

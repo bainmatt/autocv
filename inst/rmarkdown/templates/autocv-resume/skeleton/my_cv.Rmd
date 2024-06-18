@@ -1,0 +1,147 @@
+---
+title: "My CV"
+output:
+  pagedown::html_resume:
+    css: 
+      - !expr fs::path_package("autocv", "extdata/css", "custom_resume.css")
+      - !expr fs::path_package("autocv", "extdata/css", "styles_html.css")
+      - "resume"
+    self_contained: true
+params:
+  resume_data_filepath: "R/data/resume_data.xlsx"
+  # This field is automatically updated by the rendering helper routines
+  doctype: "HTML"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+```
+
+```{r load, include=FALSE}
+library(autocv)
+library(glue)
+library(readxl)
+library(stringr)
+library(magrittr)
+library(dplyr)
+
+data("example_position_data")
+position_data <- example_position_data %>%
+  preprocess_entries(
+    style = "markdown", 
+    order = "reversed", 
+    bullet_style = "-"
+  )
+
+data("example_skill_data")
+skill_data <- example_skill_data
+
+data("example_contact_data")
+contact_data <- example_contact_data %>% 
+  preprocess_contacts(., style = "markdown")
+
+data("example_text_data")
+text_data <- example_text_data %>% 
+  preprocess_text()
+```
+
+```{r extract, include=FALSE}
+name <- contact_data$address_text[contact_data$loc == "name"]
+role <- text_data$text[text_data$loc == "title"]
+bio <- text_data$text[text_data$loc == "bio"]
+suffix <- contact_data$address_text[contact_data$loc == "title"]
+
+pic_text <- glue::glue_collapse(
+  contact_data[contact_data$loc == "pic",]$contact_text
+)
+contact_text <- print_contact_info(
+  contact_data, 
+  section = "both", 
+  sep = "\n"
+)
+```
+
+```{r aside-header}
+glue("# Aside")
+```
+
+```{r contact-header}
+glue("## Contact {{#contact}}")
+```
+
+```{r links}
+contact_text
+```
+
+```{r download}
+if(params$doctype == "HTML"){
+  paste0(
+    "[<i class='fas fa-download'></i> Download as a PDF]",
+    "(https://github.com/bainmatt/resume/main/bainmatt_resume.pdf)"
+  ) %>% 
+  glue::glue_collapse(sep = "\n")
+}
+```
+
+```{r skills-header}
+glue("## Skills")
+```
+
+```{r tech, dev.args = list(bg = 'transparent')}
+build_skill_bars(skill_data %>% dplyr::filter(core_tools == "x"))
+```
+
+```{r datestamp}
+glue("Last updated on ", "{Sys.Date()}")
+```
+
+```{r main-header}
+glue("# Main")
+```
+
+```{r header}
+glue("## ", "{name}, ", "{suffix}", " {{#title}}")
+```
+
+```{r role}
+glue("### ", "{role}")
+```
+
+```{r bio}
+glue("{bio}")
+```
+
+```{r work-header}
+glue("## Professional Experience ", "{{data-icon='suitcase'}}")
+```
+
+```{r jobs}
+print_section(position_data, 'work')
+```
+
+```{r education-header}
+glue("## Education ", "{{data-icon='graduation cap' data-concise='true'}}")
+```
+
+```{r education}
+print_section(position_data, 'education')
+```
+
+```{r certificates-header}
+glue("## Certifications ", "{{data-icon='award' data-concise='true'}}")
+```
+
+```{r certificates}
+print_section(position_data, 'certifications')
+```
+
+```{r projects-header}
+glue("## Selected Projects ", "{{data-icon='code-branch' data-conside='true'}}")
+```
+
+```{r projects}
+print_section(position_data, 'projects')
+```

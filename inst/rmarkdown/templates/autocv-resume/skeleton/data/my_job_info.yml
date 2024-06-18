@@ -1,0 +1,9 @@
+job_details:
+  posting_url: "https:://job_posting.com"
+  portal_url: "https:://job_application_portal.com"
+  job_title: "Job Title"
+  company_name: "Company Name"
+  company_abbreviation: "CN"
+
+application_details:
+  output_dir: "../job_search/winter_24/"

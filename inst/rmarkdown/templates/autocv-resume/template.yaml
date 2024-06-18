@@ -1,0 +1,4 @@
+name: autocv resume
+description: >
+   This template contains the R Markdown notebooks and Excel spreadsheets required to begin building a tailored resume and related documents with the autocv package.
+create_dir: FALSE

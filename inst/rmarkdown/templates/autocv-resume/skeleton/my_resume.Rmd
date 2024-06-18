@@ -1,0 +1,124 @@
+---
+title: ""
+output:
+  pdf_document:
+    latex_engine: xelatex
+    keep_tex: false
+    includes:
+      in_header: !expr fs::path_package("autocv", "extdata/latex", "custom_resume.tex")
+fontsize: 11pt
+geometry: margin=0.55in, bottom=0.5in, headsep=0.15in, footskip=0.15in
+params:
+  resume_data_filepath: "R/data/resume_data.xlsx"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+
+# Load packages
+library(autocv)
+library(glue)
+library(dplyr)
+library(readxl)
+
+# Set paths
+resume_data_filepath = "data/my_resume_data.xlsx"
+cover_data_filepath = "data/my_cover_data.xlsx"
+
+# Load data and preprocess
+position_data <- load_application_data(
+  data_filepath = resume_data_filepath,
+  sheet = "entries",
+  skip = 1
+) %>% preprocess_entries(., style = "latex", bullet_style = "-")
+
+skill_data <- load_application_data(
+  data_filepath = resume_data_filepath,
+  sheet = "skills",
+  skip = 2
+) %>% sort_skills(.)
+
+contact_data <- load_application_data(
+  data_filepath = cover_data_filepath,
+  sheet = "contact_info"
+) %>% preprocess_contacts(., style = "latex")
+
+text_data <- load_application_data(
+  data_filepath = cover_data_filepath,
+  sheet = "text_blocks"
+) %>% preprocess_text()
+
+```
+
+```{r extract, include=FALSE}
+
+name <- contact_data$address_text[contact_data$loc == "name"]
+role <- text_data$text[text_data$loc == "title"]
+bio <- text_data$text[text_data$loc == "bio"]
+suffix <- contact_data$address_text[contact_data$loc == "title"]
+
+contacts_text <- print_contact_info(
+  contact_data, 
+  section = "info", 
+  sep = " | "
+)
+links_text <- print_contact_info(
+  contact_data, 
+  section = "links", 
+  sep = " | "
+)
+
+skills_list <- build_skill_list(
+  skill_data, 
+  sep = " • ",
+  separate_competencies = TRUE,
+  competencies_header = "Other"
+)
+
+```
+
+\myname{`r paste0(name, ", ", suffix)`} `r paste(contacts_text)`
+
+<!-- \vspace{-4pt} -->
+<!-- ### \myrole{`r paste(role)`} -->
+
+\vspace{-4pt}
+`r paste(links_text)`
+
+\mybio{`r paste(bio)`}
+
+## \mysection{Skills} \mysectionrule{}
+
+\vspace{-4pt}
+`r paste(skills_list)`
+
+<!-- `r paste(build_skill_table(skill_data))` -->
+
+## \mysection{Selected Professional Experience} \mysectionrule{}
+
+```{r jobs}
+print_latex_section(position_data, section_id = "work", short_entries = TRUE)
+```
+
+## \mysection{Education} \mysectionrule{}
+
+```{r education}
+print_latex_section(position_data, section_id = "education", short_entries = TRUE)
+```
+
+## \mysection{Certifications} \mysectionrule{}
+
+```{r certificates}
+print_latex_section(position_data, section_id = "certifications")
+```
+
+## \mysection{Selected Projects} \mysectionrule{}
+
+```{r projects}
+print_latex_section(position_data, section_id = "projects")
+```
+
+\label{LastPage}

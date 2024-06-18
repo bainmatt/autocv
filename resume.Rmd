@@ -1,0 +1,129 @@
+---
+title: ""
+author: Matthew Bain
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    keep_tex: false
+    includes:
+      in_header: !expr fs::path_package("autocv", "extdata/latex","custom_resume.tex")
+fontsize: 11pt
+geometry: margin=0.55in, bottom=0.5in, headsep=0.15in, footskip=0.15in
+params:
+  resume_data_filename: "resume_data.xlsx"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+
+library(autocv)
+library(glue)
+library(dplyr)
+library(readxl)
+
+# Source helpers for dev (comment out before build)
+# source('R/preprocess.R')
+# source('R/print_resume.R')
+
+filename <- "resume_data.xlsx"
+
+# Load data and preprocess
+position_data <- autocv::load_application_data(
+  filename = "resume_data.xlsx",
+  sheet = "entries",
+  skip = 1
+) %>% autocv::preprocess_entries(., style = "latex", bullet_style = "-")
+
+skill_data <- autocv::load_application_data(
+  filename = "resume_data.xlsx",
+  sheet = "skills",
+  skip = 2
+) %>% autocv::sort_skills(.)
+
+contact_data <- autocv::load_application_data(
+  filename = "cover_data.xlsx",
+  sheet = "contact_info"
+) %>% autocv::preprocess_contacts(., style = "latex")
+
+text_data <- autocv::load_application_data(
+  filename = "cover_data.xlsx",
+  sheet = "text_blocks"
+) %>% autocv::preprocess_text()
+
+```
+
+```{r extract, include=FALSE}
+
+name <- contact_data$address_text[contact_data$loc == "name"]
+role <- text_data$text[text_data$loc == "title"]
+bio <- text_data$text[text_data$loc == "bio"]
+suffix <- contact_data$address_text[contact_data$loc == "title"]
+
+contacts_text <- autocv::print_contact_info(
+  contact_data, 
+  section = "info", 
+  sep = " | "
+)
+links_text <- autocv::print_contact_info(
+  contact_data, 
+  section = "links", 
+  sep = " | "
+)
+
+skills_list <- autocv::build_skill_list(
+  skill_data, 
+  sep = " • ",
+  separate_competencies = TRUE,
+  competencies_header = "Other"
+)
+
+```
+
+\myname{`r paste0(name, ", ", suffix)`} `r paste(contacts_text)`
+
+<!-- \vspace{-4pt} -->
+<!-- ### \myrole{`r paste(role)`} -->
+
+\vspace{-4pt}
+`r paste(links_text)`
+
+\mybio{`r paste(bio)`}
+
+## \mysection{Skills} \mysectionrule{}
+
+\vspace{-4pt}
+`r paste(skills_list)`
+
+<!-- `r paste(build_skill_table(skill_data))` -->
+
+## \mysection{Selected Professional Experience} \mysectionrule{}
+
+```{r jobs}
+autocv::print_latex_section(
+  position_data, section_id = "work", short_entries = TRUE)
+```
+
+## \mysection{Education} \mysectionrule{}
+
+```{r education}
+autocv::print_latex_section(
+  position_data, section_id = "education", short_entries = TRUE)
+```
+
+## \mysection{Certifications} \mysectionrule{}
+
+```{r certificates}
+autocv::print_latex_section(position_data, section_id = "certifications")
+```
+
+## \mysection{Selected Projects} \mysectionrule{}
+
+```{r projects}
+autocv::print_latex_section(position_data, section_id = "projects")
+```
+
+\label{LastPage}

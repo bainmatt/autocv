@@ -1,0 +1,62 @@
+# Development files and folders ------------------------------------------------
+
+# Development I/O folders (arbitrarily nested)
+**/input/
+**/output/
+**/applications/
+
+# Archives (with arbitrary nesting and basename)
+**/archive/
+*_archive
+
+# Specific ignorable files and folders
+resources/
+# R/applications/
+
+# Environment
+renv/library/
+renv/staging/
+
+# Build files/folders
+autocv.Rcheck
+autocv_*.tar.gz
+
+
+# System-generated -------------------------------------------------------------
+
+~$*
+*.DS_Store
+# .DS_Store
+
+
+# Project files and folders ----------------------------------------------------
+
+# Documentation files and folders
+docs
+inst/doc
+
+# Session data files
+.RData
+.Rdata
+.RDataTmp
+
+# History files
+.Rhistory
+.Rapp.history
+
+# User files/folders
+.Ruserdata
+.Rproj.user
+
+# Log files
+*.log
+*.aux
+*.out
+
+# Knitr and R Markdown temporary folders
+/cache/
+*_cache/
+
+# Other
+.quarto
+.httr-oauth

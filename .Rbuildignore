@@ -1,0 +1,45 @@
+# To update: 
+#
+#   $ usethis::use_build_ignore(c("yourfolder1", "yourfolder2", "yourfile"))
+#
+
+
+# Arbitrarily nested files and folders -----------------------------------------
+
+# Development I/O
+^.*/input$
+^.*/output$
+^.*/applications$
+
+# Archives
+^.*/archive$
+
+# System-generated
+^.*\.DS_Store$
+^.*~\$.*$
+
+
+# Root files and folders -------------------------------------------------------
+
+^Makefile$
+
+^cv\.Rmd$
+^resume\.Rmd$
+
+^archive$
+^resources$
+# ^R/applications
+
+
+# Project files and folders ----------------------------------------------------
+
+^renv$
+^renv\.lock$
+^.*\.Rproj$
+^\.Rproj\.user$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^data-raw$
+^LICENSE\.md$
+^\.github$

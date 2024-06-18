@@ -1,0 +1,200 @@
+---
+title: "Matthew Bain's resume"
+author: Matthew Bain
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_resume:
+    css:
+      - !expr fs::path_package("autocv", "extdata", "css/custom_resume.css")
+      - !expr fs::path_package("autocv", "extdata", "css/styles_html.css")
+      - "resume"
+    self_contained: true
+params:
+  # "PDF" or "HTML" is automatically updated in render_resume.R
+  doctype: "PDF"
+  resume_data_filename: "resume_data.xlsx"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+
+library(autocv)
+library(glue)
+library(dplyr)
+library(readxl)
+
+fs::dir_ls(get_path_to("extdata"))
+
+# Source helpers for dev (comment out before build)
+# source('R/preprocess.R')
+# source('R/print_cv.R')
+
+filename <- "resume_data.xlsx"
+
+# Load data and preprocess
+position_data <- autocv::load_application_data(
+  filename = "resume_data.xlsx",
+  sheet = "entries",
+  skip = 1
+) %>% 
+  autocv::preprocess_entries(
+    ., 
+    style = "markdown", 
+    order = "reversed", 
+    bullet_style = "-"
+  )
+
+skill_data <- autocv::load_application_data(
+  filename = "resume_data.xlsx",
+  sheet = "skills",
+  skip = 2
+)
+
+contact_data <- autocv::load_application_data(
+  filename = "cover_data.xlsx",
+  sheet = "contact_info"
+) %>% autocv::preprocess_contacts(., style = "markdown")
+
+text_data <- autocv::load_application_data(
+  filename = "cover_data.xlsx",
+  sheet = "text_blocks"
+) %>% autocv::preprocess_text()
+
+```
+
+```{r extract, include=FALSE}
+
+name <- contact_data$address_text[contact_data$loc == "name"]
+role <- text_data$text[text_data$loc == "title"]
+bio <- text_data$text[text_data$loc == "bio"]
+suffix <- contact_data$address_text[contact_data$loc == "title"]
+
+pic_text <- glue::glue_collapse(
+  contact_data[contact_data$loc == "pic",]$contact_text
+)
+contact_text <- autocv::print_contact_info(
+  contact_data, 
+  section = "both", 
+  sep = "\n"
+)
+
+```
+
+# Aside
+
+`r paste(pic_text)`
+
+## Contact {#contact}
+
+`r paste(contact_text)`
+
+```{r download}
+
+# If `doctype` is html add link to download a pdf version
+if(params$doctype == "HTML"){
+  paste0(
+    "[<i class='fas fa-download'></i> Download as a PDF]",
+    "(https://github.com/bainmatt/resume/main/bainmatt_resume.pdf)"
+  ) %>% 
+  glue::glue_collapse(sep = "\n")
+}
+
+```
+
+## Core tools {#tech}
+
+```{r tech, dev.args = list(bg = 'transparent')}
+
+autocv::build_skill_bars(skill_data %>% dplyr::filter(core_tools == "x"))
+
+```
+
+## Current tech {#stack}
+
+```{r stack, dev.args = list(bg = 'transparent')}
+
+autocv::build_skill_bars(skill_data %>% dplyr::filter(current_tech == "x"))
+
+```
+
+## Key competencies {#skills}
+
+```{r skills, dev.args = list(bg = 'transparent')}
+
+autocv::build_skill_bars(skill_data %>% dplyr::filter(key_competency == "x"))
+
+```
+
+<!-- ## Disclaimer {#disclaimer} -->
+
+<!-- ```{r} -->
+
+<!-- # Set disclaimer in bottom right corner based on `doctype` -->
+<!-- if(params$doctype == "HTML") { -->
+<!--   glue::glue(" -->
+<!--     Made w/ [**pagedown**](https://github.com/rstudio/pagedown). -->
+<!--     Source code: [**Github repo**](https://github.com/mleary/resume). -->
+<!--   ") -->
+<!-- } -->
+<!-- if(params$doctype == "PDF") { -->
+<!--   glue::glue(" -->
+<!--     Made w/ **pagedown::html_resume** -->
+<!--     Code: **github.com/mleary/resume** -->
+<!--   ") -->
+<!-- } -->
+<!-- ``` -->
+
+Last updated on `r Sys.Date()`. <br> <br>
+
+# Main
+
+## `r paste0(name, ", ", suffix)` {#title}
+
+### `r paste(role)`
+
+`r paste(bio)`
+
+## Professional Experience {data-icon="suitcase"}
+
+```{r jobs}
+autocv::print_section(position_data, 'work')
+```
+
+## Education {data-icon="graduation-cap" data-concise="true"}
+
+```{r education}
+autocv::print_section(position_data, 'education')
+```
+
+## Certifications {data-icon="award" data-concise="true"}
+
+```{r certificates}
+autocv::print_section(position_data, 'certifications')
+```
+
+## Selected Projects {data-icon="code-branch" data-concise="true"}
+
+```{r projects}
+autocv::print_section(position_data, 'projects')
+```
+
+## Selected Writing {data-icon="laptop" data-concise="true"}
+
+```{r writing}
+autocv::print_section(position_data, 'writing')
+```
+
+## Selected Publications {data-icon="file" data-concise="true"}
+
+```{r articles}
+autocv::print_section(position_data, 'publications')
+```
+
+## Additional information {data-icon="circle-user" data-concise="true"}
+
+```{r other}
+autocv::print_section(position_data, 'additional_information')
+```

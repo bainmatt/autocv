@@ -1,0 +1,77 @@
+url: ~
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left:  [reference, datasets, articles]
+    right: [search, github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/bainmatt
+      aria-label: GitHub
+    datasets:
+      text: Datasets
+      menu:
+      - text: example_skill_data
+        href: reference/example_skill_data.html
+
+figures:
+  dev: ragg::agg_png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  # fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  # fig.asp: 1.618
+  bg: NA
+  other.parameters: []
+
+reference:
+- title: Preprocess resume data
+  desc: Prepare the data before printing the resume.
+- subtitle: Prepare
+- contents:
+  - has_concept("prepare")
+- subtitle: Pipeline
+- contents:
+  - has_concept("pipeline")
+- subtitle: Utilities
+- contents:
+  - has_concept("prepare-utils")
+  - has_concept("pipeline-utils")
+
+- title: Build the resume
+  desc: Print resume sections to the output file.
+- subtitle: Build skill sections
+- contents:
+  - has_concept("build")
+- subtitle: Build text sections
+- contents:
+  - has_concept("print")
+  - has_concept("print-utils")
+
+- title: Generate skill reports
+  desc: Assess key words in your resume relative to a term bank or job posting.
+- subtitle: Generate
+- contents:
+  - has_concept("report")
+- subtitle: Utilities
+  contents:
+  - has_concept("report-utils")
+
+- title: Data handling
+  desc: Helpers for finding and loading built-in template datasets.
+- contents:
+  - has_concept("data")
+
+- title: CLI
+  desc: Command Line Interface helpers.
+- subtitle: Interface
+- contents:
+  - has_concept("cli")
+- subtitle: Helpers
+- contents:
+  - has_concept("cli-utils")

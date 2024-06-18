@@ -1,0 +1,73 @@
+% Header/footer
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\color{gray}Matthew Bain}
+\fancyfoot[R]{\color{gray}\thepage {} / \pageref{LastPage}}
+\fancyfoot[L]{
+  \color{gray}Built with 
+  \myhref{file:///Users/matthewbain/Documents/career/resume/docs/index.html}{autocv}, 
+  an R package by Matthew Bain
+}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+
+% Remove page numbers
+% - \pagenumbering{gobble}
+
+% Header padding
+\usepackage{titlesec}
+% \titlespacing{\section}{0pt}{12pt plus 4pt minus 3pt}{4pt plus 2pt minus 2pt}
+% \titlespacing{\subsection}{0pt}{12pt plus 4pt minus 3pt}{4pt plus 2pt minus 2pt}
+
+% Bullets alignment/padding
+\usepackage{enumitem}
+\setlist{left=0pt, topsep=-4pt}
+
+% Set font (Helvetica Neue, Avenir, Gill Sans)
+\usepackage{fontspec}
+\setmainfont{Helvetica Neue}
+
+% Custom text colours
+\usepackage{xcolor}
+\definecolor{myblue}{RGB}{0, 76, 153}
+\definecolor{mygreen}{RGB}{0, 115, 76}
+
+% Custom macros ----------------------------------------------------------------
+
+% Custom hyperlink formatting
+\usepackage[normalem]{ulem}
+\newcommand{\myhref}[2]{\href{#1}{\textcolor{blue}{\uline{#2}}}}
+
+% Custom width-spanning horizontal rules
+\newcommand{\mysectionrule}{%
+  \color{black}
+  \leaders\hbox{\rule[0.5ex]{0.5pt}{0.4pt}}\hfill
+}
+
+% Custom title
+% Arg1 : font size, Arg2 : text
+\newcommand{\myname}[2][16pt]{%
+  \textbf{\fontsize{#1}{#1}\selectfont\color{myblue}{#2}} \hfill
+}
+
+% TODO: ?put each of the custom paddings into variables and auto-populate in R
+
+% Custom subtitle (within level 2 markdown header environment)
+\newcommand{\myrole}[1]{\vspace{-10pt}\color{myblue}{#1}}
+
+% Custom section headers (within level 2 markdown header environment)
+\newcommand{\mysection}[1]{\vspace{-10pt}\color{mygreen}{#1}}
+
+% Custom bio block
+\newcommand{\mybio}[1]{%
+  \vspace{10pt}
+  \hrule
+  \vspace{2pt}
+  #1
+  \vspace{8pt}
+  \hrule
+  \vspace{2pt}
+}
