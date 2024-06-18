@@ -11,7 +11,7 @@
 
 # Specific ignorable files and folders
 resources/
-# R/applications/
+!inst/extdata/resources/
 
 # Environment
 renv/library/

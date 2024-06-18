@@ -1,0 +1,112 @@
+## Level of Education
+
+Bachelor's
+Bachelors
+Bachelor
+BSc
+B.Sc
+Master's
+Masters
+MSc
+M.Sc
+MBA
+Master of Business Administration
+Doctorate
+PhD
+Ph.D
+Diploma
+Certificate
+Certification
+Hackathon
+Hackathons
+Onboarding
+On-boarding
+
+## Type of Role
+
+Internship
+Intern
+Full-Time
+Part-Time
+Contract
+Consultant
+Manager
+Director
+Junior
+Entry-Level
+Entry Level
+Current Student
+Currently Enrolled
+Recent Graduate
+Senior
+Mid-Senior
+Mid-Level
+Mid Level
+Mid
+Jr
+Sr
+All Levels
+Specialist
+Full-Stack
+Full Stack
+Level I
+Level II
+Level III
+Level IV
+Level V
+
+## Identity Considerations
+
+Bilingual
+French
+French-Speaking
+Minority
+PoC
+Person of Colour
+Person of Color
+Indigenous
+Disabled
+Disability
+
+## Remote Work Status
+
+Remote
+Hybrid
+In-Person
+In Person
+On-Site
+On Site
+Onsite
+
+## Location Details
+
+Toronto
+GTA
+Mississauga
+Oakville
+Kitchener
+Waterloo
+Hamilton
+London
+Newmarket
+Kingston
+Vaughan
+Barrie
+Ottawa
+Niagara
+Brantford
+Peterborough
+North Bay
+Brampton
+Sarnia
+Burlington
+Windsor
+Richmond Hill
+Stratford
+Cambridge
+Markham
+Milton
+Orillia
+
+## Amount of Experience (y, years, yrs + +/# /(y, years, yrs))
+## Expected Salary ($ + +/# )

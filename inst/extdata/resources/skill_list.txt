@@ -1,0 +1,1122 @@
+Example AI prompt: Generate a comprehensive list of data science skills with each term on a new line, using markdown-style headers instead of bullets or any other formatting to separate topics and terms, including any commonly used acronyms for a term on separate, independent lines following the term itself instead of in brackets, but ignoring different spellings and capitalizations:
+
+## Technical Skills
+
+### Programming Languages
+Python
+NumPy
+Pandas
+Scikit-Learn
+TensorFlow
+TF
+Keras
+PyTorch
+NLTK
+Gensim
+LightGBM
+XGBoost
+
+R
+Tidyverse
+Caret
+ggplot2
+Shiny
+Tidymodels
+Rmarkdown
+
+SQL
+Structured Query Language
+PostgreSQL
+MySQL
+SQL Server
+Oracle
+SQLite
+Redshift
+
+Java
+Scala
+Spark
+Apache Spark
+Hadoop
+Kafka
+Apache Kafka
+
+C
+C++
+OpenCV
+Open Source Computer Vision Library
+Boost
+
+JavaScript
+ECMAScript
+D3.js
+Data-Driven Documents
+React
+Angular
+Vue.js
+
+Julia
+MATLAB
+SAS
+Statistical Analysis System
+Rust
+Golang
+Swift
+
+ETL
+ELT
+Extract, Transform, Load
+Extract, Load, Transform
+Extract/Transform/Load
+Extract/Load/Transform
+
+### Statistics and Mathematics
+Linear Algebra
+Calculus
+Probability Theory
+Statistical Modeling
+Statistical Analysis
+Experimental Design
+Bayesian Statistics
+Time Series Analysis
+Survival Analysis
+Optimization Techniques
+Linear Programming
+LP
+Quadratic Programming
+QP
+Convex Optimization
+
+Numerical Methods
+Monte Carlo Simulations
+Stochastic Processes
+Queuing Theory
+Game Theory
+Information Theory
+Fourier Analysis
+Differential Equations
+DiffEq
+
+### Machine Learning
+
+ML
+Machine Learning
+
+#### Supervised Learning
+Linear Regression
+Logistic Regression
+LogReg
+LogisticRegression
+Decision Trees
+Random Forests
+RFs
+Gradient Boosting
+GBMs
+Gradient Boosted Trees
+GBTs
+Support Vector Machines
+SVMs
+SVM
+Naive Bayes
+K-Nearest Neighbors
+KNN
+k-NN
+Ensemble Methods
+
+#### Unsupervised Learning
+K-Means Clustering
+Hierarchical Clustering
+DBSCAN
+Density-Based Spatial Clustering of Applications with Noise
+PCA
+Principal Component Analysis
+t-SNE
+t-Distributed Stochastic Neighbor Embedding
+Autoencoders
+AEs
+Gaussian Mixture Models
+GMMs
+
+#### Reinforcement Learning
+Q-Learning
+SARSA
+State-Action-Reward-State-Action
+Deep Q-Networks
+DQNs
+Policy Gradients
+Actor-Critic Methods
+Multi-Armed Bandits
+MABs
+
+#### Deep Learning
+CNNs
+Convolutional Neural Networks
+RNNs
+Recurrent Neural Networks
+LSTMs
+Long Short-Term Memory
+Transformers
+GANs
+Generative Adversarial Networks
+VAEs
+Variational Autoencoders
+Attention Mechanisms
+GNNs
+Graph Neural Networks
+
+#### Natural Language Processing
+NLP
+Natural Language Processing
+Tokenization
+Stemming
+Lemmatization
+Topic Modeling
+Sentiment Analysis
+Language Models
+NER
+Named Entity Recognition
+MT
+Machine Translation
+Text Generation
+
+#### Computer Vision
+Image Classification
+Object Detection
+Semantic Segmentation
+Instance Segmentation
+Pose Estimation
+Video Analysis
+
+#### Ensemble Methods
+Bagging
+Boosting
+Stacking
+Blending
+
+#### Model Evaluation and Tuning
+CV
+Cross-Validation
+Hyperparameter Tuning
+Model Interpretation
+Bias-Variance Tradeoff
+
+Transfer Learning
+Federated Learning
+XAI
+Explainable AI
+SHAP
+SHapley Additive exPlanations
+LIME
+Local Interpretable Model-Agnostic Explanations
+Anchors
+Counterfactual Explanations
+
+Adversarial ML
+Adversarial Machine Learning
+RecSys
+Recommender Systems
+Recommendation Systems
+Recommendation Engines
+Anomaly Detection
+Imbalanced Learning
+MTL
+Multi-Task Learning
+Meta-Learning
+
+### Data Visualization
+Matplotlib
+Seaborn
+Plotly
+D3.js
+Data-Driven Documents
+Bokeh
+Altair
+Tableau
+Power BI
+PowerBI
+Qlik
+Dash
+Plotly Dash
+Shiny
+Shiny R
+Vega
+Folium
+Kepler.gl
+Gephi
+
+### Big Data Tools
+Apache Spark
+Spark SQL
+SparkSQL
+Spark Streaming
+MLlib
+Spark MLlib
+GraphX
+Spark GraphX
+
+Hadoop
+HDFS
+Hadoop Distributed File System
+MapReduce
+YARN
+Yet Another Resource Negotiator
+Hive
+Pig
+HBase
+Hadoop Database
+
+Kafka
+Apache Kafka
+Flink
+Apache Flink
+Dask
+Ray
+Presto
+Drill
+Apache Drill
+Impala
+Apache Impala
+Kudu
+Apache Kudu
+
+### Databases
+
+#### SQL Databases
+PostgreSQL
+Postgres
+MySQL
+SQL Server
+Oracle
+SQLite
+Redshift
+
+#### NoSQL Databases
+MongoDB
+Cassandra
+Apache Cassandra
+HBase
+Neo4j
+DynamoDB
+AWS DynamoDB
+Couchbase
+
+#### Data Warehousing
+Redshift
+Amazon Redshift
+Snowflake
+BigQuery
+Google BigQuery
+Azure Synapse Analytics
+
+#### Data Lakes
+S3
+AWS S3
+Amazon S3
+Azure Data Lake
+Google Cloud Storage
+
+#### Graph Databases
+Neo4j
+ArangoDB
+JanusGraph
+Gremlin
+
+#### Time Series Databases
+InfluxDB
+Prometheus
+TimescaleDB
+
+#### Search Engines
+Elasticsearch
+ES
+ElasticSearch
+Solr
+Apache Solr
+Lucene
+Apache Lucene
+
+### Cloud Computing
+
+#### AWS
+EC2
+Amazon EC2
+S3
+Amazon S3
+EMR
+Amazon EMR
+SageMaker
+Amazon SageMaker
+Lambda
+AWS Lambda
+Glue
+AWS Glue
+Athena
+Amazon Athena
+Kinesis
+Amazon Kinesis
+DynamoDB
+RDS
+Amazon RDS
+Redshift
+
+#### Microsoft Azure
+VMs
+Azure Virtual Machines
+Blob Storage
+Azure Blob Storage
+HDInsight
+Azure HDInsight
+ML Studio
+Azure Machine Learning Studio
+Databricks
+Azure Databricks
+Synapse Analytics
+Azure Synapse
+
+#### Google Cloud Platform
+GCP
+GCE
+Google Compute Engine
+Cloud Storage
+Google Cloud Storage
+Dataproc
+Google Dataproc
+AI Platform
+Google AI Platform
+BigQuery
+Dataflow
+Google Dataflow
+
+Cloud Data Engineering
+Airflow
+Apache Airflow
+Kubernetes
+K8s
+Docker
+Terraform
+Ansible
+
+Serverless Computing
+AWS Lambda
+Azure Functions
+Google Cloud Functions
+
+### Data Engineering
+ETL
+Data Pipelines
+Airflow
+Luigi
+Prefect
+NiFi
+Apache NiFi
+
+Data Wrangling
+Pandas
+Dask
+PySpark
+Python Spark
+Koalas
+
+Web Scraping
+BeautifulSoup
+Scrapy
+Selenium
+Requests Library
+Requests
+
+API Development
+Flask
+Django
+FastAPI
+
+Data Streaming
+Kafka
+Kinesis
+Flink
+Spark Streaming
+
+Data Ingestion
+Sqoop
+Flume
+Kafka Connect
+
+Data Profiling and Quality
+Pandas-Profiling
+Great Expectations
+Deequ
+
+Data Versioning
+DVC
+Git-LFS
+
+### Software Engineering
+VCS
+Version Control System
+Git
+GitHub
+GitLab
+Bitbucket
+
+Agile Methodologies
+Scrum
+Kanban
+Lean
+XP
+Extreme Programming
+
+Testing and Debugging
+Unit Testing
+Integration Testing
+TDD
+Test-Driven Development
+BDD
+Behavior-Driven Development
+
+Design Patterns
+OOP
+Object-Oriented Programming
+Object Oriented Programming
+FP
+Functional Programming
+RP
+Reactive Programming
+
+OOP
+FP
+Parallel Computing
+OpenMP
+MPI
+Message Passing Interface
+CUDA
+Compute Unified Device Architecture
+
+Distributed Systems
+ZooKeeper
+Apache ZooKeeper
+Mesos
+Apache Mesos
+Kubernetes
+K8s
+
+Containerization
+Docker
+Kubernetes
+K8s
+Helm
+
+CI/CD
+Continuous Integration/Continuous Deployment
+Jenkins
+CircleCI
+TravisCI
+Travis CI
+GitLab CI/CD
+
+Monitoring and Logging
+Prometheus
+Grafana
+ELK
+Elasticsearch, Logstash, Kibana
+
+### Data Governance and Security
+Data Privacy and Ethics
+GDPR
+CCPA
+HIPAA
+
+Data Encryption and Anonymization
+Differential Privacy
+Homomorphic Encryption
+
+Data Lineage and Provenance
+Data Quality Management
+Data Cataloging and Metadata Management
+Data Masking and Obfuscation
+Access Control and Authentication
+OAuth
+SAML
+Kerberos
+
+### Domain Knowledge
+Business Intelligence
+Finance and Risk Analytics
+Healthcare
+Healthcare Analytics
+Marketing Analytics
+SCM
+Supply Chain Management Analytics
+Retail Analytics
+Cybersecurity Analytics
+IoT Analytics
+Geospatial Analytics
+SNA
+Social Network Analysis
+Fraud Detection
+PdM
+Predictive Maintenance
+RecSys
+Recommender Systems
+Churn Prediction
+Pricing and Revenue Optimization
+Customer Segmentation
+Forecasting and Demand Planning
+
+## Non-Technical Skills
+
+Problem-Solving and Critical Thinking
+Data Storytelling and Communication
+Business Acumen and Domain Knowledge
+Intellectual Curiosity and Continuous Learning
+Collaboration and Teamwork
+Project Management
+Data Ethics and Privacy
+Attention to Detail
+Time Management
+Leadership and Mentoring
+Adaptability and Flexibility
+Adaptability/Flexibility
+Creativity and Innovation
+Presentation and Public Speaking
+Stakeholder Management
+Strategic Thinking
+Decision-Making
+EQ
+Emotional Intelligence
+Negotiation and Conflict Resolution
+Change Management
+Risk Management
+Customer-Centric Mindset
+Design Thinking
+Entrepreneurial Mindset
+Cross-Functional Collaboration
+Agile Mindset
+Growth Mindset
+
+## Some Additions
+JSON
+DataFrames
+Data Frames
+Survey Data
+Geospatial Data
+Geospatial Visualization
+Geospatial Visualizations
+Boxplots
+Boxplot
+Data Management
+Data Structures
+Data Structures and Algorithms
+Computer Science
+Continuous Testing
+PyTest
+MyPy
+GitHub Actions
+Software Development
+sklearn
+spaCy
+Business Acumen
+Inferential Statistics
+Hypothesis Testing
+ANOVA
+t-tests
+Causal Inference
+Graph Theory
+Deep Learning Libraries
+Deep Learning Frameworks
+Machine Learning Libraries
+Machine Learning Frameworks
+Analytic Frameworks
+Policy Analysis
+Hugging Face
+LLMs
+Large Language Models
+Language Modeling
+Customer Analytics
+People Analytics
+Pricing Analytics
+Pricing Optimization
+Dynamic Pricing
+Customer Management
+Team Management
+Social Media Analysis
+Social Media Analytics
+Mathematics
+Statistics
+MLFlow
+Dashboarding
+Dashboards
+KPIs
+Key Performance Indicators
+Advanced Analytics
+Models
+Data Models
+Data Modeling
+Pydantic
+Data Validation
+ML Pipelines
+Machine Learning Pipelines
+Model Pipelines
+Signal Processing
+ANCOVA
+A/B Testing
+Graph Analytics
+Network Analysis
+Matrix Calculus
+Vector Calculus
+Q/A
+QA
+QA Testing
+Documentation
+Organizational Skills
+Presentation Skills
+Communication Skills
+Oral Communication Skills
+Verbal Communication Skills
+Verbal Communication
+Written Communication Skills
+Written Communication
+Teaching
+Teaching Skills
+End-User Training
+End User Training
+Tech Support
+Adaptability
+Flexibility
+Jupyter
+Colaboratory
+Google Colab
+JupyterLab
+Report Writing
+Writing Skills
+Scientific Writing
+Scientific Method
+Research Skills
+Data Cleaning
+Data Preparation
+Data Preprocessing
+Preprocessing
+dplyr
+ggplot
+SciPy
+ArviZ
+statsmodels
+Frequentist Statistics
+Frequentist Inference
+Bayesian Inference
+Bayesian Analysis
+Bayesian Computation
+Bayesian Modeling
+Bayesian Models
+Bayesian Methods
+Markov Chain Monte Carlo
+Monte Carlo
+Exploratory Analysis
+Exploratory Data Analysis
+EDA
+Data Exploration
+Data Analysis
+Data Science
+Business Analytics
+Data Analytics
+Pipelining
+Feature Engineering
+Feature Selection
+Feature Extraction
+Model Tuning
+Fine-Tuning
+Bash
+Linux
+Unix
+DBeaver
+MS Excel
+Microsoft Excel
+Excel
+Visual Basic Application
+Visual Basic
+VBA
+Spreadsheets
+Database Design
+Web Development
+Web Technologies
+Cascading Style Sheets
+HyperText Markup Language
+CSS
+HTML
+Node
+Node.js
+Web Frameworks
+Web Development Frameworks
+R Markdown
+LaTeX
+Critical Thinking
+Model Deployment
+Deployment
+MLOps
+DevOps
+CloudOps
+Vector Databases
+Matrix Computation
+Matrix Theory
+Hidden Markov Models
+HMMs
+Graphical Models
+Text Summarization
+Chatbots
+Encoder-Decoder Models
+Encoder Decoder Models
+Model Optimization
+Word Embeddings
+Word Embedding
+Word Embedding Models
+Part-of-Speech Tagging
+Generative AI
+GenAI
+Generative Models
+Generative Modeling
+Self-Attention
+Attention Models
+Question-Answering
+Self-Supervised Learning
+Semi-Supervised Learning
+Dynamic Programming
+Root Cause Analysis
+RCA
+Budget Analysis
+Budget Analytics
+Financial Analysis
+Financial Analytics
+Financial Modeling
+Financial Models
+Database Administration
+DBA
+Causal Language Modeling
+Causal Language Models
+Masked Language Models
+Pretrained Models
+Pre-trained Models
+SymPy
+TensorBoard
+Vertex AI
+Langchain
+Variational Inference
+Decision Theory
+Model Evaluation
+Model Training
+Metrics
+Automation
+Mathematical Optimization
+Entity-Relationship Diagrams
+ER Diagrams
+Parallel Processing
+Batch Processing
+Optimization Algorithms
+Model Selection
+Model Comparison
+Bootstrapping
+Nonparametric Statistics
+Directed Acyclic Graphs
+DAGs
+Latent Dirichlet Allocation
+LiDA
+Latent Semantic Analysis
+LSA
+Linear Discriminant Analysis
+Gaussian Discriminant Analysis
+GDA
+Quadratic Discriminant Analysis
+QDA
+Correlated Components Analysis
+CCA
+Factor Analysis
+Numerical Linear Algebra
+Spectral Theory
+Numerical Approximation
+Benchmarking
+Expectation-Maximization
+EM Algorithms
+Diagnostic Analysis
+BERT
+Probabilistic Models
+Probabilistic Modeling
+Diffusion Models
+Style Transfer
+word2vec
+GloVe
+Vector Spaces
+GRUs
+GPUs
+TPUs
+Linear Models
+Linear Modeling
+Nonlinear Models
+Nonlinear Modeling
+Approximate Computation
+Analysis of Algorithms
+Time Complexity
+Neural Networks
+Statistical Models
+Biostatistics
+Biological Data
+Biological Datasets
+Epidemiology
+NoSQL
+Google Cloud
+JAX
+Topology
+Topological Data Analysis
+Multi-Modal Deep Learning
+Database Architecture
+Network Architecture
+Neural Network Architecture
+Clustering
+Clustering Algorithms
+Cluster Analysis
+Manifold Learning
+Dimensionality Reduction
+Dimension Reduction
+Independent Component Analysis
+ICA
+Classification
+Classification Algorithms
+Regression
+Regression Algorithms
+Forecasting
+Trend Analysis
+Trend Analytics
+Regression Analysis
+Regression Analytics
+Predictive Modeling
+Predictive Models
+Predictive Analytics
+Multiple Regression
+Multivariate Analysis
+Multivariate Models
+AI
+Statistical Learning
+Learning Theory
+Regularization
+Optimization Methods
+Optimization Strategies
+Loss Functions
+Data Collection
+Data Manipulation
+Large Datasets
+Pivot Tables
+VLOOKUP
+Health Sciences
+Life Sciences
+Medical Sciences
+Genomic Analysis
+Genomic Data Analysis
+Genomics
+Genetic Algorithms
+Neuroscience
+Neurotechnology
+Brain Imaging
+Neuroimaging
+Medical Imaging
+BCIs
+Brain-Computer Interfaces
+Brain Computer Interfaces
+SPSS
+JIRA
+Data-Driven Decision-Making
+Data Drivers
+Data-Driven Decisions
+Data-Driven
+Data Mining
+Data-Driven Insights
+Insights
+Customer Insights
+Risk Analysis
+Collaborative Attitude
+Collaboration
+Teamwork
+Stakeholder Communication
+Industry Knowledge
+Cloud Services
+Market Analysis
+Market Analytics
+Stock Market Analysis
+Stock Market Analytics
+Stock Analysis
+Sales Analysis
+Sales Analytics
+Operations Analytics
+Inventory Analysis
+Inventory Analytics
+Supply Chain Analytics
+Manufacturing Analytics
+Manufacturing
+Supply Chain Management
+Supply Chain
+Inventory Management
+Agriculture
+Probability Distributions
+Product Management
+Product Managers
+Product Analytics
+Customer Engagement
+Customer Retention
+Customer Engagement and Retention
+Acceptance Testing
+User Acceptance Testing
+UAT
+Churn Analysis
+Churn Analytics
+UX/UI
+UX
+UI
+User Experience/User Interface
+User Experience
+User Interface
+Interface Design
+Application Programming Interface
+MS Office
+Microsoft Office
+Data Strategy
+Non-Technical Audiences
+Developers
+Looker
+Big Data
+Big Data Solutions
+Big-Data Solutions
+Production Systems
+Statistical Concepts
+Statistical Knowledge
+Statistical Expertise
+Salesforce
+Database Querying
+Database Retrieval
+Cross-Functional
+Applied Mathematics
+Applied Math
+Applied Statistics
+Econometrics
+Economics
+Self-Driving Vehicles
+Automated Vehicles
+Self-Driving Cars
+Self-Driving
+Leadership Skills
+BI Reports
+BI Reporting
+Reports
+Report Generation
+Subject Matter Expertise
+Debugging
+Unit Tests
+Unit-Testing
+Text Analysis
+Text Standardization
+Data Infrastructure
+IoT
+Internet of Things
+Implementation
+Algorithm Implementation
+Model Implementation
+Simulation
+Compliance
+Six Sigma
+Capital Markets
+Test Driven Development
+Coverage Reports
+Coverage Reporting
+Data Entry
+Adobe Analytics
+Google Analytics
+Software as a Service
+SaaS
+Platform as a Service
+PaaS
+Infrastructure as a Service
+IaaS
+Networking
+Data Storage
+Data Transformation
+Transformation
+DAX
+Data Governance
+Data Security
+Data Privacy
+Data Ethics
+Window Functions
+Joins
+Autoregression
+Autoregressive Integrated Moving Average
+ARIMA
+Time Series Forecasting
+Time Series Smoothing
+Smoothing
+tidyr
+purrr
+stringr
+readr
+roxygen
+devtools
+yaml
+yml
+Scripting Languages
+Solutions Architect
+Portfolio Analysis
+Portfolio Analytics
+Portfolio Optimization
+Cryptocurrency
+Telecommunications
+Cybersecurity
+Cyber Security
+Artificial Intelligence
+Artificial Neural Networks
+ANNs
+Self-Motivated
+Self Motivated
+Curious
+Inquisitive
+Continual Learner
+pip
+Conda
+Mamba
+Dependency Management
+Environment Management
+Software Packaging
+Packaging
+Vim
+VM
+Virtual Machines
+Sphinx
+Public Health
+Government Sector
+Automated Visual Inspection
+Visual Inspection
+Defect Detection
+Grid Optimization
+Power Grid Optimization
+Automatic Image Annotation
+Image Annotation
+Automatic Image Labeling
+Image Labeling
+Image Generation
+Prompt Engineering
+Interpretable AI
+Interpretability
+Model Visualization
+Data Definition Language
+DDL
+Data Manipulation Language
+DML
+Data Query Language
+DQL
+Data Control Language
+DCL
+Transaction Control Language
+TCL
+Surprise
+libsvm
+PyMC
+Command Line Interface
+CLI
+Pharmacology
+Pharmacokinetics
+Population Dynamics
+Population Modeling
+Population Models
+Splines
