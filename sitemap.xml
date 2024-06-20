@@ -121,16 +121,7 @@
     <loc>/reference/render_all.html</loc>
   </url>
   <url>
-    <loc>/reference/render_cv_as_html.html</loc>
-  </url>
-  <url>
-    <loc>/reference/render_cv_as_pdf.html</loc>
-  </url>
-  <url>
     <loc>/reference/render_resume.html</loc>
-  </url>
-  <url>
-    <loc>/reference/render_resume_plain.html</loc>
   </url>
   <url>
     <loc>/reference/run_skill_count.html</loc>
