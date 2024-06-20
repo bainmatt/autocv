@@ -14,6 +14,7 @@
 #' @importFrom readxl read_excel
 #' @importFrom writexl write_xlsx
 #' @importFrom purrr map_chr reduce
+#' @importFrom tidyselect ends_with
 #' @importFrom pagedown chrome_print
 #' @importFrom stats na.omit reorder
 #' @importFrom assertthat assert_that

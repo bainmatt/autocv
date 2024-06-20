@@ -7,12 +7,11 @@ library(dplyr)
 # source('R/preprocess.R')
 
 
-# TODO accept period, job_id as args to construct path to input/output, suffix
+# TODO: accept period, job_id as args to construct path to input/output, suffix
 
 
-#' Build an informal HTML-format resume based on spreadsheet data.
+#' @rdname render_resume
 #' 
-#' @family cli
 #' @export
 render_cv_as_html <- function(
     input_filename = "cv.Rmd",
@@ -23,7 +22,7 @@ render_cv_as_html <- function(
     output_dir = "output",
     stylesheets = list("custom_resume.css", "styles_html.css")
 ) {
-  name <- load_job_info("name")
+  name <- load_job_info(field = "name")
   suffix <- paste0("_", str_to_filename(name, separator = ""))
   output_filename <- paste0(output_basename, suffix, ".html")
   
@@ -46,15 +45,18 @@ render_cv_as_html <- function(
     input = input_filepath,
     output_file = output_filepath,
     output_options = list(css = css, self_contained = TRUE),
-    params = list(doctype = "HTML", resume_data_filename = data_filename)
+    params = list(
+      doctype = "HTML", 
+      resume_data_filename = data_filename,
+      target = "base"
+    )
   )
   fs::file_show(output_filepath)
 }
 
 
-#' Create a pdf export of a web-formatted resume based on spreadsheet data.
+#' @rdname render_resume
 #' 
-#' @family cli
 #' @export
 render_cv_as_pdf <- function(
     input_filename = "cv.Rmd",
@@ -91,7 +93,11 @@ render_cv_as_pdf <- function(
     input = input_filepath,
     output_file = tmp_html_cv_loc,
     output_options = list(css = css, self_contained = TRUE),
-    params = list(doctype = "PDF", resume_data_filename = data_filename)
+    params = list(
+      doctype = "PDF", 
+      resume_data_filename = data_filename,
+      target = "base"
+    )
   )
   
   # Convert to PDF using Pagedown
@@ -103,19 +109,60 @@ render_cv_as_pdf <- function(
 }
 
 
-#' Build a LaTeX-rendered pdf of a resume based on spreadsheet data.
+#' Construct a resume based on spreadsheet data.
 #' 
+#' @description
+#' `render_cv_as_html` constructs an informal HTML-format resume.
+#' 
+#' `render_cv_as_pdf` converts an HTML-format resume to PDF.
+#' 
+#' `render_resume` constructs a formal, ATS-compatible, LaTeX-style resume.
+#' 
+#' `render_resume_plain` constructs a plain text resume for analysis.
+#'
 #' @family cli
 #' @export
 render_resume <- function(
+    target = c("app", "base"),
     input_filename = "resume.Rmd",
     data_filename = "resume_data.xlsx",
     output_basename = "resume",
     input_dir = "notebooks",
     data_dir = "input",
     output_dir = "output",
-    stylesheets = list("custom_resume.tex")
+    stylesheets = list("custom_resume.tex"),
+    app_id = "latest",
+    app_period = "latest",
+    app_dir = "applications"
 ) {
+  # Validate arguments
+  target <- match.arg(target)
+  
+  # Ensure the following arguments are defined if loading tailored app
+  if (target == "app") {
+    assert_that(all(!is.na(c(app_id, app_period, app_dir))))
+    
+  } else if (target == "base") {
+    cli::cli_li("note: args 'app_id', 'app_period', 'app_dir' unused")
+  }
+  
+  # Get path to application data
+  # if (target == "app") {
+  #   doc = fs::path_ext_remove(filename)
+  #   data_filepath <- get_app_path_to(
+  #     id = app_id, 
+  #     doc = doc, 
+  #     app_dir = app_dir, 
+  #     app_period = app_period
+  #   )
+  #   
+  # } else if (target == "base") {
+  #   data_filepath <- file.path(get_path_to(data_dir), filename)
+  # }
+  # 
+  
+  
+  
   # Prep
   name <- load_job_info("name")
   suffix <- paste0("_", str_to_filename(name, separator = ""))
@@ -123,6 +170,9 @@ render_resume <- function(
   
   input_filepath <- file.path(get_path_to(input_dir), input_filename)
   output_filepath <- file.path(get_path_to(output_dir), output_filename)
+  
+  
+  
   
   custom_tex <- sapply(
     stylesheets,
@@ -139,17 +189,20 @@ render_resume <- function(
       keep_tex = FALSE,
       includes = list(in_header = custom_tex)
     ),
-    params = list(resume_data_filename = data_filename)
+    params = list(
+      resume_data_filename = data_filename,
+      target = target
+    )
   )  
   fs::file_show(output_filepath)
 }
 
 
-#' Build an plain text resume based on spreadsheet data.
+#' @rdname render_resume
 #' 
-#' @family cli
 #' @export
 render_resume_plain <- function(
+    target = c("app", "base"),
     input_filename = "plain.Rmd",
     data_filename = "resume_data.xlsx",
     output_basename = "resume",
@@ -169,6 +222,7 @@ render_resume_plain <- function(
   
   
   position_data <- load_application_data(
+    target = target,
     filename = "resume_data.xlsx",
     sheet = "entries",
     skip = 1

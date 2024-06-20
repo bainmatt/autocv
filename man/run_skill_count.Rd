@@ -3,12 +3,12 @@
 \name{run_skill_count}
 \alias{run_skill_count}
 \alias{check_skills}
-\title{Obtain keyword counts for a given document/term list and generate reports.}
+\title{Obtain keyword counts for a given doc/term list and generate reports.}
 \usage{
 run_skill_count(
   app_id,
   app_period = "latest",
-  document = c("posting", "resume"),
+  doc = c("posting", "resume"),
   term_list_filename = c("skill_list.txt", "keyword_list.txt"),
   term_list_dir = "resources"
 )
@@ -16,13 +16,13 @@ run_skill_count(
 check_skills(
   app_id,
   app_period = "latest",
-  document = list("posting", "resume"),
+  doc = list("posting", "resume"),
   term_list_filename = c("skill_list.txt", "keyword_list.txt"),
   term_list_dir = "resources"
 )
 }
 \description{
-\code{run_skill_count} returns keyword counts for a given document/term list.
+\code{run_skill_count} returns keyword counts for a given doc/term list.
 
 \code{check_skills} obtains skill counts for a posting and creates a resume report
 }

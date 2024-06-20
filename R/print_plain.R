@@ -1,8 +1,10 @@
 # Build plain text resume file using data in spreadsheets
 
 library(dplyr)
-library(tibble)
-library(stringr)
+
+# TODO: remove extraneous imports
+# library(tibble)
+# library(stringr)
 
 
 #' Print sections of a plain text resume.
