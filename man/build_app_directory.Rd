@@ -14,9 +14,6 @@ Other cli:
 \code{\link{get_app_info}()},
 \code{\link{load_application_data}()},
 \code{\link{render_all}()},
-\code{\link{render_cv_as_html}()},
-\code{\link{render_cv_as_pdf}()},
-\code{\link{render_resume}()},
-\code{\link{render_resume_plain}()}
+\code{\link{render_cv_as_html}()}
 }
 \concept{cli}

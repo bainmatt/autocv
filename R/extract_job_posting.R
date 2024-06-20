@@ -1,8 +1,7 @@
-library(fs)
-library(cli)
-library(here)
-library(rvest)
-library(pagedown)
+# library(fs)
+# library(cli)
+# library(rvest)
+# library(pagedown)
 
 
 #' Save the text from a webpage url.
@@ -51,7 +50,7 @@ download_webpage_txt <- function(
   
   html <- rvest::read_html(url) %>% 
     rvest::html_text() %>% 
-    base::writeLines(., output_filepath)
+    writeLines(., output_filepath)
   
   cli::cli_alert_success(
     paste0("writing posting to '", fs::path_rel(output_filepath), "'")

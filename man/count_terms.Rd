@@ -4,7 +4,7 @@
 \alias{count_terms}
 \title{Count keyword occurrences in a file based on a supplied list.}
 \usage{
-count_terms(terms, counts = NA, document, order = c("bysource", "bycount"))
+count_terms(terms, counts = NA, doc, order = c("bysource", "bycount"))
 }
 \description{
 Count keyword occurrences in a file based on a supplied list.
@@ -18,7 +18,7 @@ terms <- readLines(autocv_resources("resources/skill_list.txt"))
 
 posting_counts <- count_terms(
   terms = terms,
-  document = example_posting, 
+  doc = example_posting, 
   order = "bysource"
 )
 

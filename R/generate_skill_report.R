@@ -1,12 +1,14 @@
 # Produce a report containing frequencies of key terms found in a file.
 
-library(fs)
-library(tidyr)
 library(dplyr)
-library(utils)
-library(writexl)
 
 # source("R/paths.R")
+
+# TODO: remove extraneous imports
+# library(fs)
+# library(tidyr)
+# library(utils)
+# library(writexl)
 
 
 #' Escape special characters in a string for use in regex.
@@ -56,7 +58,7 @@ match_pattern <- function(term, text) {
 #' 
 #' posting_counts <- count_terms(
 #'   terms = terms,
-#'   document = example_posting, 
+#'   doc = example_posting, 
 #'   order = "bysource"
 #' )
 #'
@@ -67,7 +69,7 @@ match_pattern <- function(term, text) {
 count_terms <- function(
     terms,
     counts = NA,
-    document,
+    doc,
     order = c("bysource", "bycount")
 ) {
   order <- match.arg(order)
@@ -80,10 +82,10 @@ count_terms <- function(
     .[. != ""] %>% 
     unique(.)
   
-  # Collect and count all matches in the document
+  # Collect and count all matches in the doc
   matches <- numeric(length(terms))
   for (i in seq_along(terms)) {
-    matches[i] <- sum(match_pattern(terms[i], document))
+    matches[i] <- sum(match_pattern(terms[i], doc))
   }
   
   # Concatenate terms/counts from file1 with matches in file2
@@ -107,10 +109,10 @@ count_terms <- function(
 
 # Main -------------------------------------------------------------------------
 
-#' Obtain keyword counts for a given document/term list and generate reports.
+#' Obtain keyword counts for a given doc/term list and generate reports.
 #' 
 #' @description
-#' `run_skill_count` returns keyword counts for a given document/term list.
+#' `run_skill_count` returns keyword counts for a given doc/term list.
 #' 
 #' `check_skills` obtains skill counts for a posting and creates a resume report
 #' 
@@ -119,29 +121,29 @@ count_terms <- function(
 run_skill_count <- function(
     app_id,
     app_period = "latest",
-    document = c("posting", "resume"),
+    doc = c("posting", "resume"),
     term_list_filename = c("skill_list.txt", "keyword_list.txt"),
     term_list_dir = "resources"
 ) {
-  document <- match.arg(document)
+  doc <- match.arg(doc)
   term_list_filename <- match.arg(term_list_filename)
   
   # Get paths
   output_prefix <- stringr::str_split_i(term_list_filename, "_", 1)
-  output_filepath <- get_path_to_app(
+  output_filepath <- get_app_path_to(
     id = app_id, app_period = app_period, 
-    document = paste0(output_prefix, "_counts_", document)
+    doc = paste0(output_prefix, "_counts_", doc)
   )
   term_list_filepath <- file.path(
     get_path_to(term_list_dir), term_list_filename
   )
-  if (document == "resume") { 
+  if (doc == "resume") { 
     input_file = "resume_plain" 
   } else {
-    input_file = document
+    input_file = doc
   }
-  input_filepath <- get_path_to_app(
-    id = app_id, app_period = app_period, document = input_file
+  input_filepath <- get_app_path_to(
+    id = app_id, app_period = app_period, doc = input_file
   )
 
   # Load
@@ -149,11 +151,11 @@ run_skill_count <- function(
   input <- readLines(as.character(input_filepath))
   
   # Compute counts
-  output_df <- count_terms(terms = term_list, document = input)
+  output_df <- count_terms(terms = term_list, doc = input)
   
   # Save
   con <- file(output_filepath, "w")
-  write.csv(output_df, con)
+  utils::write.csv(output_df, con)
   close(con)
   
   return(output_df)
@@ -169,22 +171,22 @@ run_skill_report <- function(
     app_period = "latest"
 ) {
   # Get paths
-  output_filepath <- get_path_to_app(
+  output_filepath <- get_app_path_to(
     id = app_id, app_period = app_period, 
-    document = "skill_report"
+    doc = "skill_report"
   )
-  skill_counts_posting_filepath <- get_path_to_app(
+  skill_counts_posting_filepath <- get_app_path_to(
     id = app_id, app_period = app_period, 
-    document = "skill_counts_posting"
+    doc = "skill_counts_posting"
   )
-  skill_counts_resume_filepath <- get_path_to_app(
+  skill_counts_resume_filepath <- get_app_path_to(
     id = app_id, app_period = app_period, 
-    document = "skill_counts_resume"
+    doc = "skill_counts_resume"
   )
 
   # Load
-  skill_counts_posting <- read.csv(skill_counts_posting_filepath)
-  skill_counts_resume <- read.csv(skill_counts_resume_filepath)
+  skill_counts_posting <- utils::read.csv(skill_counts_posting_filepath)
+  skill_counts_resume <- utils::read.csv(skill_counts_resume_filepath)
   
   # Join counts on posting terms
   output_df <- dplyr::left_join(
@@ -197,7 +199,7 @@ run_skill_report <- function(
   
   # Save
   con <- file(output_filepath, "w")
-  write.csv(output_df, con)
+  utils::write.csv(output_df, con)
   close(con)
   
   return(output_df)
@@ -210,21 +212,26 @@ run_skill_report <- function(
 check_skills <- function(
     app_id,
     app_period = "latest",
-    document = list("posting", "resume"),
+    doc = list("posting", "resume"),
     term_list_filename = c("skill_list.txt", "keyword_list.txt"),
     term_list_dir = "resources"
 ) {
   # TODO: report success/failures inside relevant function
 
   # Posting vs term list counts
-  run_skill_count(app_id = app_id, document = "posting")
+  run_skill_count(
+    app_id = app_id, app_period = app_period, doc = "posting"
+  )
 
   # Resume vs term list counts
-  run_skill_count(app_id = app_id, document = "resume")
+  run_skill_count(
+    app_id = app_id, app_period = app_period, doc = "resume"
+  )
 
   # Posting vs keyword list counts
   run_skill_count(
-    app_id = app_id, document = "posting", term_list_filename = "keyword"
+    app_id = app_id, app_period = app_period,
+    doc = "posting", term_list_filename = "keyword"
   )
   
   # Resume vs posting counts
@@ -290,7 +297,7 @@ save_as_xlsx <- function(output_filepath, terms, counts) {
   
   # Save to file
   con <- file(output_filepath, "w")
-  write_xlsx(counts_df, output_filepath, col_names = TRUE)
+  writexl::write_xlsx(counts_df, output_filepath, col_names = TRUE)
   close(con)
 }
 
@@ -298,14 +305,14 @@ save_as_xlsx <- function(output_filepath, terms, counts) {
 # One-off tests ----------------------------------------------------------------
 
 # # Posting vs term list counts
-# run_skill_count(app_id = "CT", document = "posting")
+# run_skill_count(app_id = "CT", doc = "posting")
 # 
 # # Resume vs posting counts
-# run_skill_count(app_id = "CT", document = "resume")
+# run_skill_count(app_id = "CT", doc = "resume")
 # 
 # # Posting vs keyword list counts
 # run_skill_count(
-#   app_id = "CT", document = "posting", term_list_filename = "keyword"
+#   app_id = "CT", doc = "posting", term_list_filename = "keyword"
 # )
 
 
@@ -316,3 +323,32 @@ save_as_xlsx <- function(output_filepath, terms, counts) {
 #   order = "bysource",
 #   make_report = FALSE
 # )
+
+##
+# load_application_data(data_dir = "applications", sheet = "entries", skip = 2)
+
+# report <- run_skill_report("CT", app_period = "2024-06-data-science")
+# path <- get_app_path_to("CP", app_period = "2024-06-data-science", "resume_data")
+# xl <- readxl::read_excel(path, sheet = "entries", skip = 1)
+
+# library(openxlsx)
+# openxlsx::write.xlsx(report, file = path, sheetName = "test", overwrite = FALSE)
+# open_app(id = "CP", app_period = "2024-06-data-science", "resume_data")
+
+# writexl::write_xlsx(list(mysheet = "entries"), path)
+
+# path <- get_app_path_to("CP", app_period = "2024-06-data-science", "report")
+# path <- fs::path_ext_set(path, "xlsx")
+
+# report$terms[[1]] = "Hugging Face"
+##
+
+
+# report <- run_skill_report("CT", app_period = "2024-06-data-science")
+# path <- file.path(
+#   get_app_path_to("CP", app_period = "2024-06-data-science", "app"),
+#   "input", "report.xlsx"
+# )
+# con <- file(path, "w")
+# write_xlsx(report, path, col_names = TRUE)
+# close(con)

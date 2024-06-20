@@ -13,6 +13,7 @@ params:
   # "PDF" or "HTML" is automatically updated in render_resume.R
   doctype: "PDF"
   resume_data_filename: "resume_data.xlsx"
+  target: "base"
 ---
 
 ```{r setup, include=FALSE}
@@ -24,18 +25,18 @@ knitr::opts_chunk$set(
 library(autocv)
 library(glue)
 library(dplyr)
-library(readxl)
 
-fs::dir_ls(get_path_to("extdata"))
-
-# Source helpers for dev (comment out before build)
+# Source helpers for dev
 # source('R/preprocess.R')
 # source('R/print_cv.R')
 
-filename <- "resume_data.xlsx"
+# fs::dir_ls(get_path_to("extdata"))
+
+target <- "base"
 
 # Load data and preprocess
 position_data <- autocv::load_application_data(
+  target = target,
   filename = "resume_data.xlsx",
   sheet = "entries",
   skip = 1
@@ -48,17 +49,20 @@ position_data <- autocv::load_application_data(
   )
 
 skill_data <- autocv::load_application_data(
+  target = target,
   filename = "resume_data.xlsx",
   sheet = "skills",
   skip = 2
 )
 
 contact_data <- autocv::load_application_data(
+  target = target,
   filename = "cover_data.xlsx",
   sheet = "contact_info"
 ) %>% autocv::preprocess_contacts(., style = "markdown")
 
 text_data <- autocv::load_application_data(
+  target = target,
   filename = "cover_data.xlsx",
   sheet = "text_blocks"
 ) %>% autocv::preprocess_text()

@@ -2,52 +2,51 @@
 % Please edit documentation in R/build.R
 \name{get_app_info}
 \alias{get_app_info}
-\alias{get_path_to_app}
+\alias{get_app_path_to}
 \alias{open_app}
 \title{Access and open application files.}
 \usage{
 get_app_info(
-  id = "all",
+  id = c("all", "latest"),
   field = "all",
+  status = c("all", "ipr", "applied", "interviewed", "rejected",
+    "interviewed_then_rejected"),
   company = NA,
   position = NA,
-  app_dir = "applications",
-  app_period = "latest"
+  app_period = "latest",
+  app_dir = "applications"
 )
 
-get_path_to_app(
-  id,
-  document,
+get_app_path_to(
+  id = "latest",
+  doc = "resume",
   company = NA,
   position = NA,
-  app_dir = "applications",
-  app_period = "latest"
+  app_period = "latest",
+  app_dir = "applications"
 )
 
 open_app(
+  doc = "resume",
   id = "latest",
-  document = "resume",
   company = NA,
   position = NA,
-  app_dir = "applications",
-  app_period = "latest"
+  app_period = "latest",
+  app_dir = "applications"
 )
 }
 \description{
 \code{get_app_info} retrieves requested info for a given application from its log.
 
-\code{get_path_to_app} returns an abs path to a document from a given application.
+\code{get_app_path_to} returns an abs path to a doc from a given application.
 
-\code{open_app} opens the requested document for a given application.
+\code{open_app} opens the requested doc for a given application.
 }
 \seealso{
 Other cli: 
 \code{\link{build_app_directory}()},
 \code{\link{load_application_data}()},
 \code{\link{render_all}()},
-\code{\link{render_cv_as_html}()},
-\code{\link{render_cv_as_pdf}()},
-\code{\link{render_resume}()},
-\code{\link{render_resume_plain}()}
+\code{\link{render_cv_as_html}()}
 }
 \concept{cli}

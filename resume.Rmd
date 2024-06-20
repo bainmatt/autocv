@@ -12,6 +12,7 @@ fontsize: 11pt
 geometry: margin=0.55in, bottom=0.5in, headsep=0.15in, footskip=0.15in
 params:
   resume_data_filename: "resume_data.xlsx"
+  target: "app"
 ---
 
 ```{r setup, include=FALSE}
@@ -23,33 +24,36 @@ knitr::opts_chunk$set(
 library(autocv)
 library(glue)
 library(dplyr)
-library(readxl)
 
-# Source helpers for dev (comment out before build)
+# Source helpers for dev
 # source('R/preprocess.R')
 # source('R/print_resume.R')
 
-filename <- "resume_data.xlsx"
+# target <- "app"
 
 # Load data and preprocess
 position_data <- autocv::load_application_data(
+  target = target,
   filename = "resume_data.xlsx",
   sheet = "entries",
   skip = 1
 ) %>% autocv::preprocess_entries(., style = "latex", bullet_style = "-")
 
 skill_data <- autocv::load_application_data(
+  target = target,
   filename = "resume_data.xlsx",
   sheet = "skills",
   skip = 2
 ) %>% autocv::sort_skills(.)
 
 contact_data <- autocv::load_application_data(
+  target = target,
   filename = "cover_data.xlsx",
   sheet = "contact_info"
 ) %>% autocv::preprocess_contacts(., style = "latex")
 
 text_data <- autocv::load_application_data(
+  target = target,
   filename = "cover_data.xlsx",
   sheet = "text_blocks"
 ) %>% autocv::preprocess_text()
