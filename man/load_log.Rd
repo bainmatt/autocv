@@ -4,7 +4,7 @@
 \alias{load_log}
 \title{Load the log for a given application period.}
 \usage{
-load_log(app_dir = "applications", app_period = "latest")
+load_log(app_period = "latest", app_dir = "applications")
 }
 \description{
 Load the log for a given application period.

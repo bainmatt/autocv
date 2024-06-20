@@ -1,11 +1,13 @@
 # Helper functions for printing cv built with R pagedown
 
-library(glue)
 library(dplyr)
-library(tidyr)
-library(purrr)
-library(stringr)
 library(ggplot2)
+
+# TODO: remove extraneous imports
+# library(glue)
+# library(tidyr)
+# library(purrr)
+# library(stringr)
 
 
 #' Construct a bar chart of skills.

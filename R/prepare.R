@@ -1,19 +1,21 @@
 # Helper functions for preparing resume data for resume built with R pagedown
 
-library(fs)
-library(here)
-library(yaml)
-library(glue)
-library(stats)
-library(tidyr)
 library(dplyr)
-library(purrr)
-library(readxl)
-library(stringr)
 library(assertthat)
 
-# Source helpers for dev (comment out before build)
+# Source helpers for dev
 # source("R/paths.R")
+# source("R/build.R")
+
+# TODO: remove extraneous imports
+# library(fs)
+# library(yaml)
+# library(glue)
+# library(stats)
+# library(tidyr)
+# library(purrr)
+# library(readxl)
+# library(stringr)
 
 
 #' Prepare bio. 
@@ -120,45 +122,6 @@ prepare_links <- function(
 }
 
 
-# TODO remove this in favour of prepare_links
-
-#' Append a link field to a title field with custom text.
-#' 
-#' @param style style of link, either "markdown", "latex", or "txt" (plain)
-#' @param macro macro to use for "latex" references
-#' 
-#' @family prepare-utils
-# append_links_to_titles <- function(
-#     data, 
-#     style = c("markdown", "latex", "txt"), 
-#     macro = c("myhref", "href", NA)
-# ) {
-#   # Validate arguments
-#   style <- match.arg(style)
-#   macro <- match.arg(macro)
-#   
-#   data <- data %>% 
-#     rowwise() %>% 
-#     mutate(
-#       title = dplyr::case_when(
-#         is.na(.data$link) ~ .data$title,
-#         style == "markdown" ~ stringr::str_c(
-#           .data$title, " [[", .data$link_text, "](", .data$link, ")]"
-#         ),
-#         style == "latex" ~ stringr::str_c(
-#           .data$title, " [\\", macro, 
-#           "{", .data$link, "}{", .data$link_text, "}]"
-#         ),
-#         style == "txt" ~ stringr::str_c(
-#           .data$title, " [", .data$link_text, ": ", .data$link, "]"
-#         )
-#         # .default = stop("`style` must be either 'markdown' or 'latex'")
-#       )
-#     )
-#   return(data)
-# }
-
-
 #' Append skills to a description field with matching index.
 #' 
 #' @family prepare-utils
@@ -171,13 +134,15 @@ append_skills_to_bullets <- function(data, ix) {
     mutate(
       # Concatenate all skill_ix columns, filtering out NA values
       skills_concat = stringr::str_c(
-        na.omit(c_across(starts_with(skill_prefix))), 
+        na.omit(dplyr::c_across(dplyr::starts_with(skill_prefix))), 
         collapse = ", "
       ),
-      !!sym(description_col) := if_else(
+      !!rlang::sym(description_col) := if_else(
         .data$skills_concat != "",
-        str_c(!!sym(description_col), " (", .data$skills_concat, ")"),
-        !!sym(description_col)
+        stringr::str_c(
+          !!rlang::sym(description_col), " (", .data$skills_concat, ")"
+        ),
+        !!rlang::sym(description_col)
       )
     ) %>%
     ungroup() %>%
@@ -188,7 +153,7 @@ append_skills_to_bullets <- function(data, ix) {
 }
 
 
-# TODO simplify this...
+# TODO: simplify this...
 # use tidyr::unite(tidyr::starts_with('description'), 
 # col = "description_bullets", sep = "\n- ", na.rm = TRUE) as in:
 
@@ -214,10 +179,10 @@ prepare_description_bullets <- function(
   bullet_style <- match.arg(bullet_style)
   
   data <- data %>% 
-    mutate(id = row_number()) %>%
+    mutate(id = dplyr::row_number()) %>%
     tidyr::pivot_longer(
       .,
-      cols = starts_with('description'),
+      cols = dplyr::starts_with('description'),
       names_to = 'description_num',
       values_to = 'description'
     ) %>%
@@ -234,7 +199,7 @@ prepare_description_bullets <- function(
     mutate(
       description_bullets = case_when(
         .data$no_descriptions ~ ' ',
-        TRUE ~ map_chr(
+        TRUE ~ purrr::map_chr(
           .data$descriptions, 
           ~paste(bullet_style, ., collapse = '\n')
         )
@@ -248,8 +213,7 @@ prepare_description_bullets <- function(
 }
 
 
-# TODO add latex/plain option here
-
+# TODO: add latex/plain option here
 
 #' Omit spreadsheet entries beginning with a preset prefix.
 #' 
@@ -262,8 +226,8 @@ omit_hidden_fields <- function(
   pattern <- paste0("^", prefix)
   data <- data %>%
     mutate(across(
-      where(is.character),
-      ~ ifelse(str_detect(., pattern), NA, .)
+      dplyr::where(is.character),
+      ~ ifelse(stringr::str_detect(., pattern), NA, .)
     ))
   return(data)
 }
@@ -305,7 +269,9 @@ make_latex_contacts <- function(contact_data, macro) {
     mutate(contact_text = if_else(
       is.na(.data$address),
       .data$address_text,
-      str_c(" \\", macro, "{", .data$address, "}{", .data$address_text, "}")
+      stringr::str_c(
+        " \\", macro, "{", .data$address, "}{", .data$address_text, "}"
+      )
     ))
   return(contact_data$contact_text)
 }
@@ -319,7 +285,7 @@ make_txt_contacts <- function(contact_data) {
     mutate(contact_text = if_else(
       is.na(.data$address),
       .data$address_text,
-      str_c(.data$loc, ": ", .data$address)
+      stringr::str_c(.data$loc, ": ", .data$address)
     ))
   return(contact_data$contact_text)
 }
@@ -362,22 +328,50 @@ validate_skills_data <- function() {
 #' @family cli
 #' @export
 load_application_data <- function(
-    data_dir = "input",
-    filename = "resume_data.xlsx",
+    target = c("app", "base"),
+    filename = c("resume_data.xlsx", "cover_data.xlsx"),
     sheet = c("entries", "skills", "contact_info", "text_blocks"),
-    skip = 1
+    data_dir = "input",
+    skip = 1,
+    app_id = "latest",
+    app_period = "latest",
+    app_dir = "applications"
 ) {
-  data_path <- get_path_to(data_dir)
-  data_filepath <- file.path(data_path, filename)
-  
   # Validate arguments
+  target <- match.arg(target)
+  filename <- match.arg(filename)
   sheet <- match.arg(sheet)
   
-  data <- read_excel(
+  # Ensure the following arguments are defined if loading tailored app
+  if (target == "app") {
+    assert_that(all(!is.na(c(app_id, app_period, app_dir))))
+    
+  } else if (target == "base") {
+    cli::cli_li("note: args 'app_id', 'app_period', 'app_dir' unused")
+  }
+    
+  # Get path to application data
+  if (target == "app") {
+    doc = fs::path_ext_remove(filename)
+    data_filepath <- get_app_path_to(
+      id = app_id, 
+      doc = doc, 
+      app_dir = app_dir, 
+      app_period = app_period
+    )
+    
+  } else if (target == "base") {
+    data_filepath <- file.path(get_path_to(data_dir), filename)
+  }
+  
+  data <- readxl::read_excel(
     data_filepath, 
     sheet = sheet, 
     na = c("", "NA", "na"),
     skip = skip
+  )
+  cli::cli_alert_success(
+    paste0("loading '", data_filepath, "'")
   )
   return(data)
 }
@@ -504,7 +498,7 @@ print_contact_info <- function(
   contact_text <- contact_data %>% 
     filter(.data$loc %in% entries) %>%
     pull(contact_text) %>%
-    glue_collapse(sep)
+    glue::glue_collapse(sep)
   return(contact_text)
 }
 
@@ -568,6 +562,7 @@ build_skill_list <- function(
 
 
 # One-off tests ----------------------------------------------------------------
+
 
 # position_data <- load_application_data() %>% 
 #   preprocess_entries(

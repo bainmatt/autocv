@@ -1,8 +1,8 @@
 # This script contains tools for working with datasets in the autocv package.
 
-library(fs)
-library(here)
-library(stringr)
+# library(fs)
+# library(here)
+# library(stringr)
 
 
 #' Find the location of template data files on your system.
