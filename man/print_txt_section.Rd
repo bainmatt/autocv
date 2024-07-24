@@ -4,14 +4,25 @@
 \alias{print_txt_section}
 \title{Print sections of a plain text resume.}
 \usage{
-print_txt_section(position_data)
+print_txt_section(
+  position_data,
+  section_id = c("work", "education", "certifications", "projects", "writing",
+    "publications", "volunteering", "additional_info"),
+  target = c("app", "base")
+)
 }
 \description{
 Print sections of a plain text resume.
 }
 \seealso{
 Other print: 
+\code{\link{print_achievements}()},
+\code{\link{print_contact_info}()},
+\code{\link{print_cover_body}()},
+\code{\link{print_cover_plain}()},
 \code{\link{print_latex_section}()},
-\code{\link{print_section}()}
+\code{\link{print_resume_plain}()},
+\code{\link{print_section}()},
+\code{\link{print_txt_header}()}
 }
 \concept{print}

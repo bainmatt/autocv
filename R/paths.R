@@ -1,9 +1,5 @@
 # This script contains tools for working with datasets in the autocv package.
 
-# library(fs)
-# library(here)
-# library(stringr)
-
 
 #' Find the location of template data files on your system.
 #' 
@@ -22,8 +18,13 @@
 #' 
 #' @family data
 #' @export
-autocv_resources <- function(path = NULL, inst_dir = "extdata") {
+autocv_resources <- function(
+    path = NULL, 
+    inst_dir = c("extdata", "templates")
+) {
+  inst_dir <- match.arg(inst_dir)
   test_path <- system.file(file.path(inst_dir, path), package = "autocv")
+  
   if (is.null(path)) {
     dir(system.file(inst_dir, package = "autocv"))
   } else if (fs::is_dir(test_path)) {
@@ -45,26 +46,33 @@ autocv_resources <- function(path = NULL, inst_dir = "extdata") {
 #' @param dir (string) the directory name.
 #'
 #' @examples
-#' # get_path_to("src")
+#' get_path_to("src")
+#' get_path_to("templates")
 #'
-#' @family data 
+#' @family data-dev 
 #' @export
 get_path_to <- function(
     dir = c(
-      "src", "input", "output", 
-      "applications", "notebooks", "templates",
-      "extdata", "css", "latex", "resources"
+      "src", "input", "output", "applications", "notebooks", 
+      "templates", "css", "latex", "resources"
     )
 ) {
-  # Validate argument using partial matching
-  # TODO consider changing this to be strict -- could be dangerous
   dir <- match.arg(dir)
+  
+  # Retrieve included files (styles, templates, resources) from package root
+  if (dir %in% c("templates")) {
+    path <- system.file("templates", package = "autocv") 
+    return(path)
+
+  } else if (dir %in% c("extdata", "css", "latex", "resources")) {
+    path <- system.file("extdata", dir, package = "autocv") 
+    return(path)
+  }
+  
+  # Retrieve all other project paths from the environment relative to the root
+  root <- Sys.getenv("ROOT")
   env_variable <- paste0(stringr::str_to_upper(dir), "_DIR")
   relpath <- Sys.getenv(env_variable, NA)
-  
-  if (is.na(relpath)) {
-    stop("Invalid directory name")
-  } 
-  path <- here::here(relpath)
+  path <- file.path(root, relpath)
   return(path)
 }

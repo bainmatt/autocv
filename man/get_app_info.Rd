@@ -2,51 +2,39 @@
 % Please edit documentation in R/build.R
 \name{get_app_info}
 \alias{get_app_info}
+\alias{get_status_report}
 \alias{get_app_path_to}
-\alias{open_app}
-\title{Access and open application files.}
+\title{Access application metadata.}
 \usage{
 get_app_info(
   id = c("all", "latest"),
   field = "all",
   status = c("all", "ipr", "applied", "interviewed", "rejected",
     "interviewed_then_rejected"),
-  company = NA,
-  position = NA,
   app_period = "latest",
   app_dir = "applications"
 )
 
-get_app_path_to(
-  id = "latest",
-  doc = "resume",
-  company = NA,
-  position = NA,
-  app_period = "latest",
-  app_dir = "applications"
-)
+get_status_report(app_period = "latest")
 
-open_app(
-  doc = "resume",
-  id = "latest",
-  company = NA,
-  position = NA,
-  app_period = "latest",
-  app_dir = "applications"
-)
+get_app_path_to(id = "latest", doc = "resume", app_period = "latest")
 }
 \description{
 \code{get_app_info} retrieves requested info for a given application from its log.
 
-\code{get_app_path_to} returns an abs path to a doc from a given application.
+\code{get_status_report} returns a table of proportions for each status.
 
-\code{open_app} opens the requested doc for a given application.
+\code{get_app_path_to} returns an abs path to a doc from a given application.
 }
 \seealso{
 Other cli: 
 \code{\link{build_app_directory}()},
-\code{\link{load_application_data}()},
-\code{\link{render_all}()},
-\code{\link{render_cv_as_html}()}
+\code{\link{build_base_directory}()},
+\code{\link{open_app}()},
+\code{\link{render_app}()},
+\code{\link{render_cover}()},
+\code{\link{render_cv_as_html}()},
+\code{\link{render_resume}()},
+\code{\link{update_app_info}()}
 }
 \concept{cli}

@@ -4,22 +4,33 @@
 \alias{construct_app_metadata}
 \title{Create the metadata for a new application.}
 \usage{
-construct_app_metadata(
-  metadata_filename = "job_metadata.yml",
-  metadata_dir = "input"
-)
+construct_app_metadata(app_info = load_job_info(open = TRUE))
 }
 \description{
 This information is also used to construct the application log entry.
 }
-\seealso{
-Other cli-utils: 
-\code{\link{construct_app_filepath}()},
-\code{\link{load_job_info}()},
-\code{\link{load_log}()},
-\code{\link{str_to_filename}()},
-\code{\link{validate_id}()},
-\code{\link{write_app_metadata}()},
-\code{\link{write_log_entry}()}
+\examples{
+data(example_job_metadata)
+app_df <- construct_app_metadata(app_info = example_job_metadata)
+app_df_concise <- dplyr::select(app_df, -dplyr::ends_with(c("path", "url")))
+app_df_concise
+
 }
-\concept{cli-utils}
+\seealso{
+Other build-dev: 
+\code{\link{as_filename}()},
+\code{\link{copy_files}()},
+\code{\link{create_rprofile}()},
+\code{\link{create_rproject}()},
+\code{\link{get_latest_entry}()},
+\code{\link{get_valid_opts}()},
+\code{\link{in_tmp_env}()},
+\code{\link{open_doc_and_wait}()},
+\code{\link{set_project_paths}()},
+\code{\link{str_to_filename}()},
+\code{\link{truncate_string}()},
+\code{\link{validate_id}()},
+\code{\link{validate_status}()},
+\code{\link{write_app_metadata}()}
+}
+\concept{build-dev}

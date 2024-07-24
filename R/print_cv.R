@@ -51,9 +51,31 @@ build_skill_bars <- function(skill_data) {
 #' 
 #' @family print
 #' @export
-print_section <- function(position_data, section_id) {
-  position_data %>% 
-    filter(.data$section == section_id & .data$include == "x") %>%
+print_section <- function(
+    position_data, 
+    section_id = c(
+      "work", "education", "certifications", "projects", 
+      "writing", "publications", "volunteering", "additional_info"
+    ),
+    target = c("base", "app")
+) {
+  section_id <- match.arg(section_id)
+  target     <- match.arg(target)
+  
+  # Filter
+  position_data <- position_data %>% 
+    filter(
+      .data$section == section_id & 
+        (
+          (target == "app" & .data$include == "x") |
+          (target == "base" & .data$in_base == "x")
+        )
+    )
+  
+  # Construct
+  position_data %>%
+    # filter(.data$section == section_id & .data$include == "x") %>%
+    
     # Prepare formatted links. Note: Since this is an added field that is not
     # present in the base pagedown template, we will manually omit NA entries.
     # TODO put this & below in prep func along w/ latex (prepare NA fields)

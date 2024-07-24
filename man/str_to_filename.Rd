@@ -4,19 +4,26 @@
 \alias{str_to_filename}
 \title{Convert a string to a valid file name.}
 \usage{
-str_to_filename(string, separator = "-", lower = TRUE)
+str_to_filename(string, sep = "-", lower = TRUE)
 }
 \description{
 Convert a string to a valid file name.
 }
 \seealso{
-Other cli-utils: 
-\code{\link{construct_app_filepath}()},
+Other build-dev: 
+\code{\link{as_filename}()},
 \code{\link{construct_app_metadata}()},
-\code{\link{load_job_info}()},
-\code{\link{load_log}()},
+\code{\link{copy_files}()},
+\code{\link{create_rprofile}()},
+\code{\link{create_rproject}()},
+\code{\link{get_latest_entry}()},
+\code{\link{get_valid_opts}()},
+\code{\link{in_tmp_env}()},
+\code{\link{open_doc_and_wait}()},
+\code{\link{set_project_paths}()},
+\code{\link{truncate_string}()},
 \code{\link{validate_id}()},
-\code{\link{write_app_metadata}()},
-\code{\link{write_log_entry}()}
+\code{\link{validate_status}()},
+\code{\link{write_app_metadata}()}
 }
-\concept{cli-utils}
+\concept{build-dev}

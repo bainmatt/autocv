@@ -9,14 +9,14 @@ load_log(app_period = "latest", app_dir = "applications")
 \description{
 Load the log for a given application period.
 }
-\seealso{
-Other cli-utils: 
-\code{\link{construct_app_filepath}()},
-\code{\link{construct_app_metadata}()},
-\code{\link{load_job_info}()},
-\code{\link{str_to_filename}()},
-\code{\link{validate_id}()},
-\code{\link{write_app_metadata}()},
-\code{\link{write_log_entry}()}
+\examples{
+#
+
 }
-\concept{cli-utils}
+\seealso{
+Other data: 
+\code{\link{autocv_resources}()},
+\code{\link{load_application_data}()},
+\code{\link{load_job_info}()}
+}
+\concept{data}

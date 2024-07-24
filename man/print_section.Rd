@@ -4,14 +4,25 @@
 \alias{print_section}
 \title{Print a section from a position dataframe to markdown.}
 \usage{
-print_section(position_data, section_id)
+print_section(
+  position_data,
+  section_id = c("work", "education", "certifications", "projects", "writing",
+    "publications", "volunteering", "additional_info"),
+  target = c("base", "app")
+)
 }
 \description{
 Print a section from a position dataframe to markdown.
 }
 \seealso{
 Other print: 
+\code{\link{print_achievements}()},
+\code{\link{print_contact_info}()},
+\code{\link{print_cover_body}()},
+\code{\link{print_cover_plain}()},
 \code{\link{print_latex_section}()},
+\code{\link{print_resume_plain}()},
+\code{\link{print_txt_header}()},
 \code{\link{print_txt_section}()}
 }
 \concept{print}

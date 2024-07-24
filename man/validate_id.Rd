@@ -4,19 +4,26 @@
 \alias{validate_id}
 \title{Verify that matching job identifiers belong to the same job.}
 \usage{
-validate_id(log_data, app_df)
+validate_id(log = load_log(), app_df = construct_app_metadata())
 }
 \description{
 Verify that matching job identifiers belong to the same job.
 }
 \seealso{
-Other cli-utils: 
-\code{\link{construct_app_filepath}()},
+Other build-dev: 
+\code{\link{as_filename}()},
 \code{\link{construct_app_metadata}()},
-\code{\link{load_job_info}()},
-\code{\link{load_log}()},
+\code{\link{copy_files}()},
+\code{\link{create_rprofile}()},
+\code{\link{create_rproject}()},
+\code{\link{get_latest_entry}()},
+\code{\link{get_valid_opts}()},
+\code{\link{in_tmp_env}()},
+\code{\link{open_doc_and_wait}()},
+\code{\link{set_project_paths}()},
 \code{\link{str_to_filename}()},
-\code{\link{write_app_metadata}()},
-\code{\link{write_log_entry}()}
+\code{\link{truncate_string}()},
+\code{\link{validate_status}()},
+\code{\link{write_app_metadata}()}
 }
-\concept{cli-utils}
+\concept{build-dev}

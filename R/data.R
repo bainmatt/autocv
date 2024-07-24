@@ -2,16 +2,16 @@
 
 #' Example skill dataset
 #'
-#' A subset of data from the World Health Organization Global Tuberculosis
+#' A subset of data from the ...
 #' Report ...
 #'
 #' @keywords internal
 #' @format ## `example_skill_data`
-#' A data frame with 7,240 rows and 60 columns:
+#' A data frame with x rows and y columns:
 #' \describe{
-#'   \item{country}{Country name}
-#'   \item{iso2, iso3}{2 & 3 letter ISO country codes}
+#'   \item{field}{Field description}
+#'   \item{field 1, field 2}{Field descriptions}
 #'   \item{year}{Year}
 #' }
-#' @source <https://www.who.int/teams/global-tuberculosis-programme/data>
+#' @source <https://source>
 "example_skill_data"

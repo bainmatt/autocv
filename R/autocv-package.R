@@ -30,6 +30,7 @@
 #'  element_rect geom_col geom_text labs theme theme_void
 #' @importFrom dplyr
 #'  across arrange case_when c_across desc filter first group_by
-#'  if_else mutate pull rowwise row_number select starts_with ungroup where
+#'  if_else last mutate pull rowwise row_number select starts_with
+#'  ungroup where
 ## usethis namespace: end
 NULL

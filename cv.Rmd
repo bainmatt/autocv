@@ -12,7 +12,7 @@ output:
 params:
   # "PDF" or "HTML" is automatically updated in render_resume.R
   doctype: "PDF"
-  resume_data_filename: "resume_data.xlsx"
+  # resume_data_filename: "resume_data.xlsx"
   target: "base"
 ---
 
@@ -26,20 +26,15 @@ library(autocv)
 library(glue)
 library(dplyr)
 
-# Source helpers for dev
-# source('R/preprocess.R')
-# source('R/print_cv.R')
-
-# fs::dir_ls(get_path_to("extdata"))
-
-target <- "base"
+doctype <- params$doctype
+target  <- params$target
 
 # Load data and preprocess
 position_data <- autocv::load_application_data(
   target = target,
   filename = "resume_data.xlsx",
   sheet = "entries",
-  skip = 1
+  # skip = 1
 ) %>% 
   autocv::preprocess_entries(
     ., 
@@ -52,7 +47,7 @@ skill_data <- autocv::load_application_data(
   target = target,
   filename = "resume_data.xlsx",
   sheet = "skills",
-  skip = 2
+  # skip = 2
 )
 
 contact_data <- autocv::load_application_data(
@@ -140,13 +135,13 @@ autocv::build_skill_bars(skill_data %>% dplyr::filter(key_competency == "x"))
 <!-- if(params$doctype == "HTML") { -->
 <!--   glue::glue(" -->
 <!--     Made w/ [**pagedown**](https://github.com/rstudio/pagedown). -->
-<!--     Source code: [**Github repo**](https://github.com/mleary/resume). -->
+<!--     Source code: [**Github repo**](https://github.com/bainmatt/autocv). -->
 <!--   ") -->
 <!-- } -->
 <!-- if(params$doctype == "PDF") { -->
 <!--   glue::glue(" -->
 <!--     Made w/ **pagedown::html_resume** -->
-<!--     Code: **github.com/mleary/resume** -->
+<!--     Code: **github.com/bainmatt/autocv** -->
 <!--   ") -->
 <!-- } -->
 <!-- ``` -->
@@ -164,41 +159,43 @@ Last updated on `r Sys.Date()`. <br> <br>
 ## Professional Experience {data-icon="suitcase"}
 
 ```{r jobs}
-autocv::print_section(position_data, 'work')
+autocv::print_section(position_data, 'work', target = target)
 ```
 
 ## Education {data-icon="graduation-cap" data-concise="true"}
 
 ```{r education}
-autocv::print_section(position_data, 'education')
+autocv::print_section(position_data, 'education', target = target)
 ```
 
 ## Certifications {data-icon="award" data-concise="true"}
 
 ```{r certificates}
-autocv::print_section(position_data, 'certifications')
+autocv::print_section(position_data, 'certifications', target = target)
 ```
 
 ## Selected Projects {data-icon="code-branch" data-concise="true"}
 
 ```{r projects}
-autocv::print_section(position_data, 'projects')
+autocv::print_section(position_data, 'projects', target = target)
 ```
 
+<!--
 ## Selected Writing {data-icon="laptop" data-concise="true"}
 
 ```{r writing}
-autocv::print_section(position_data, 'writing')
+autocv::print_section(position_data, 'writing', target = target)
 ```
 
 ## Selected Publications {data-icon="file" data-concise="true"}
 
 ```{r articles}
-autocv::print_section(position_data, 'publications')
+autocv::print_section(position_data, 'publications', target = target)
 ```
 
 ## Additional information {data-icon="circle-user" data-concise="true"}
 
 ```{r other}
-autocv::print_section(position_data, 'additional_information')
+autocv::print_section(position_data, 'additional_info', target = target)
 ```
+!-->

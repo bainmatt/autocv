@@ -5,8 +5,8 @@
 \title{Construct an absolute path to a project directory for saving and loading.}
 \usage{
 get_path_to(
-  dir = c("src", "input", "output", "applications", "notebooks", "templates", "extdata",
-    "css", "latex", "resources")
+  dir = c("src", "input", "output", "applications", "notebooks", "templates", "css",
+    "latex", "resources")
 )
 }
 \arguments{
@@ -18,11 +18,8 @@ Directory paths, relative to the project root, are defined in the
 user's .Rprofile environment variables.
 }
 \examples{
-# get_path_to("src")
+get_path_to("src")
+get_path_to("templates")
 
 }
-\seealso{
-Other data: 
-\code{\link{autocv_resources}()}
-}
-\concept{data}
+\concept{data-dev}

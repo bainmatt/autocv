@@ -6,11 +6,22 @@
 \usage{
 print_contact_info(
   contact_data,
-  section = c("info", "links", "both"),
+  section = c("info", "links", "both", "signoff"),
   sep = c(" | ", "\\n")
 )
 }
 \description{
 Print contact info.
 }
-\concept{print-utils}
+\seealso{
+Other print: 
+\code{\link{print_achievements}()},
+\code{\link{print_cover_body}()},
+\code{\link{print_cover_plain}()},
+\code{\link{print_latex_section}()},
+\code{\link{print_resume_plain}()},
+\code{\link{print_section}()},
+\code{\link{print_txt_header}()},
+\code{\link{print_txt_section}()}
+}
+\concept{print}

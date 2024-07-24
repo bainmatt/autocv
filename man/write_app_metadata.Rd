@@ -2,21 +2,49 @@
 % Please edit documentation in R/build.R
 \name{write_app_metadata}
 \alias{write_app_metadata}
-\title{Save the metadata for a new application.}
+\alias{write_log_entry}
+\title{Store metadata for a new application.}
 \usage{
 write_app_metadata(app_df = construct_app_metadata())
+
+write_log_entry(app_df = construct_app_metadata())
+}
+\arguments{
+\item{app_df}{A data frame containing metadata for a new job application
+(defaults to the value returned by \code{construct_app_metadata()},
+which constructs the new log entry from the base metadata yaml file).
+Fields must match those in the log file for the current period.}
 }
 \description{
-Save the metadata for a new application.
+\code{write_app_metadata} saves the metadata for a new application.
+
+\code{write_log_entry} records the current app in the log for the present period.
+}
+\examples{
+data(example_job_metadata)
+app_df <- construct_app_metadata(app_info = example_job_metadata)
+# write_app_metadata(app_df = app_df)  # error: the folder doesn't exist
+
+data(example_job_metadata)
+app_df <- construct_app_metadata(app_info = example_job_metadata)
+# write_log_entry(app_df = app_df)  # error: the folder doesn't exist
+
 }
 \seealso{
-Other cli-utils: 
-\code{\link{construct_app_filepath}()},
+Other build-dev: 
+\code{\link{as_filename}()},
 \code{\link{construct_app_metadata}()},
-\code{\link{load_job_info}()},
-\code{\link{load_log}()},
+\code{\link{copy_files}()},
+\code{\link{create_rprofile}()},
+\code{\link{create_rproject}()},
+\code{\link{get_latest_entry}()},
+\code{\link{get_valid_opts}()},
+\code{\link{in_tmp_env}()},
+\code{\link{open_doc_and_wait}()},
+\code{\link{set_project_paths}()},
 \code{\link{str_to_filename}()},
+\code{\link{truncate_string}()},
 \code{\link{validate_id}()},
-\code{\link{write_log_entry}()}
+\code{\link{validate_status}()}
 }
-\concept{cli-utils}
+\concept{build-dev}

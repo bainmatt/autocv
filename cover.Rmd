@@ -1,0 +1,102 @@
+---
+title: ""
+author: Matthew Bain
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    keep_tex: false
+    includes:
+      in_header: !expr fs::path_package("autocv", "extdata/latex","custom_cover.tex")
+fontsize: 11pt
+geometry: margin=1in, bottom=0.5in, headsep=0.15in, footskip=0.15in
+params:
+  # cover_data_filename: "cover_data.xlsx"
+  position: "Job Title"
+  company: "Company Name"
+  use_bullets: TRUE
+  app_id: "latest"
+  app_period: "latest"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+
+library(autocv)
+library(glue)
+library(dplyr)
+
+position    <- params$position
+company     <- params$company
+use_bullets <- params$use_bullets
+app_id      <- params$app_id
+app_period  <- params$app_period
+
+# Load data and preprocess
+contact_data <- autocv::load_application_data(
+  filename = "cover_data.xlsx",
+  sheet = "contact_info",
+  app_id = app_id,
+  app_period = app_period
+) %>% autocv::preprocess_contacts(., style = "latex")
+
+text_data <- autocv::load_application_data(
+  filename = "cover_data.xlsx",
+  sheet = "text_blocks",
+  app_id = app_id,
+  app_period = app_period
+) %>% autocv::preprocess_text()
+
+```
+
+```{r extract, include=FALSE}
+
+name <- contact_data$address_text[contact_data$loc == "name"]
+role <- text_data$text[text_data$loc == "title"]
+suffix <- contact_data$address_text[contact_data$loc == "title"]
+
+contacts_text <- autocv::print_contact_info(
+  contact_data, 
+  section = "signoff", 
+  sep = "\n\n\\vspace{-5pt}"
+)
+links_text <- autocv::print_contact_info(
+  contact_data, 
+  section = "links", 
+  sep = " | "
+)
+
+```
+
+```{r cover, include=FALSE}
+
+cover_text <- print_cover_body(
+  text_data,
+  position = position,
+  company = company,
+  style = "latex",
+  use_bullets = use_bullets
+)
+
+```
+
+\myname{`r paste0(name, ", ", suffix)`} `r paste(links_text)`
+
+\vspace{4pt}
+\hrule
+\vspace{4pt}
+
+\vspace{-15pt}
+
+### \myrole{`r paste(role)`}
+
+\vspace{20pt}
+
+`r paste(cover_text)`
+
+\vspace{5pt}
+
+`r paste(contacts_text)`

@@ -7,7 +7,7 @@
 \fancyfoot[R]{\color{gray}\thepage {} / \pageref{LastPage}}
 \fancyfoot[L]{
   \color{gray}Built with 
-  \myhref{file:///Users/matthewbain/Documents/career/resume/docs/index.html}{autocv}, 
+  \myhref{https://bainmatt.github.io/autocv/}{autocv}, 
   an R package by Matthew Bain
 }
 \renewcommand{\headrulewidth}{0pt}
@@ -33,7 +33,11 @@
 % Custom text colours
 \usepackage{xcolor}
 \definecolor{myblue}{RGB}{0, 76, 153}
+% \definecolor{mylinkblue}{RGB}{36, 86, 129}
 \definecolor{mygreen}{RGB}{0, 115, 76}
+
+% Ensure text is left aligned
+\raggedright
 
 % Custom macros ----------------------------------------------------------------
 
@@ -59,7 +63,7 @@
 \newcommand{\myrole}[1]{\vspace{-10pt}\color{myblue}{#1}}
 
 % Custom section headers (within level 2 markdown header environment)
-\newcommand{\mysection}[1]{\vspace{-10pt}\color{mygreen}{#1}}
+\newcommand{\mysection}[1]{\vspace{-6pt}\color{mygreen}{#1}}
 
 % Custom bio block
 \newcommand{\mybio}[1]{%

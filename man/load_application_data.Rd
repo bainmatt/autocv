@@ -2,27 +2,24 @@
 % Please edit documentation in R/prepare.R
 \name{load_application_data}
 \alias{load_application_data}
-\title{Load application data (resume or cover letter).}
+\title{Load application data.}
 \usage{
 load_application_data(
   target = c("app", "base"),
   filename = c("resume_data.xlsx", "cover_data.xlsx"),
   sheet = c("entries", "skills", "contact_info", "text_blocks"),
   data_dir = "input",
-  skip = 1,
   app_id = "latest",
-  app_period = "latest",
-  app_dir = "applications"
+  app_period = "latest"
 )
 }
 \description{
-Load application data (resume or cover letter).
+Load application data.
 }
 \seealso{
-Other cli: 
-\code{\link{build_app_directory}()},
-\code{\link{get_app_info}()},
-\code{\link{render_all}()},
-\code{\link{render_cv_as_html}()}
+Other data: 
+\code{\link{autocv_resources}()},
+\code{\link{load_job_info}()},
+\code{\link{load_log}()}
 }
-\concept{cli}
+\concept{data}
