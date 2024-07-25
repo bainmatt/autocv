@@ -1,5 +1,11 @@
 source("renv/activate.R")
 
+# Load the here package
+if (!requireNamespace("here", quietly = TRUE)) {
+  install.packages("here")
+}
+library(here)
+
 # Set project root (the project root resolved by the `here` package)
 Sys.setenv(ROOT = here::here())
 
