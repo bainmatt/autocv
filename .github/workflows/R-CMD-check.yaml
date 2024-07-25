@@ -54,10 +54,10 @@ jobs:
       #   run: |
       #     R -e 'install.packages("renv")'
       #     R -e 'renv::restore()'
-      # 
-      # - name: Check renv status
-      #   run: |
-      #     R -e 'renv::status()'
+
+      - name: Check renv status
+        run: |
+          R -e 'renv::status()'
 
 
 
