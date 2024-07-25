@@ -42,7 +42,6 @@ jobs:
         with:
           use-public-rspm: true
 
-      # TODO: fix this to align with rlock
       # Installs packages declared in DESCRIPTION
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
