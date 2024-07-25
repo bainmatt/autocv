@@ -388,6 +388,9 @@ load_application_data <- function(
     na = c("", "NA", "na"),
     skip = skip
   )
+  cli::cli_alert_success(
+    paste0("loading '", data_filepath, "'")
+  )
   return(data)
 }
 

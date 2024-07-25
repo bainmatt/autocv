@@ -13,7 +13,6 @@ library(dplyr)
 #' 
 #' `render_cv_as_pdf` converts an HTML-format resume to PDF.
 #' 
-#' @family cli
 #' @export
 render_cv_as_html <- function(
     input_filename = "cv.Rmd",
@@ -183,6 +182,9 @@ render_resume <- function(
     output_filepath <- file.path(get_path_to(output_dir), output_filename)
     base_dir <- "."
   }
+  
+  
+  
   
   custom_tex <- sapply(
     stylesheets,
