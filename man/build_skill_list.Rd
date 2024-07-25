@@ -7,6 +7,8 @@
 build_skill_list(
   skill_data,
   sep = c(" • ", "\\n"),
+  bullet_style = c("", "-", "+"),
+  bold_headers = TRUE,
   separate_competencies = TRUE,
   competencies_header = "Other"
 )

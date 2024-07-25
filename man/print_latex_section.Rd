@@ -4,14 +4,27 @@
 \alias{print_latex_section}
 \title{Print a section from a position dataframe to LaTeX.}
 \usage{
-print_latex_section(position_data, section_id, short_entries = FALSE)
+print_latex_section(
+  position_data,
+  section_id = c("work", "education", "certifications", "projects", "writing",
+    "publications", "volunteering", "additional_info"),
+  short_entries = FALSE,
+  target = c("app", "base"),
+  padding = 1
+)
 }
 \description{
 Print a section from a position dataframe to LaTeX.
 }
 \seealso{
 Other print: 
+\code{\link{print_achievements}()},
+\code{\link{print_contact_info}()},
+\code{\link{print_cover_body}()},
+\code{\link{print_cover_plain}()},
+\code{\link{print_resume_plain}()},
 \code{\link{print_section}()},
+\code{\link{print_txt_header}()},
 \code{\link{print_txt_section}()}
 }
 \concept{print}

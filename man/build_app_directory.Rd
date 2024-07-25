@@ -2,18 +2,46 @@
 % Please edit documentation in R/build.R
 \name{build_app_directory}
 \alias{build_app_directory}
-\title{Create the file tree and data files for the present app.}
+\title{Create the file tree and data files for the present application.}
 \usage{
-build_app_directory(app_df = construct_app_metadata(), base_app_id = NA)
+build_app_directory(app_df = construct_app_metadata(), open = TRUE)
 }
 \description{
-Create the file tree and data files for the present app.
+Create the file tree and data files for the present application.
+}
+\examples{
+# Complete end-to-end example (build -> (edit) -> render -> check) ----------
+in_tmp_env({
+  message("1. Building project directory...")
+  build_base_directory()
+  
+  data(example_job_metadata)
+  app_df <- construct_app_metadata(app_info = example_job_metadata)
+  
+  message("")
+  message("2. Building application...")
+  build_app_directory(app_df = app_df, open = FALSE)
+  
+  message("")
+  message("3. Rendering application...")
+  render_app(cover = FALSE, email = FALSE)
+  
+  message("")
+  message("4. Checking keywords...")
+  report_df <- check_skills()
+  print(report_df)
+})
+
 }
 \seealso{
 Other cli: 
+\code{\link{build_base_directory}()},
 \code{\link{get_app_info}()},
-\code{\link{load_application_data}()},
-\code{\link{render_all}()},
-\code{\link{render_cv_as_html}()}
+\code{\link{open_app}()},
+\code{\link{render_app}()},
+\code{\link{render_cover}()},
+\code{\link{render_cv_as_html}()},
+\code{\link{render_resume}()},
+\code{\link{update_app_info}()}
 }
 \concept{cli}

@@ -4,7 +4,7 @@
 \alias{autocv_resources}
 \title{Find the location of template data files on your system.}
 \usage{
-autocv_resources(path = NULL, inst_dir = "extdata")
+autocv_resources(path = NULL, inst_dir = c("extdata", "templates"))
 }
 \description{
 Find the location of template data files on your system.
@@ -25,6 +25,8 @@ autocv_resources(inst_dir = "templates")
 }
 \seealso{
 Other data: 
-\code{\link{get_path_to}()}
+\code{\link{load_application_data}()},
+\code{\link{load_job_info}()},
+\code{\link{load_log}()}
 }
 \concept{data}

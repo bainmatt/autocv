@@ -1,8 +1,7 @@
-# library(fs)
-# library(cli)
-# library(rvest)
-# library(pagedown)
+# Download job postings from a supplied url.
 
+
+# TODO: ?add support for app dirs
 
 #' Save the text from a webpage url.
 #' 
@@ -23,40 +22,35 @@
 #' 
 #' unlink(fil)
 #' 
-#' @family report-utils
+#' @family report-dev
 #' @export
 download_webpage_txt <- function(
     url, 
     output_filepath = NA,
     output_dir = "input",
-    output_filename = "posting.txt"
+    output_filename = "posting.txt",
+    base_dir = "."
 ) {
   if (is.na(output_filepath)) {
     output_filepath <- file.path(get_path_to(output_dir), output_filename)
   }
   
-  if (fs::file_exists(output_filepath)) {
-    cli::cli_alert_warning(
-      paste0("'", fs::path_rel(output_filepath), "' already exists, skipping")
-    )
+  if (file.exists(output_filepath)) {
+    warn_file_exists(output_filepath, base_dir)
     return(invisible(FALSE))
     
   } else {
     fs::file_create(output_filepath)
-    cli::cli_alert_success(
-      paste("posting file created at", fs::path_rel(output_filepath))
-    )
+    alert_file_created(output_filepath, base_dir)
   }
   
   html <- rvest::read_html(url) %>% 
     rvest::html_text() %>% 
     writeLines(., output_filepath)
-  
-  cli::cli_alert_success(
-    paste0("writing posting to '", fs::path_rel(output_filepath), "'")
-  )
 }
 
+
+# TODO: probably deprecate this
 
 #' @rdname download_webpage_txt
 #' 

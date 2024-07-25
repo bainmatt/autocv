@@ -11,8 +11,10 @@ output:
 fontsize: 11pt
 geometry: margin=0.55in, bottom=0.5in, headsep=0.15in, footskip=0.15in
 params:
-  resume_data_filename: "resume_data.xlsx"
+  # resume_data_filename: "resume_data.xlsx"
   target: "app"
+  app_id: "latest"
+  app_period: "latest"
 ---
 
 ```{r setup, include=FALSE}
@@ -25,37 +27,43 @@ library(autocv)
 library(glue)
 library(dplyr)
 
-# Source helpers for dev
-# source('R/preprocess.R')
-# source('R/print_resume.R')
-
-# target <- "app"
+target     <- params$target
+app_id     <- params$app_id
+app_period <- params$app_period
 
 # Load data and preprocess
 position_data <- autocv::load_application_data(
   target = target,
   filename = "resume_data.xlsx",
   sheet = "entries",
-  skip = 1
+  # skip = 1
+  app_id = app_id,
+  app_period = app_period
 ) %>% autocv::preprocess_entries(., style = "latex", bullet_style = "-")
 
 skill_data <- autocv::load_application_data(
   target = target,
   filename = "resume_data.xlsx",
   sheet = "skills",
-  skip = 2
-) %>% autocv::sort_skills(.)
+  # skip = 2
+  app_id = app_id,
+  app_period = app_period
+) %>% autocv::sort_skills(., target = target)
 
 contact_data <- autocv::load_application_data(
   target = target,
   filename = "cover_data.xlsx",
-  sheet = "contact_info"
+  sheet = "contact_info",
+  app_id = app_id,
+  app_period = app_period
 ) %>% autocv::preprocess_contacts(., style = "latex")
 
 text_data <- autocv::load_application_data(
   target = target,
   filename = "cover_data.xlsx",
-  sheet = "text_blocks"
+  sheet = "text_blocks",
+  app_id = app_id,
+  app_period = app_period
 ) %>% autocv::preprocess_text()
 
 ```
@@ -108,26 +116,44 @@ skills_list <- autocv::build_skill_list(
 
 ```{r jobs}
 autocv::print_latex_section(
-  position_data, section_id = "work", short_entries = TRUE)
+  position_data, 
+  section_id = "work", 
+  short_entries = TRUE, 
+  target = target
+)
 ```
 
 ## \mysection{Education} \mysectionrule{}
 
 ```{r education}
 autocv::print_latex_section(
-  position_data, section_id = "education", short_entries = TRUE)
+  position_data, 
+  section_id = "education", 
+  short_entries = TRUE, 
+  target = target
+)
 ```
 
 ## \mysection{Certifications} \mysectionrule{}
 
 ```{r certificates}
-autocv::print_latex_section(position_data, section_id = "certifications")
+autocv::print_latex_section(
+  position_data,
+  section_id = "certifications",
+  short_entries = TRUE,
+  target = target
+)
 ```
 
 ## \mysection{Selected Projects} \mysectionrule{}
 
 ```{r projects}
-autocv::print_latex_section(position_data, section_id = "projects")
+autocv::print_latex_section(
+  position_data,
+  section_id = "projects",
+  short_entries = TRUE,
+  target = target
+)
 ```
 
 \label{LastPage}

@@ -1,45 +1,51 @@
-# Update the resume html and pdf file in one script
+# Generate and update html, pdf, and plain text cv/resume documents.
 
 library(dplyr)
 
-# source("R/paths.R")
-# source('R/plain.R')
-# source('R/preprocess.R')
+
+# CV ---------------------------------------------------------------------------
 
 
-# TODO: accept period, job_id as args to construct path to input/output, suffix
-
-
-#' @rdname render_resume
+#' Construct a curriculum vitae based on spreadsheet data.
 #' 
+#' @description
+#' `render_cv_as_html` constructs an informal HTML-format resume.
+#' 
+#' `render_cv_as_pdf` converts an HTML-format resume to PDF.
+#' 
+#' @family cli
 #' @export
 render_cv_as_html <- function(
     input_filename = "cv.Rmd",
-    data_filename = "resume_data.xlsx",
+    # data_filename = "resume_data.xlsx",
     output_basename = "cv",
     input_dir = "notebooks",
     data_dir = "input",
     output_dir = "output",
-    stylesheets = list("custom_resume.css", "styles_html.css")
+    stylesheets = list("custom_resume.css", "styles_html.css"),
+    show = FALSE
 ) {
   name <- load_job_info(field = "name")
-  suffix <- paste0("_", str_to_filename(name, separator = ""))
+  suffix <- paste0("_", str_to_filename(name, sep = ""))
   output_filename <- paste0(output_basename, suffix, ".html")
   
+  # Get paths
   input_filepath <- file.path(get_path_to(input_dir), input_filename)
   output_filepath <- file.path(get_path_to(output_dir), output_filename)
   
   custom_css <- sapply(
     stylesheets,
-    function(sheet) fs::path_package("autocv", "extdata", "css", sheet)
+    function(sheet) file.path(get_path_to("css"), sheet)
   )
-  css <- c(
-    custom_css, 
-    "resume",
+  css <- c(custom_css, "resume"
     # Source styles for dynamic development (comment out before build)
-    file.path(get_path_to("extdata"), "css/custom_resume.css"),
-    file.path(get_path_to("extdata"), "css/styles_html.css")
+    # file.path(get_path_to("extdata"), "css/custom_resume.css"),
+    # file.path(get_path_to("extdata"), "css/styles_html.css")
   )
+  
+  # Render
+  cli::cli_text("")
+  cli::cli_rule(cli::col_blue(paste0("Building ", output_filename)))
   
   rmarkdown::render(
     input = input_filepath,
@@ -47,20 +53,21 @@ render_cv_as_html <- function(
     output_options = list(css = css, self_contained = TRUE),
     params = list(
       doctype = "HTML", 
-      resume_data_filename = data_filename,
+      # resume_data_filename = data_filename,
       target = "base"
-    )
+    ),
+    quiet = TRUE
   )
-  fs::file_show(output_filepath)
+  if (show) { fs::file_show(output_filepath) }
 }
 
 
-#' @rdname render_resume
+#' @rdname render_cv_as_html
 #' 
 #' @export
 render_cv_as_pdf <- function(
     input_filename = "cv.Rmd",
-    data_filename = "resume_data.xlsx",
+    # data_filename = "resume_data.xlsx",
     output_basename = "cv",
     input_dir = "notebooks",
     data_dir = "input",
@@ -69,23 +76,25 @@ render_cv_as_pdf <- function(
 ) {
   # Prep
   name <- load_job_info("name")
-  suffix <- paste0("_", str_to_filename(name, separator = ""))
+  suffix <- paste0("_", str_to_filename(name, sep = ""))
   output_filename <- paste0(output_basename, suffix, ".pdf")
   
+  # Get paths
   input_filepath <- file.path(get_path_to(input_dir), input_filename)
   output_filepath <- file.path(get_path_to(output_dir), output_filename)
   
   custom_css <- sapply(
     stylesheets,
-    function(sheet) fs::path_package("autocv", "extdata", "css", sheet)
+    function(sheet) file.path(get_path_to("css"), sheet)
   )
-  css <- c(
-    custom_css, 
-    "resume",
+  css <- c(custom_css, "resume"
     # Source styles for dynamic development (comment out before build)
-    file.path(get_path_to("extdata"), "css/custom_resume.css"),
-    file.path(get_path_to("extdata"), "css/styles_pdf.css")
+    # file.path(get_path_to("extdata"), "css/custom_resume.css"),
+    # file.path(get_path_to("extdata"), "css/styles_pdf.css")
   )
+  
+  cli::cli_text("")
+  cli::cli_rule(cli::col_blue(paste0("Building ", output_filename)))
   
   # Knit the PDF version to a temporary html location
   tmp_html_cv_loc <- fs::file_temp(ext = ".html")
@@ -95,9 +104,10 @@ render_cv_as_pdf <- function(
     output_options = list(css = css, self_contained = TRUE),
     params = list(
       doctype = "PDF", 
-      resume_data_filename = data_filename,
+      # resume_data_filename = data_filename,
       target = "base"
-    )
+    ),
+    quiet = TRUE
   )
   
   # Convert to PDF using Pagedown
@@ -109,12 +119,10 @@ render_cv_as_pdf <- function(
 }
 
 
+# Resume -----------------------------------------------------------------------
+
+
 #' Construct a resume based on spreadsheet data.
-#' 
-#' @description
-#' `render_cv_as_html` constructs an informal HTML-format resume.
-#' 
-#' `render_cv_as_pdf` converts an HTML-format resume to PDF.
 #' 
 #' `render_resume` constructs a formal, ATS-compatible, LaTeX-style resume.
 #' 
@@ -124,63 +132,82 @@ render_cv_as_pdf <- function(
 #' @export
 render_resume <- function(
     target = c("app", "base"),
-    input_filename = "resume.Rmd",
-    data_filename = "resume_data.xlsx",
-    output_basename = "resume",
-    input_dir = "notebooks",
-    data_dir = "input",
-    output_dir = "output",
-    stylesheets = list("custom_resume.tex"),
     app_id = "latest",
     app_period = "latest",
-    app_dir = "applications"
+    stylesheets = list("custom_resume.tex"),
+    
+    # data_filename = "resume_data.xlsx",
+    input_filename = "resume.Rmd",
+    output_basename = "resume",
+    
+    app_dir = "applications",
+    input_dir = "notebooks",
+    data_dir = "input",
+    output_dir = "output"
 ) {
-  # Validate arguments
   target <- match.arg(target)
-  
-  # Ensure the following arguments are defined if loading tailored app
+
   if (target == "app") {
     assert_that(all(!is.na(c(app_id, app_period, app_dir))))
     
   } else if (target == "base") {
-    cli::cli_li("note: args 'app_id', 'app_period', 'app_dir' unused")
+    unused_args <- c('app_id', 'app_period', 'app_dir')
+    cli::cli_li(paste0("Unused argument: ", cli::col_blue(unused_args)))
   }
   
-  # Get path to application data
-  # if (target == "app") {
-  #   doc = fs::path_ext_remove(filename)
-  #   data_filepath <- get_app_path_to(
-  #     id = app_id, 
-  #     doc = doc, 
-  #     app_dir = app_dir, 
-  #     app_period = app_period
-  #   )
-  #   
-  # } else if (target == "base") {
-  #   data_filepath <- file.path(get_path_to(data_dir), filename)
-  # }
-  # 
-  
-  
-  
-  # Prep
-  name <- load_job_info("name")
-  suffix <- paste0("_", str_to_filename(name, separator = ""))
-  output_filename <- paste0(output_basename, suffix, ".pdf")
-  
-  input_filepath <- file.path(get_path_to(input_dir), input_filename)
-  output_filepath <- file.path(get_path_to(output_dir), output_filename)
+  # Get paths to application data and output files
+  if (target == "app") {
+    log <- load_log(app_period = app_period, app_dir = app_dir)
+    
+    # Validate app_id
+    ids <- get_valid_opts(log = log, arg = "id")
+    if (app_id != "latest") { app_id <- match.arg(app_id, ids) }
+
+    # Get app_df
+    app_df <- if (app_id == "latest") {
+      get_latest_entry(log = log)
+    } else {
+      log[log$id == app_id,]
+    }
+
+    input_filepath <- file.path(get_path_to(input_dir), input_filename)
+    output_filepath <- app_df$resume_path
+    base_dir <- app_df$app_path
+    
+  } else if (target == "base") {
+    name <- load_job_info("name")
+    suffix <- paste0("_", str_to_filename(name, sep = ""))
+    output_filename <- paste0(output_basename, suffix, ".pdf")
+    
+    input_filepath <- file.path(get_path_to(input_dir), input_filename)
+    output_filepath <- file.path(get_path_to(output_dir), output_filename)
+    base_dir <- "."
+  }
   
   
   
   
   custom_tex <- sapply(
     stylesheets,
-    function(sheet) fs::path_package("autocv", "extdata", "latex", sheet)
+    function(sheet) file.path(get_path_to("latex"), sheet)
   )
-  # Source styles for dynamic development (comment out before build)
-  custom_tex <- file.path(get_path_to("extdata"), "latex/custom_resume.tex")
   
+  # Source styles for dynamic development (comment out before build)
+  custom_tex <- file.path(get_path_to("latex"), "custom_resume.tex")
+  
+  # Issue alerts
+  cli::cli_text("")
+  cli::cli_rule(cli::col_blue(paste0("Building ", output_basename, ".pdf")))
+  # alert_writing_to(base_dir)
+  
+  if (file.exists(output_filepath)) {
+    warn_file_exists(output_filepath, base_dir, action = "overwriting")
+  } else {
+    alert_file_created(output_filepath, base_dir)
+  }
+  if (target == "app") { update_datestamp(app_id = app_id) }
+  
+  # Render
   rmarkdown::render(
     input = input_filepath,
     output_file = output_filepath,
@@ -190,61 +217,300 @@ render_resume <- function(
       includes = list(in_header = custom_tex)
     ),
     params = list(
-      resume_data_filename = data_filename,
-      target = target
-    )
-  )  
+      # resume_data_filename = data_filename,
+      target = target,
+      app_id = app_id,
+      app_period = app_period
+    ),
+    quiet = TRUE
+  )
   fs::file_show(output_filepath)
 }
 
 
 #' @rdname render_resume
 #' 
+#' @examples
+#' # TODO: just use templates & base
+#'
 #' @export
 render_resume_plain <- function(
     target = c("app", "base"),
-    input_filename = "plain.Rmd",
-    data_filename = "resume_data.xlsx",
+    app_id = "latest",
+    app_period = "latest",
+    
+    # data_filename = "resume_data.xlsx",
     output_basename = "resume",
-    input_dir = "notebooks",
+    
+    app_dir = "applications",
     data_dir = "input",
     output_dir = "output"
 ) {
-  # Prep
-  name <- load_job_info("name")
-  suffix <- paste0("_", str_to_filename(name, separator = ""))
-  output_filename <- paste0(output_basename, suffix, ".txt")
+  target <- match.arg(target)
   
-  input_filepath <- file.path(get_path_to(input_dir), input_filename)
-  output_filepath <- file.path(get_path_to(output_dir), output_filename)
-  # output_filepath <- file.path(get_path_to("output"), "resume_matthewbain.txt")
+  # Get paths to application data and output files
+  if (target == "app") {
+    log <- load_log(app_period = app_period, app_dir = app_dir)
+    
+    app_df <- if (app_id == "latest") {
+      get_latest_entry(log = log)
+    } else {
+      log[log$id == app_id,]
+    }
+    output_filepath <- app_df$resume_plain_path
+    base_dir <- app_df$app_path
+    
+  } else if (target == "base") {
+    name <- load_job_info("name")
+    suffix <- paste0("_", str_to_filename(name, sep = ""))
+    output_filename <- paste0(output_basename, suffix, ".txt")
+    output_filepath <- file.path(get_path_to(output_dir), output_filename)
+    base_dir <- "."
+  }
   
+  # Issue alerts
+  cli::cli_text("")
+  cli::cli_rule(cli::col_blue(paste0("Building ", output_basename, ".txt")))
+  # alert_writing_to(base_dir)
   
+  if (file.exists(output_filepath)) {
+    warn_file_exists(output_filepath, base_dir, action = "overwriting")
+  } else {
+    alert_file_created(output_filepath, base_dir)
+  }
   
-  position_data <- load_application_data(
+  # Render
+  resume_text <- print_resume_plain(
     target = target,
-    filename = "resume_data.xlsx",
-    sheet = "entries",
-    skip = 1
-  ) %>% preprocess_entries(., style = "txt")
-  
-  output_text <- print_txt_section(position_data = position_data)
-  
-  writeLines(output_text, output_filepath)
-  # cat(paste("Output created:", output_filepath, "\n"))
-  cat(sprintf("\033[35mOutput created: %s\n\033[0m", output_filepath))
-  
+    app_id = app_id,
+    app_period = app_period
+  )
+  writeLines(resume_text, output_filepath)
   fs::file_show(output_filepath)
 }
 
 
-#' Run each resume/CV rendering option in sequence. 
+# Cover ------------------------------------------------------------------------
+
+
+#' Construct a cover letter based on spreadsheet data.
+#'
+#' @description
+#' `render_cover` constructs a formal, LaTeX-style resume.
+#' 
+#' `render_cover_plain` constructs a plain text cover letter for simplicity.
 #'
 #' @family cli
 #' @export
-render_all <- function() {
+render_cover <- function(
+    app_id = "latest",
+    app_period = "latest",
+    use_bullets = TRUE,
+    bullet_style = c("-", "+"),
+    
+    stylesheets = list("custom_cover.tex"),
+    # data_filename = "cover_data.xlsx",
+    input_filename = "cover.Rmd",
+    output_basename = "cover",
+    
+    app_dir = "applications",
+    input_dir = "notebooks",
+    data_dir = "input",
+    output_dir = "output"
+) {
+  # Load application data
+  log <- load_log(app_period = app_period, app_dir = app_dir)
+  if (app_id == "latest") {
+    app_df <- get_latest_entry(log = log)
+    app_id <- app_df$id
+  } else {
+    app_df <- log[log$id == app_id,]
+  }
+    
+  # Get metadata and paths
+  company         <- app_df$company
+  position        <- app_df$position
+
+  input_filepath  <- file.path(get_path_to(input_dir), input_filename)
+  output_filepath <- app_df$cover_path
+  base_dir        <- app_df$app_path
+  
+  custom_tex <- sapply(
+    stylesheets,
+    function(sheet) file.path(get_path_to("latex"), sheet)
+  )
+  
+  # Issue alerts
+  cli::cli_text("")
+  cli::cli_rule(cli::col_blue(paste0("Building ", output_basename, ".pdf")))
+  # alert_writing_to(base_dir)
+  
+  if (file.exists(output_filepath)) {
+    warn_file_exists(output_filepath, base_dir, action = "overwriting")
+    # update_datestamp(app_id = app_id)
+  } else {
+    alert_file_created(output_filepath, base_dir)
+  }
+  
+  # Render
+  rmarkdown::render(
+    input = input_filepath,
+    output_file = output_filepath,
+    output_options = list(
+      latex_engine = "xelatex",
+      keep_tex = FALSE,
+      includes = list(in_header = custom_tex)
+    ),
+    params = list(
+      # cover_data_filename = data_filename,
+      position = position,
+      company = company,
+      use_bullets = use_bullets,
+      app_id = app_id,
+      app_period = app_period
+    ),
+    quiet = TRUE
+  )
+  fs::file_show(output_filepath)
+}
+
+
+#' @rdname render_cover
+#'
+#' @export
+render_cover_plain <- function(
+    app_id = "latest",
+    app_period = "latest",
+    use_bullets = TRUE,
+    bullet_style = c("-", "+"),
+    type = c("cover", "email"),
+    
+    # data_filename = "cover_data.xlsx",
+    # output_basename = "cover",
+    
+    app_dir = "applications",
+    data_dir = "input",
+    output_dir = "output"
+) {
+  type <- match.arg(type)
+  output_basename <- type
+  
+  # Load application data
+  log <- load_log(app_period = app_period, app_dir = app_dir)
+  if (app_id == "latest") {
+    app_df <- get_latest_entry(log = log)
+    app_id <- app_df$id
+  } else {
+    app_df <- log[log$id == app_id,]
+  }
+  
+  # Get metadata and paths
+  company         <- app_df$company
+  position        <- app_df$position
+  base_dir        <- app_df$app_path
+  
+  output_filepath <- switch(
+    type,
+    cover = app_df$cover_plain_path,
+    email = app_df$email_path
+  )
+  
+  # Issue alerts
+  cli::cli_text("")
+  cli::cli_rule(cli::col_blue(paste0("Building ", output_basename, ".txt")))
+  # alert_writing_to(base_dir)
+  
+  if (file.exists(output_filepath)) {
+    warn_file_exists(output_filepath, base_dir, action = "overwriting")
+  } else {
+    alert_file_created(output_filepath, base_dir)
+  }
+  
+  # Render
+  cover_text <- print_cover_plain(
+    position = position,
+    company = company,
+    app_id = app_id,
+    app_period = app_period,
+    use_bullets = use_bullets,
+    bullet_style = bullet_style,
+    type = type
+  )
+  
+  # output_filepath <- paste0(fs::path_ext_remove(output_filepath), ".txt")
+  
+  writeLines(cover_text, output_filepath)
+  fs::file_show(output_filepath)
+}
+
+
+# Compose ----------------------------------------------------------------------
+
+
+# TODO: put load_log() call in these functions and pass log unless base
+# TODO: add option for particular rendering option
+
+#' Run each resume/CV rendering option in sequence. 
+#' 
+#' @description
+#' `render_app` builds a pdf and plain text resume for a given application.
+#' 
+#' `render_base` builds an html CV, pdf and plain text resume from base data.
+#'
+#' @family cli
+#' @export
+render_app <- function(
+    app_id = "latest", 
+    app_period = "latest",
+    cover = TRUE,
+    email = TRUE,
+    use_bullets = TRUE
+) {
+  if (email) {
+    render_cover_plain(
+      app_id = app_id,
+      app_period = app_period,
+      use_bullets = FALSE,
+      bullet_style = "+",
+      type = "email"
+    )
+  }
+  
+  if (cover) {
+    render_cover_plain(
+      app_id = app_id, 
+      app_period = app_period,
+      use_bullets = use_bullets,
+      bullet_style = "+"
+    )
+    render_cover(
+      app_id = app_id, 
+      app_period = app_period, 
+      use_bullets = use_bullets,
+      bullet_style = "-"
+    )
+  }
+  
+  render_resume_plain(
+    target = "app", 
+    app_id = app_id, 
+    app_period = app_period
+  )
+  render_resume(
+    target = "app", 
+    app_id = app_id, 
+    app_period = app_period
+  )
+}
+
+
+#' @rdname render_app
+#'
+#' @export
+render_base <- function() {
   render_cv_as_html()
-  # render_cv_as_pdf()
-  render_resume()
-  render_resume_plain()
+  render_resume_plain(target = "base")
+  render_resume(target = "base")
+  # render_cover(use_bullets = FALSE)
+  # render_cover_plain(use_bullets = FALSE)
 }

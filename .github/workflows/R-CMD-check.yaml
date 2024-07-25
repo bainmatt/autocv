@@ -20,11 +20,14 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
-          # - {os: windows-latest, r: 'release'}
+          - {os: macos-latest,    r: 'release'}
+          # NOTE: Temporarily bypass other environments due to LaTeX
+          # fontspec incompatibility associated with Helvetica Nueue.
+          # 
+          # - {os: windows-latest,  r: 'release'}
           # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
+          # - {os: ubuntu-latest,   r: 'release'}
+          # - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -41,10 +44,29 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      # Installs packages declared in DESCRIPTION
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: any::rcmdcheck, here
           needs: check
+
+      # - name: Install renv
+      #   run: |
+      #     R -e 'install.packages("renv")'
+      #     R -e 'renv::restore()'
+
+      # Runs environment status check to diagnose any issues
+      - name: Check renv status
+        run: |
+          R -e 'renv::status()'
+
+      # Sets up LaTeX with tinytex (for running latex-rendering examples)
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: pre-release
+          tinytex: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: r-lib/actions/check-r-package@v2
         # NOTE: The following 2 lines prevent failure on warnings

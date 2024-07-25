@@ -2,24 +2,29 @@
 % Please edit documentation in R/build.R
 \name{load_job_info}
 \alias{load_job_info}
-\title{Read user-defined metadata for the present job from a config file.}
+\title{Read user-defined metadata for the present job.}
 \usage{
-load_job_info(field = "all", filename = "job_metadata.yml", dir = "input")
+load_job_info(
+  field = "all",
+  filename = "job_metadata.yml",
+  dir = "input",
+  open = FALSE
+)
 }
 \value{
-A nested named list of strings with user-specified job details
+A nested named list of strings with user-specified job details.
 }
 \description{
-Read user-defined metadata for the present job from a config file.
+Read user-defined metadata for the present job.
+}
+\examples{
+load_job_info(filename = "template_job_metadata.yml", dir = "templates")
+
 }
 \seealso{
-Other cli-utils: 
-\code{\link{construct_app_filepath}()},
-\code{\link{construct_app_metadata}()},
-\code{\link{load_log}()},
-\code{\link{str_to_filename}()},
-\code{\link{validate_id}()},
-\code{\link{write_app_metadata}()},
-\code{\link{write_log_entry}()}
+Other data: 
+\code{\link{autocv_resources}()},
+\code{\link{load_application_data}()},
+\code{\link{load_log}()}
 }
-\concept{cli-utils}
+\concept{data}

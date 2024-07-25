@@ -77,6 +77,10 @@ Probability Theory
 Statistical Modeling
 Statistical Analysis
 Experimental Design
+Experiment Design
+Scientific Experiments
+Experimentation
+Experiments
 Bayesian Statistics
 Time Series Analysis
 Survival Analysis
@@ -471,6 +475,7 @@ TDD
 Test-Driven Development
 BDD
 Behavior-Driven Development
+Behaviour-Driven Development
 
 Design Patterns
 OOP
@@ -622,8 +627,10 @@ Causal Inference
 Graph Theory
 Deep Learning Libraries
 Deep Learning Frameworks
+Deep Learning Packages
 Machine Learning Libraries
 Machine Learning Frameworks
+Machine Learning Packages
 Analytic Frameworks
 Policy Analysis
 Hugging Face
@@ -631,9 +638,20 @@ LLMs
 Large Language Models
 Language Modeling
 Customer Analytics
+Consumer Analytics
+Consumer Lifecycle
+Data Lifecycle
+Machine Learning Lifecycle
+ML Lifecycle
+Model Lifecycle
 People Analytics
 Pricing Analytics
 Pricing Optimization
+Cost Optimization
+Revenue Optimization
+Product Optimization
+Marketing Optimization
+Supply Chain Optimization
 Dynamic Pricing
 Customer Management
 Team Management
@@ -645,6 +663,8 @@ MLFlow
 Dashboarding
 Dashboards
 KPIs
+KPI
+KPI Design
 Key Performance Indicators
 Advanced Analytics
 Models
@@ -658,6 +678,7 @@ Model Pipelines
 Signal Processing
 ANCOVA
 A/B Testing
+AB Testing
 Graph Analytics
 Network Analysis
 Matrix Calculus
@@ -713,6 +734,7 @@ Exploratory Analysis
 Exploratory Data Analysis
 EDA
 Data Exploration
+Data Extraction
 Data Analysis
 Data Science
 Business Analytics
@@ -802,6 +824,8 @@ Decision Theory
 Model Evaluation
 Model Training
 Metrics
+Business Metrics
+Consumer Metrics
 Automation
 Mathematical Optimization
 Entity-Relationship Diagrams
@@ -890,6 +914,9 @@ Predictive Analytics
 Multiple Regression
 Multivariate Analysis
 Multivariate Models
+Multivariate Analytics
+Multivariate Experiments
+Multivariate
 AI
 Statistical Learning
 Learning Theory
@@ -923,9 +950,12 @@ Data-Driven Decision-Making
 Data Drivers
 Data-Driven Decisions
 Data-Driven
+Business Decisions
+Business Decision-Making
 Data Mining
 Data-Driven Insights
 Insights
+Actionable Insights
 Customer Insights
 Risk Analysis
 Collaborative Attitude
@@ -942,6 +972,7 @@ Stock Analysis
 Sales Analysis
 Sales Analytics
 Operations Analytics
+Investment Analytics
 Inventory Analysis
 Inventory Analytics
 Supply Chain Analytics
@@ -952,6 +983,7 @@ Supply Chain
 Inventory Management
 Agriculture
 Probability Distributions
+Distributions
 Product Management
 Product Managers
 Product Analytics
@@ -969,10 +1001,20 @@ UI
 User Experience/User Interface
 User Experience
 User Interface
+User Engagement and Retention
+User Engagement
+User Retention
+User Engagement Metrics
+User Retention Metrics
+User Engagement Analytics
+User Retention Analytics
+Engagement Trends
 Interface Design
 Application Programming Interface
 MS Office
+MS Office Suite
 Microsoft Office
+Microsoft Office Suite
 Data Strategy
 Non-Technical Audiences
 Developers
@@ -991,6 +1033,8 @@ Cross-Functional
 Applied Mathematics
 Applied Math
 Applied Statistics
+Applied Stats
+Applied Analytics
 Econometrics
 Economics
 Self-Driving Vehicles
@@ -998,6 +1042,7 @@ Automated Vehicles
 Self-Driving Cars
 Self-Driving
 Leadership Skills
+Leadership
 BI Reports
 BI Reporting
 Reports
@@ -1009,6 +1054,7 @@ Unit-Testing
 Text Analysis
 Text Standardization
 Data Infrastructure
+Analytical Infrastructure
 IoT
 Internet of Things
 Implementation
@@ -1120,3 +1166,49 @@ Population Dynamics
 Population Modeling
 Population Models
 Splines
+Behavioural Analytics
+Behavioural Analysis
+Behavioral Analytics
+Behavioral Analysis
+Behaviour Analytics
+Behaviour Analysis
+Behavior Analytics
+Behavior Analysis
+Behavioural Trends
+Behavioral Trends
+Digital Analytics
+Digital Campaigns
+Monetization Analytics
+Propensity Models
+Propensity Modeling
+Consulting
+Business Strategy
+Statistical Packages
+Statistical Libraries
+Analytical Techniques
+Analytical Thinking
+Analytical Skills
+Analytical
+Identity and Access Management (IAM)
+Identity and Access Management
+Identity Management
+Access Management
+IAM
+Data Quality Metrics
+Information Security
+Process-Oriented
+Goal-Oriented
+User Access Control
+Access Control
+User Access Analysis
+Macros
+Control Frameworks
+Infrastructure Platforms
+Probability
+Algorithms
+End-to-End Analysis
+End-to-End
+Agile
+Healthcare Informatics
+Unstructured Data
+Unstructured Datasets

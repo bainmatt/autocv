@@ -4,15 +4,15 @@
 \alias{sort_skills}
 \title{Sort skills.}
 \usage{
-sort_skills(skill_data)
+sort_skills(skill_data, target = c("app", "base"))
 }
 \description{
 Sort skills.
 }
 \seealso{
-Other prepare-utils: 
+Other prepare-dev: 
 \code{\link{append_skills_to_bullets}()},
 \code{\link{make_markdown_contacts}()},
 \code{\link{omit_hidden_fields}()}
 }
-\concept{prepare-utils}
+\concept{prepare-dev}

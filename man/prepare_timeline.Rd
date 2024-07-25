@@ -4,7 +4,11 @@
 \alias{prepare_timeline}
 \title{Prepare dates.}
 \usage{
-prepare_timeline(data, order = c("chronological", "reversed"))
+prepare_timeline(
+  data,
+  order = c("chronological", "reversed"),
+  style = c("markdown", "latex", "txt")
+)
 }
 \arguments{
 \item{data}{A spreadsheet containing position data.}

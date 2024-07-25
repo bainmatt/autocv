@@ -25,6 +25,7 @@
 
 ^cv\.Rmd$
 ^resume\.Rmd$
+^cover\.Rmd$
 
 ^archive$
 ^resources$

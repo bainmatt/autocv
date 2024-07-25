@@ -25,9 +25,9 @@ make_txt_contacts(contact_data)
 \code{make_txt_contacts} prepares an individual plain text entry.
 }
 \seealso{
-Other prepare-utils: 
+Other prepare-dev: 
 \code{\link{append_skills_to_bullets}()},
 \code{\link{omit_hidden_fields}()},
 \code{\link{sort_skills}()}
 }
-\concept{prepare-utils}
+\concept{prepare-dev}

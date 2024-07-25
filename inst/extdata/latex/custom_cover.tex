@@ -1,0 +1,39 @@
+% Remove page numbers
+\pagenumbering{gobble}
+
+% Set font (Helvetica Neue, Avenir, Gill Sans)
+\usepackage{fontspec}
+\setmainfont{Helvetica Neue}
+
+% Custom text colours
+\usepackage{xcolor}
+\definecolor{myblue}{RGB}{0, 76, 153}
+% \definecolor{mylinkblue}{RGB}{36, 86, 129}
+\definecolor{mygreen}{RGB}{0, 115, 76}
+
+% Ensure text is left aligned
+\raggedright
+
+% Custom macros ----------------------------------------------------------------
+
+% Custom hyperlink formatting
+\usepackage[normalem]{ulem}
+\newcommand{\myhref}[2]{\href{#1}{\textcolor{blue}{\uline{#2}}}}
+
+% Custom width-spanning horizontal rules
+\newcommand{\mysectionrule}{%
+  \color{black}
+  \leaders\hbox{\rule[0.5ex]{0.5pt}{0.4pt}}\hfill
+}
+
+% Custom title
+% Arg1 : font size, Arg2 : text
+\newcommand{\myname}[2][16pt]{%
+  \textbf{\fontsize{#1}{#1}\selectfont\color{myblue}{#2}} \hfill
+}
+
+% Custom subtitle (within level 2 markdown header environment)
+\newcommand{\myrole}[1]{\vspace{-10pt}\color{myblue}{#1}}
+
+% Custom section headers (within level 2 markdown header environment)
+\newcommand{\mysection}[1]{\vspace{-10pt}\color{mygreen}{#1}}

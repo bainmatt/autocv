@@ -63,14 +63,41 @@ build_skill_table <- function(skill_data) {
 #' @export
 print_latex_section <- function(
     position_data, 
-    section_id, 
-    short_entries = FALSE
+    section_id = c(
+      "work", "education", "certifications", "projects", 
+      "writing", "publications", "volunteering", "additional_info"
+    ),
+    short_entries = FALSE,
+    target = c("app", "base"),
+    padding = 1
 ) {
+  section_id <- match.arg(section_id)
+  target     <- match.arg(target)
+  
+  # Filter
   position_data <- position_data %>% 
-    filter(.data$section == section_id & .data$include == "x") %>%
+    filter(
+      .data$section == section_id & 
+        (
+          (target == "app" & .data$include == "x") |
+          (target == "base" & .data$in_base == "x")
+        )
+    )
+  # if (target == "app") {
+  #   position_data <- position_data %>% 
+  #     filter(.data$section == section_id & .data$include == "x")
+  #   
+  # } else if (target == "base") {
+  #   position_data <- position_data %>% 
+  #     filter(.data$section == section_id & .data$in_base == "x")
+  # }
+  
+  # Construct
+  position_data <- position_data %>% 
+    # filter(.data$section == section_id & .data$include == "x") %>%
     mutate(
-      # Handle entry elements
-      # TODO put this in prep function along w/ markdown (prepare NA fields)
+      # Handle missing entry elements
+      # TODO: put in prep func along w/ md (prepare NA fields) (OR .na = TRUE!)
       dates = if_else(
         !is.na(.data$timeline), glue("\\textit{{{timeline}}}"), ""
       ),
@@ -86,41 +113,61 @@ print_latex_section <- function(
       link = if_else(
         !is.na(.data$formatted_link), glue("{formatted_link}"), ""
       ),
+      
       # Handle spacing around entry elements
-      # TODO /?OR pad/format as latex macros called in one func (prep format)
-      # TODO put in prep func, args txt size/scale/short entries (prep padding)
+      # TODO: put in prep func, args txt size/scale/short entries (prep_padding)
       row_id = row_number(),
-      no_inst_or_loc = (.data$inst == "" & .data$loc == ""),
+      no_inst = .data$inst == "",
+      no_loc = .data$loc == "",
+      no_inst_or_loc = (.data$no_inst & .data$no_loc),
       no_bullets = grepl("^\\s*$", .data$bullets),
-      entry_prepadding = ifelse(
-        .data$row_id != min(.data$row_id), "\\vspace{3pt}", "\\vspace{-3pt}"
+      no_link = .data$link == "",
+      
+      short_entry_comma_1 = if_else(.data$no_inst, "", ", "),
+      short_entry_comma_2 = if_else(.data$no_loc, "", ", "),
+      short_entry_comma_3 = if_else(.data$no_link, "", ", "),
+      
+      entry_prepadding = if_else(
+        .data$row_id != min(.data$row_id), 
+        "\\vspace{3pt}",
+        "\\vspace{-3pt}"
       ),
       bullets_prepadding = if_else(
-        .data$no_inst_or_loc, "\\vspace{-15pt}\n\n", "\n\n"
+        .data$no_inst_or_loc,
+        "\\vspace{-15pt}\n\n",
+        "\n\n"
       ),
-      entry_postpadding = ifelse(
+      entry_postpadding = if_else(
         .data$no_bullets & .data$row_id != max(.data$row_id), 
-        "\\vspace{-9pt}\n\n", "\n\n"
+        "\\vspace{-9pt}\n\n",
+        "\n\n"
       ),
+      
       # Concatenate
       latex_output = case_when(
         short_entries == TRUE ~ glue(
           "{entry_prepadding}",
           # Underline work entries
-          # TODO put in prep func with args underline/ital above (format title)
+          # TODO: put in prep func with args underline/ital above (format title)
           ifelse(
             section_id == "work",
-            "**\\uline{{{title}}}**{link}, ",
-            "**{title}**{link}, "
+            "**\\uline{{{title}}}**",
+            "**{title}**"
           ),
-          "{inst}, ",
+          "{link}",
+          "{short_entry_comma_1}",
+          "{inst}",
+          "{short_entry_comma_2}",
           "{loc}",
+          # "{short_entry_comma_3}",
+          # "{link}",
           "\\hfill{dates}",
           "\\newline\n",
           "\\vspace{{-15pt}}\n\n",
           "{bullets}",
           "{entry_postpadding}"
         ),
+        
         short_entries == FALSE ~ glue(
           "{entry_prepadding}",
           # Underline work entries

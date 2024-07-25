@@ -10,9 +10,9 @@ omit_hidden_fields(data, style = "markdown", prefix = "/")
 Omit spreadsheet entries beginning with a preset prefix.
 }
 \seealso{
-Other prepare-utils: 
+Other prepare-dev: 
 \code{\link{append_skills_to_bullets}()},
 \code{\link{make_markdown_contacts}()},
 \code{\link{sort_skills}()}
 }
-\concept{prepare-utils}
+\concept{prepare-dev}

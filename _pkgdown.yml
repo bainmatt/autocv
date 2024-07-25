@@ -37,48 +37,53 @@ figures:
   other.parameters: []
 
 reference:
-- title: Preprocess resume data
-  desc: Prepare the data before printing the resume.
+# TODO: make titles build/edit/render/report/review (cli-bld/edit/rend/rep/rev)
+- title: The essentials
+  desc: Helpers for an efficient, end-to-end command line workflow.
+- contents:
+  - has_concept("cli")
+
+- title: For fine-grained control
+  desc: Finer control over data preparation, rendering, and keyword checks.
+  
 - subtitle: Prepare
+  desc: Fine-grained control over spreadsheet data preparation.
 - contents:
   - has_concept("prepare")
-- subtitle: Pipeline
-- contents:
   - has_concept("pipeline")
-- subtitle: Utilities
-- contents:
-  - has_concept("prepare-utils")
-  - has_concept("pipeline-utils")
 
-- title: Build the resume
-  desc: Print resume sections to the output file.
-- subtitle: Build skill sections
+- subtitle: Build
+  desc: Construct and print resume sections to the output file.
 - contents:
   - has_concept("build")
-- subtitle: Build text sections
-- contents:
   - has_concept("print")
-  - has_concept("print-utils")
 
-- title: Generate skill reports
-  desc: Assess key words in your resume relative to a term bank or job posting.
-- subtitle: Generate
+- subtitle: Check
+  desc: Cross-check resume keywords with those in a term bank or job posting.
 - contents:
   - has_concept("report")
-- subtitle: Utilities
-  contents:
-  - has_concept("report-utils")
 
-- title: Data handling
-  desc: Helpers for finding and loading built-in template datasets.
+- subtitle: Data handling
+  desc: Helpers for finding and loading built-in datasets and templates.
 - contents:
   - has_concept("data")
 
-- title: CLI
-  desc: Command Line Interface helpers.
-- subtitle: Interface
+- title: For developers
+  desc: Additional development tools and convenience functions.
+- subtitle: Prepare
 - contents:
-  - has_concept("cli")
-- subtitle: Helpers
+  - has_concept("prepare-dev")
+- subtitle: Build
 - contents:
-  - has_concept("cli-utils")
+  - has_concept("build-dev")
+- subtitle: Check
+- contents:
+  # TODO: probably change 'report' to 'check'
+  - has_concept("report-dev")
+- subtitle: I/O
+- contents:
+  - has_concept("data-dev")
+- subtitle: CLI
+- contents:
+  # TODO: probably change to just 'cli'
+  - has_concept("cli-dev")

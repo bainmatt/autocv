@@ -10,9 +10,9 @@ append_skills_to_bullets(data, ix)
 Append skills to a description field with matching index.
 }
 \seealso{
-Other prepare-utils: 
+Other prepare-dev: 
 \code{\link{make_markdown_contacts}()},
 \code{\link{omit_hidden_fields}()},
 \code{\link{sort_skills}()}
 }
-\concept{prepare-utils}
+\concept{prepare-dev}

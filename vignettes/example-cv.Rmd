@@ -286,7 +286,7 @@ Then we print the content:
 ----
 
 ```{r jobs}
-autocv::print_section(position_data, 'work')
+autocv::print_section(position_data, "work", target = "app")
 ```
 
 ----
@@ -310,7 +310,7 @@ Then we print the content:
 ----
 
 ```{r education}
-autocv::print_section(position_data, 'education')
+autocv::print_section(position_data, "education", target = "app")
 ```
 
 ----
@@ -334,7 +334,7 @@ Then we print the content:
 ----
 
 ```{r certificates}
-autocv::print_section(position_data, 'certifications')
+autocv::print_section(position_data, "certifications", target = "app")
 ```
 
 ----
@@ -358,7 +358,7 @@ Then we print the content:
 ----
 
 ```{r projects}
-autocv::print_section(position_data, 'projects')
+autocv::print_section(position_data, "projects", target = "app")
 ```
 
 ----

@@ -1,69 +1,85 @@
 # Build plain text resume file using data in spreadsheets
 
+library(glue)
 library(dplyr)
-
-# TODO: remove extraneous imports
-# library(tibble)
-# library(stringr)
 
 
 #' Print sections of a plain text resume.
 #' 
 #' @family print
 #' @export
-print_txt_section <- function(position_data) {
-  included_data <- position_data %>%
-    filter(.data$include == "x") %>%
-    # Format and sort data by start date in descending order
-    mutate(
-      start = convert_date_(.data$start),
-      end = convert_date_(.data$end)
-    ) %>%
-    arrange(desc(.data$start))
+print_txt_section <- function(
+    position_data, 
+    section_id = c(
+      "work", "education", "certifications", "projects", 
+      "writing", "publications", "volunteering", "additional_info"
+    ),
+    target = c("app", "base")
+) {
+  section_id <- match.arg(section_id)
+  target     <- match.arg(target)
   
-  # Iterate over each row and construct output text
-  output_text <- ""
-  for (i in 1:nrow(included_data)) {
-    row <- included_data[i, ]
-    section <- row$section
-    
-    # Construct row text
-    row_text <- paste(
-      row$start, "-", row$end, "\n",
-      row$institution, " - ", row$loc, "\n",
-      row$title,
-      ifelse(is.na(row$description_1), "", "\n\n+ "),
-      paste(na.omit(
-        c(
-          row$description_1, 
-          row$description_2, 
-          row$description_3, 
-          row$description_4, 
-          row$description_5)
-        ), 
-        collapse = "\n+ "), "\n\n",
-      sep = ""
+  # Filter
+  position_data <- position_data %>% 
+    filter(
+      .data$section == section_id & 
+        (
+          (target == "app" & .data$include == "x") |
+          (target == "base" & .data$in_base == "x")
+        )
     )
-    
-    # Append row text to output, adding section header if necessary
-    # FIXME: streamline this
-    if (i == 1 || section != included_data[i - 1, "section"]) {
-      output_text <- paste(
-        output_text,
+  
+  # Construct
+  position_data <- position_data %>%
+    # filter(.data$section == section_id & .data$include == "x") %>%
+    mutate(
+      # Format locations
+      loc = if_else(is.na(.data$loc), "", glue(" - {loc}")),
+      # loc = if_else(is.na(.data$loc), "", glue(" - {loc}", "\n\n")),
+
+      # Remove additional newlines around entry elements lacking descriptions
+      # TODO: put in prep func (prep_padding)
+      no_inst_or_loc = (is.na(.data$institution) & is.na(.data$loc)),
+      no_bullets = grepl("^\\s+$", .data$description_bullets),
+      bullets_prepadding = if_else(.data$no_inst_or_loc, "", "\n\n"),
+      entry_postpadding = ifelse(.data$no_bullets, "", "\n\n"),
+      
+      # Print
+      txt_output = glue::glue(
+        "{timeline}",
         "\n",
-        toupper(section), 
-        "\n\n==============================\n\n", sep = ""
+        "{institution}{loc}",
+        "\n",
+        "{title}{formatted_link}",
+        "{bullets_prepadding}",
+        "{description_bullets}",
+        "{entry_postpadding}",
+        .na = "",
+        .trim = TRUE
       )
-    }
-    output_text <- paste(output_text, row_text, sep = "")
-  }
-  return(output_text)
+    )
+  return(glue::glue_collapse(position_data$txt_output))
 }
 
 
-# Helper function to convert date format
-convert_date_ <- function(date_str) {
-  ifelse(is.na(date_str), "Present", format(as.Date(date_str), "%b %Y"))
+#' Print a formatted plain text resume header.
+#' 
+#' @examples
+#' print_txt_header("this is my header")
+#'
+#' @family print
+#' @export
+print_txt_header <- function(header) {
+  n_char <- stringr::str_length(header)
+  
+  formatted_header <- glue::glue(
+    "\n\n\n\n",
+    "{stringr::str_to_upper(header)}",
+    "\n\n",
+    "{strrep('=', n_char)}",
+    "\n\n\n"
+  )
+  return(formatted_header)
 }
 
 
@@ -71,5 +87,5 @@ convert_date_ <- function(date_str) {
 #   filename = "resume_data.xlsx",
 #   sheet = "entries",
 #   skip = 1
-# ) %>% preprocess_entries(., style = "latex", bullet_style = "-")
-# print_latex_section(position_data, "work")
+# ) %>% preprocess_entries(., style = "txt", bullet_style = "+")
+# print_txt_section(position_data, "work")
