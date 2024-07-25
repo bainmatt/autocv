@@ -13,6 +13,7 @@ library(dplyr)
 #' 
 #' `render_cv_as_pdf` converts an HTML-format resume to PDF.
 #' 
+#' @family cli
 #' @export
 render_cv_as_html <- function(
     input_filename = "cv.Rmd",
