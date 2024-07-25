@@ -43,10 +43,10 @@ jobs:
 
       # TODO: fix this to align with rlock (below; AND/OR run autocv-package.R)
       # Installs packages declared in DESCRIPTION
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
+      # - uses: r-lib/actions/setup-r-dependencies@v2
+      #   with:
+      #     extra-packages: any::rcmdcheck
+      #     needs: check
 
 
 
