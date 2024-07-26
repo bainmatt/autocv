@@ -26,13 +26,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Sets up LaTeX with tinytex
-      # - uses: quarto-dev/quarto-actions/setup@v2
-      #   with:
-      #     version: pre-release
-      #     tinytex: true
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Sets up LaTeX with tinytex (for running latex-rendering examples)
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: pre-release
+          tinytex: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Sets up pandoc
       - uses: r-lib/actions/setup-pandoc@v2
