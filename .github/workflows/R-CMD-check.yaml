@@ -50,6 +50,9 @@ jobs:
           extra-packages: any::rcmdcheck, here
           needs: check
 
+      # NOTE: Use the task below instead of the task above to avoid
+      # raising any forward compatibility issues on push
+      # (or comment out to check forward compatiblity on push).
       # - name: Install renv
       #   run: |
       #     R -e 'install.packages("renv")'
