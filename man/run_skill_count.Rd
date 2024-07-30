@@ -3,6 +3,7 @@
 \name{run_skill_count}
 \alias{run_skill_count}
 \alias{check_skills}
+\alias{count_terms_base}
 \title{Obtain keyword counts for a given doc/term list and generate reports.}
 \usage{
 run_skill_count(
@@ -25,11 +26,22 @@ check_skills(
   overwrite = FALSE,
   check_resume = TRUE
 )
+
+count_terms_base(
+  target = c("base", "linkedin"),
+  input_dir = "output",
+  term_list_filename = "skill_list.txt",
+  term_list_dir = "resources",
+  orderby = c("counts", "doc", "source"),
+  filterby = c("both", "count", "matches")
+)
 }
 \description{
-\code{run_skill_count} returns keyword counts for a given doc/term list.
+\code{run_skill_count} returns keyword counts for a given document/term list.
 
 \code{check_skills} runs \code{run_skill_count} on a posting and compares to a resume.
+
+\code{count_terms_base} returns keyword counts for a base resume.
 }
 \seealso{
 Other report: 

@@ -221,7 +221,7 @@ report_skill_metrics <- function(skill_report_df) {
 sort_skill_report <- function(skill_report_df) {
   df_sorted <- skill_report_df %>% dplyr::arrange(
     dplyr::desc(.data$matches > 0)
-    # dplyr::desc(.data$in_my_skills_list)
+    # dplyr::desc(.data$in_my_skill_set)
     # .data$term,
     # dplyr::desc(.data$count)
   )
@@ -235,9 +235,11 @@ sort_skill_report <- function(skill_report_df) {
 #' Obtain keyword counts for a given doc/term list and generate reports.
 #' 
 #' @description
-#' `run_skill_count` returns keyword counts for a given doc/term list.
+#' `run_skill_count` returns keyword counts for a given document/term list.
 #' 
 #' `check_skills` runs `run_skill_count` on a posting and compares to a resume.
+#' 
+#' `count_terms_base` returns keyword counts for a base resume.
 #' 
 #' @family report
 #' @export
@@ -407,7 +409,7 @@ run_skill_report <- function(
     )
   colnames(output_df) <- c("term", "count", "matches")
   
-  # Add column for if the term is in your skill set
+  # Add column for if the term is in your skill set and/or skill section
   skill_data <- load_application_data(
     filename = "resume_data.xlsx",
     sheet = "skills",
@@ -417,13 +419,19 @@ run_skill_report <- function(
   my_skills <- c(
     skill_data$skill, unique(skill_data$category), unique(skill_data$alias)
   )
+  skill_list <- skill_data %>% dplyr::filter(.data$include == "x") %>% 
+    dplyr::select(.data$skill) %>%
+    dplyr::pull(.data$skill)
+  
   output_df <- output_df %>% 
     dplyr::mutate(
-      in_my_skills_list = 
-        tolower(skill_counts_posting$term) %in% tolower(my_skills)
+      in_my_skill_set = 
+        tolower(skill_counts_posting$term) %in% tolower(my_skills),
+      in_my_skill_list = 
+        tolower(skill_counts_posting$term) %in% tolower(skill_list)
     )
   cli::cli_inform("Not in your skill set:")
-  cli::cli_ol(sort(output_df[!output_df$in_my_skills_list,]$term))
+  cli::cli_ol(sort(output_df[!output_df$in_my_skill_set,]$term))
   
   # Sort
   output_df_sorted <- sort_skill_report(output_df)
@@ -515,6 +523,77 @@ check_skills <- function(
   )
 }
 
+
+#' @rdname run_skill_count
+#' 
+#' @export
+count_terms_base <- function(
+    target = c("base", "linkedin"),
+    # input_basename = c("resume", "resume_linkedin"),
+    input_dir = "output",
+    term_list_filename = "skill_list.txt",
+    term_list_dir = "resources",
+    orderby = c("counts", "doc", "source"),
+    filterby = c("both", "count", "matches")
+) {
+  target <- match.arg(target)
+  input_basename <- switch(
+    target,
+    base = "resume",
+    linkedin = "resume_linkedin"
+  )
+  
+  term_list_filepath <- file.path(
+    get_path_to(term_list_dir), term_list_filename
+  )
+  name <- load_job_info(field = "name")
+  suffix <- paste0("_", str_to_filename(name, sep = ""))
+  input_filename <- paste0(input_basename, suffix, ".txt")
+  input_filepath <- file.path(get_path_to(input_dir), input_filename)
+  
+  files <- c(term_list_filepath, input_filepath)
+  for (file in files) {
+    if (!file.exists(file)) {
+      warn_file_missing(file, get_path_to(input_dir))
+      warn_file_missing(file)
+      return(invisible(FALSE))
+    }
+  }
+  term_list <- readLines(term_list_filepath)
+  input <- readLines(as.character(input_filepath))  
+  
+  # Compute counts
+  output_df <- count_terms(
+    terms = term_list, 
+    doc = input,
+    orderby = orderby,
+    filterby = filterby
+  )
+  output_df$matches <- unlist(output_df$matches)
+  
+  # Add column for if the term is in your skill list
+  skill_data <- load_application_data(
+    target = "base",
+    filename = "resume_data.xlsx",
+    sheet = "skills"
+  )
+  
+  skill_list <- skill_data %>% dplyr::filter(.data$in_profile) %>% 
+    dplyr::select(.data$skill) %>%
+    dplyr::pull(.data$skill)
+  # my_skills <- c(
+  #   skill_data$skill, unique(skill_data$category), unique(skill_data$alias)
+  # )
+
+  output_df <- output_df %>% 
+    dplyr::mutate(
+      in_my_skill_list = 
+        tolower(output_df$term) %in% tolower(skill_list)
+    )
+
+  print(output_df, n = max(nrow(output_df), 50))
+  # return(output_df)
+}
 
 
 # Helpers ----------------------------------------------------------------------
