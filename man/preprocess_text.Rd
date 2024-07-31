@@ -4,7 +4,11 @@
 \alias{preprocess_text}
 \title{Prepare text blocks.}
 \usage{
-preprocess_text(text_data, style = c("markdown", "latex", "txt"))
+preprocess_text(
+  text_data,
+  style = c("markdown", "latex", "txt"),
+  use_abridged = FALSE
+)
 }
 \description{
 Prepare text blocks.

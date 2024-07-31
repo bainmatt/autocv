@@ -15,6 +15,7 @@ params:
   target: "app"
   app_id: "latest"
   app_period: "latest"
+  use_abridged: FALSE
 ---
 
 ```{r setup, include=FALSE}
@@ -27,9 +28,10 @@ library(autocv)
 library(glue)
 library(dplyr)
 
-target     <- params$target
-app_id     <- params$app_id
-app_period <- params$app_period
+target       <- params$target
+app_id       <- params$app_id
+app_period   <- params$app_period
+use_abridged <- params$use_abridged
 
 # Load data and preprocess
 position_data <- autocv::load_application_data(
@@ -39,7 +41,9 @@ position_data <- autocv::load_application_data(
   # skip = 1
   app_id = app_id,
   app_period = app_period
-) %>% autocv::preprocess_entries(., style = "latex", bullet_style = "-")
+) %>% autocv::preprocess_entries(
+  ., style = "latex", bullet_style = "-", use_abridged = use_abridged
+)
 
 skill_data <- autocv::load_application_data(
   target = target,
@@ -48,7 +52,7 @@ skill_data <- autocv::load_application_data(
   # skip = 2
   app_id = app_id,
   app_period = app_period
-) %>% autocv::sort_skills(., target = target)
+) %>% autocv::sort_skills(., target = target, use_abridged = use_abridged)
 
 contact_data <- autocv::load_application_data(
   target = target,
@@ -64,7 +68,7 @@ text_data <- autocv::load_application_data(
   sheet = "text_blocks",
   app_id = app_id,
   app_period = app_period
-) %>% autocv::preprocess_text()
+) %>% autocv::preprocess_text(use_abridged = use_abridged)
 
 ```
 

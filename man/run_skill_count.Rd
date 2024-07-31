@@ -28,12 +28,12 @@ check_skills(
 )
 
 count_terms_base(
-  target = c("base", "linkedin"),
   input_dir = "output",
   term_list_filename = "skill_list.txt",
   term_list_dir = "resources",
   orderby = c("counts", "doc", "source"),
-  filterby = c("both", "count", "matches")
+  filterby = c("both", "count", "matches"),
+  use_abridged = FALSE
 )
 }
 \description{

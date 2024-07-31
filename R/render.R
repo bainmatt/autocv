@@ -143,9 +143,11 @@ render_resume <- function(
     app_dir = "applications",
     input_dir = "notebooks",
     data_dir = "input",
-    output_dir = "output"
+    output_dir = "output",
+    use_abridged = FALSE
 ) {
   target <- match.arg(target)
+  suffix_abridged <- ifelse(use_abridged, "_linkedin", "")
 
   if (target == "app") {
     assert_that(all(!is.na(c(app_id, app_period, app_dir))))
@@ -176,16 +178,13 @@ render_resume <- function(
     
   } else if (target == "base") {
     name <- load_job_info("name")
-    suffix <- paste0("_", str_to_filename(name, sep = ""))
+    suffix <- paste0("_", str_to_filename(name, sep = ""), suffix_abridged)
     output_filename <- paste0(output_basename, suffix, ".pdf")
     
     input_filepath <- file.path(get_path_to(input_dir), input_filename)
     output_filepath <- file.path(get_path_to(output_dir), output_filename)
     base_dir <- "."
   }
-  
-  
-  
   
   custom_tex <- sapply(
     stylesheets,
@@ -220,7 +219,8 @@ render_resume <- function(
       # resume_data_filename = data_filename,
       target = target,
       app_id = app_id,
-      app_period = app_period
+      app_period = app_period,
+      use_abridged = use_abridged
     ),
     quiet = TRUE
   )
@@ -244,9 +244,11 @@ render_resume_plain <- function(
     
     app_dir = "applications",
     data_dir = "input",
-    output_dir = "output"
+    output_dir = "output",
+    use_abridged = FALSE
 ) {
   target <- match.arg(target)
+  suffix_abridged <- ifelse(use_abridged, "_linkedin", "")
   
   # Get paths to application data and output files
   if (target == "app") {
@@ -262,7 +264,7 @@ render_resume_plain <- function(
     
   } else if (target == "base") {
     name <- load_job_info("name")
-    suffix <- paste0("_", str_to_filename(name, sep = ""))
+    suffix <- paste0("_", str_to_filename(name, sep = ""), suffix_abridged)
     output_filename <- paste0(output_basename, suffix, ".txt")
     output_filepath <- file.path(get_path_to(output_dir), output_filename)
     base_dir <- "."
@@ -283,7 +285,8 @@ render_resume_plain <- function(
   resume_text <- print_resume_plain(
     target = target,
     app_id = app_id,
-    app_period = app_period
+    app_period = app_period,
+    use_abridged = use_abridged
   )
   writeLines(resume_text, output_filepath)
   fs::file_show(output_filepath)
@@ -457,6 +460,8 @@ render_cover_plain <- function(
 #' 
 #' `render_base` builds an html CV, pdf and plain text resume from base data.
 #'
+#' `render_linkedin` builds a short resume suitable for professional profiles.
+#'
 #' @family cli
 #' @export
 render_app <- function(
@@ -507,10 +512,35 @@ render_app <- function(
 #' @rdname render_app
 #'
 #' @export
-render_base <- function() {
+render_base <- function(report_counts = TRUE) {
   render_cv_as_html()
   render_resume_plain(target = "base")
   render_resume(target = "base")
   # render_cover(use_bullets = FALSE)
   # render_cover_plain(use_bullets = FALSE)
+  
+  if (report_counts) {
+    cli::cli_text("")
+    cli::cli_rule(cli::col_blue(paste0("Checking keywords")))
+    
+    output_df <- count_terms_base()
+    print(output_df, n = max(nrow(output_df), 50))
+  }
+}
+
+
+#' @rdname render_app
+#'
+#' @export
+render_linkedin <- function(report_counts = TRUE) {
+  render_resume_plain(target = "base", use_abridged = TRUE)
+  render_resume(target = "base", use_abridged = TRUE)
+  
+  if (report_counts) {
+    cli::cli_text("")
+    cli::cli_rule(cli::col_blue(paste0("Checking keywords")))
+    
+    output_df <- count_terms_base(use_abridged = TRUE)
+    print(output_df, n = max(nrow(output_df), 50))
+  }
 }

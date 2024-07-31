@@ -4,7 +4,7 @@
 \alias{prepare_bio}
 \title{Prepare bio.}
 \usage{
-prepare_bio(text_data)
+prepare_bio(text_data, use_abridged = FALSE)
 }
 \arguments{
 \item{text_data}{A spreadsheet containing resume text data.}

@@ -687,6 +687,7 @@ Q/A
 QA
 QA Testing
 Documentation
+Documentation Writing
 Organizational Skills
 Presentation Skills
 Communication Skills
@@ -1212,3 +1213,4 @@ Agile
 Healthcare Informatics
 Unstructured Data
 Unstructured Datasets
+CI/CD Pipelines

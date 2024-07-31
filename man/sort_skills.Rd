@@ -2,12 +2,12 @@
 % Please edit documentation in R/prepare.R
 \name{sort_skills}
 \alias{sort_skills}
-\title{Sort skills.}
+\title{Sort and filter skills.}
 \usage{
-sort_skills(skill_data, target = c("app", "base"))
+sort_skills(skill_data, target = c("app", "base"), use_abridged = FALSE)
 }
 \description{
-Sort skills.
+Sort and filter skills.
 }
 \seealso{
 Other prepare-dev: 
