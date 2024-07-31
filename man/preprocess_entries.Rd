@@ -8,7 +8,8 @@ preprocess_entries(
   entry_data,
   style = c("markdown", "latex", "txt"),
   order = c("chronological", "reversed"),
-  bullet_style = c("-", "+")
+  bullet_style = c("-", "+"),
+  use_abridged = FALSE
 )
 }
 \description{

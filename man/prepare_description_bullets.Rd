@@ -4,7 +4,11 @@
 \alias{prepare_description_bullets}
 \title{Prepare entry descriptions.}
 \usage{
-prepare_description_bullets(data, bullet_style = c("-", "+"))
+prepare_description_bullets(
+  data,
+  bullet_style = c("-", "+"),
+  use_abridged = FALSE
+)
 }
 \description{
 Prepare entry descriptions.

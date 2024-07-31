@@ -419,9 +419,12 @@ run_skill_report <- function(
   my_skills <- c(
     skill_data$skill, unique(skill_data$category), unique(skill_data$alias)
   )
-  skill_list <- skill_data %>% dplyr::filter(.data$include == "x") %>% 
+  # Obtain skills in resume and remove parenthetical acronyms
+  skill_list <- skill_data %>%
+    dplyr::filter(.data$include == "x") %>%
     dplyr::select(.data$skill) %>%
-    dplyr::pull(.data$skill)
+    dplyr::pull(.data$skill) %>%
+    stringr::str_replace_all("\\s*\\([^\\)]*\\)\\s*", "")
   
   output_df <- output_df %>% 
     dplyr::mutate(
@@ -528,33 +531,29 @@ check_skills <- function(
 #' 
 #' @export
 count_terms_base <- function(
-    target = c("base", "linkedin"),
+    # target = c("base", "linkedin"),
     # input_basename = c("resume", "resume_linkedin"),
     input_dir = "output",
     term_list_filename = "skill_list.txt",
     term_list_dir = "resources",
     orderby = c("counts", "doc", "source"),
-    filterby = c("both", "count", "matches")
+    filterby = c("both", "count", "matches"),
+    use_abridged = FALSE
 ) {
-  target <- match.arg(target)
-  input_basename <- switch(
-    target,
-    base = "resume",
-    linkedin = "resume_linkedin"
-  )
+  suffix_abridged <- ifelse(use_abridged, "_linkedin", "")
   
   term_list_filepath <- file.path(
     get_path_to(term_list_dir), term_list_filename
   )
   name <- load_job_info(field = "name")
   suffix <- paste0("_", str_to_filename(name, sep = ""))
-  input_filename <- paste0(input_basename, suffix, ".txt")
+  input_filename <- paste0("resume", suffix, suffix_abridged, ".txt")
   input_filepath <- file.path(get_path_to(input_dir), input_filename)
   
   files <- c(term_list_filepath, input_filepath)
   for (file in files) {
     if (!file.exists(file)) {
-      warn_file_missing(file, get_path_to(input_dir))
+      # warn_file_missing(file, get_path_to(input_dir))
       warn_file_missing(file)
       return(invisible(FALSE))
     }
@@ -578,9 +577,19 @@ count_terms_base <- function(
     sheet = "skills"
   )
   
-  skill_list <- skill_data %>% dplyr::filter(.data$in_profile) %>% 
+  # Obtain skills in resume and remove parenthetical acronyms
+  skill_list <- skill_data %>%
+    { if (use_abridged)
+        dplyr::filter(., .data$in_profile)
+      else
+        dplyr::filter(., .data$in_base == "x")
+    } %>%
+    # dplyr::filter(.data$in_profile) %>%
     dplyr::select(.data$skill) %>%
-    dplyr::pull(.data$skill)
+    dplyr::pull(.data$skill) %>%
+    stringr::str_replace_all("\\s*\\([^\\)]*\\)\\s*", "")
+  
+  # TODO: omit this
   # my_skills <- c(
   #   skill_data$skill, unique(skill_data$category), unique(skill_data$alias)
   # )
@@ -589,10 +598,10 @@ count_terms_base <- function(
     dplyr::mutate(
       in_my_skill_list = 
         tolower(output_df$term) %in% tolower(skill_list)
-    )
+    ) %>%
+    dplyr::arrange(dplyr::desc(.data$in_my_skill_list))
 
-  print(output_df, n = max(nrow(output_df), 50))
-  # return(output_df)
+  return(output_df)
 }
 
 

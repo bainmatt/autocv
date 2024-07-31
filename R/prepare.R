@@ -12,10 +12,18 @@ library(assertthat)
 #' @param text_data A spreadsheet containing resume text data.
 #' 
 #' @family prepare
-prepare_bio <- function(text_data) {
+prepare_bio <- function(
+    text_data, 
+    use_abridged = FALSE
+) {
+  prefix <- ifelse(use_abridged, "short_summary", "bio")
+  
   # Build bio
   bio <- text_data %>% 
-    filter(stringr::str_detect(.data$loc, "bio"), .data$include == "x") %>%
+    filter(
+      stringr::str_detect(.data$loc, prefix),
+      .data$include == "x"
+    ) %>%
     arrange(.data$order) %>% 
     pull(.data$text) %>% 
     glue::glue_collapse(" ")
@@ -133,9 +141,19 @@ prepare_links <- function(
 #' Append skills to a description field with matching index.
 #' 
 #' @family prepare-dev
-append_skills_to_bullets <- function(data, ix) {
-  skill_prefix <- paste0("skill_", ix)
-  description_col <- paste0("description_", ix)
+append_skills_to_bullets <- function(
+    data,
+    ix,
+    use_abridged = FALSE
+) {
+  if (use_abridged) {
+    skill_prefix <- c("tool_", "competency_")
+    description_col <- "short_summary"
+
+  } else {
+    skill_prefix <- paste0("skill_", ix)
+    description_col <- paste0("description_", ix) 
+  }
   
   data <- data %>%
     rowwise() %>%
@@ -182,10 +200,19 @@ append_skills_to_bullets <- function(data, ix) {
 #' @family prepare
 prepare_description_bullets <- function(
     data,
-    bullet_style = c("-", "+")
+    bullet_style = c("-", "+"),
+    use_abridged = FALSE
 ) {
   bullet_style <- match.arg(bullet_style)
   
+  # Use short summaries if creating a summary document
+  if (use_abridged) {
+    data <- data %>%
+      mutate(description_bullets = paste(bullet_style, .data$short_summary))
+    return(data)
+  }
+  
+  # Otherwise combine description bullets for each entry
   data <- data %>% 
     mutate(id = dplyr::row_number()) %>%
     tidyr::pivot_longer(
@@ -194,8 +221,8 @@ prepare_description_bullets <- function(
       names_to = 'description_num',
       values_to = 'description'
     ) %>%
-    filter(!is.na(
-      .data$description) | .data$description_num == 'description_1'
+    filter(
+      !is.na(.data$description) | .data$description_num == 'description_1'
     ) %>%
     group_by(.data$id) %>%
     mutate(
@@ -300,19 +327,26 @@ make_txt_contacts <- function(contact_data) {
 }
 
 
-#' Sort skills.
+#' Sort and filter skills.
 #' 
 #' @family prepare-dev
 #' @export
-sort_skills <- function(skill_data, target = c("app", "base")) {
+sort_skills <- function(
+    skill_data,
+    target = c("app", "base"),
+    use_abridged = FALSE
+) {
   target <- match.arg(target)
+  
+  if (use_abridged) { target = "abridged" }
   
   # Filter
   skill_data <- skill_data %>% 
     filter(
       (
-        (target == "app" & .data$include == "x") |
-        (target == "base" & .data$in_base == "x")
+        (target == "app"      & .data$include == "x") |
+        (target == "base"     & .data$in_base == "x") |
+        (target == "abridged" & .data$in_profile)
       )
     )
   
@@ -388,9 +422,9 @@ load_application_data <- function(
     na = c("", "NA", "na"),
     skip = skip
   )
-  cli::cli_alert_success(
-    paste0("loading '", data_filepath, "'")
-  )
+  # cli::cli_alert_success(
+  #   paste0("loading '", data_filepath, "'")
+  # )
   return(data)
 }
 
@@ -406,20 +440,26 @@ preprocess_entries <- function(
     entry_data, 
     style = c("markdown", "latex", "txt"),
     order = c("chronological", "reversed"),
-    bullet_style = c("-", "+")
+    bullet_style = c("-", "+"),
+    use_abridged = FALSE
 ) {
   style <- match.arg(style)
   order <- match.arg(order)
   bullet_style <- match.arg(bullet_style)
+  num_bullets <- ifelse(use_abridged, 1, 5)
   
   data <- entry_data %>%
     prepare_timeline(., order = order, style = style) %>%
-    prepare_links(., style = style) %>% 
-    purrr::reduce(1:5, function(data, i) {
-      append_skills_to_bullets(data, i)
+    prepare_links(., style = style) %>%
+    
+    purrr::reduce(1:num_bullets, function(data, i) {
+      append_skills_to_bullets(data, i, use_abridged = use_abridged)
     }, .init = .) %>%
+    
     omit_hidden_fields() %>%
-    prepare_description_bullets(., bullet_style = bullet_style)
+    prepare_description_bullets(
+      ., bullet_style = bullet_style, use_abridged = use_abridged
+    )
 
   return(data)
 }
@@ -475,12 +515,13 @@ preprocess_contacts <- function(
 #' @export
 preprocess_text <- function(
     text_data,
-    style = c("markdown", "latex", "txt")
+    style = c("markdown", "latex", "txt"),
+    use_abridged = FALSE
 ) {
   style <- match.arg(style)
   
   text_data <- text_data %>% 
-    prepare_bio()
+    prepare_bio(use_abridged = use_abridged)
 }
 
 

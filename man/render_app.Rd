@@ -3,6 +3,7 @@
 \name{render_app}
 \alias{render_app}
 \alias{render_base}
+\alias{render_linkedin}
 \title{Run each resume/CV rendering option in sequence.}
 \usage{
 render_app(
@@ -13,12 +14,16 @@ render_app(
   use_bullets = TRUE
 )
 
-render_base()
+render_base(report_counts = TRUE)
+
+render_linkedin(report_counts = TRUE)
 }
 \description{
 \code{render_app} builds a pdf and plain text resume for a given application.
 
 \code{render_base} builds an html CV, pdf and plain text resume from base data.
+
+\code{render_linkedin} builds a short resume suitable for professional profiles.
 }
 \seealso{
 Other cli: 

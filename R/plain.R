@@ -10,7 +10,8 @@ library(dplyr)
 print_resume_plain <- function(
   target = c("app", "base"),
   app_id = "latest",
-  app_period = "latest"
+  app_period = "latest",
+  use_abridged = FALSE
   # style = c("txt", "latex")
 ) {
   target = match.arg(target)
@@ -25,7 +26,9 @@ print_resume_plain <- function(
     # skip = 1,
     app_id = app_id,
     app_period = app_period
-  ) %>% preprocess_entries(., style = "txt", bullet_style = "+")
+  ) %>% preprocess_entries(
+    ., style = "txt", bullet_style = "+", use_abridged = use_abridged
+  )
 
   skill_data <- load_application_data(
     target = target,
@@ -34,7 +37,7 @@ print_resume_plain <- function(
     # skip = 2
     app_id = app_id,
     app_period = app_period
-  ) %>% sort_skills(., target = target)
+  ) %>% sort_skills(., target = target, use_abridged = use_abridged)
   
   contact_data <- load_application_data(
     target = target,
@@ -50,7 +53,7 @@ print_resume_plain <- function(
     sheet = "text_blocks",
     app_id = app_id,
     app_period = app_period
-  ) %>% preprocess_text()
+  ) %>% preprocess_text(use_abridged = use_abridged)
   
   # Extract key elements -------------------------------------------------------
   

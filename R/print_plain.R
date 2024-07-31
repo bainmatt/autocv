@@ -15,6 +15,7 @@ print_txt_section <- function(
       "writing", "publications", "volunteering", "additional_info"
     ),
     target = c("app", "base")
+    # use_abridged = FALSE
 ) {
   section_id <- match.arg(section_id)
   target     <- match.arg(target)
