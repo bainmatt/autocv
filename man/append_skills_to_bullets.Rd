@@ -4,7 +4,7 @@
 \alias{append_skills_to_bullets}
 \title{Append skills to a description field with matching index.}
 \usage{
-append_skills_to_bullets(data, ix, use_abridged = FALSE)
+append_skills_to_bullets(data, ix, use_abridged = FALSE, omit_prefix = "/")
 }
 \description{
 Append skills to a description field with matching index.

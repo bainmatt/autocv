@@ -144,7 +144,8 @@ prepare_links <- function(
 append_skills_to_bullets <- function(
     data,
     ix,
-    use_abridged = FALSE
+    use_abridged = FALSE,
+    omit_prefix = "/"
 ) {
   if (use_abridged) {
     skill_prefix <- c("tool_", "competency_")
@@ -154,6 +155,13 @@ append_skills_to_bullets <- function(
     skill_prefix <- paste0("skill_", ix)
     description_col <- paste0("description_", ix) 
   }
+  
+  # Omit skills starting with a given prefix with NA
+  data <- data %>%
+    dplyr::mutate(dplyr::across(
+      tidyselect::starts_with(skill_prefix),
+      ~ ifelse(stringr::str_starts(., omit_prefix), NA, .)
+    ))
   
   data <- data %>%
     rowwise() %>%
@@ -260,7 +268,7 @@ omit_hidden_fields <- function(
   ) {
   pattern <- paste0("^", prefix)
   data <- data %>%
-    mutate(across(
+    dplyr::mutate(dplyr::across(
       dplyr::where(is.character),
       ~ ifelse(stringr::str_detect(., pattern), NA, .)
     ))
