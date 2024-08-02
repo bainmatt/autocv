@@ -23,6 +23,7 @@ render_cv_as_html <- function(
     data_dir = "input",
     output_dir = "output",
     stylesheets = list("custom_resume.css", "styles_html.css"),
+    sort_appended = FALSE,
     show = FALSE
 ) {
   name <- load_job_info(field = "name")
@@ -54,7 +55,8 @@ render_cv_as_html <- function(
     params = list(
       doctype = "HTML", 
       # resume_data_filename = data_filename,
-      target = "base"
+      target = "base",
+      sort_appended = sort_appended
     ),
     quiet = TRUE
   )
@@ -72,7 +74,8 @@ render_cv_as_pdf <- function(
     input_dir = "notebooks",
     data_dir = "input",
     output_dir = "output",
-    stylesheets = list("custom_resume.css", "styles_pdf.css")
+    stylesheets = list("custom_resume.css", "styles_pdf.css"),
+    sort_appended = FALSE
 ) {
   # Prep
   name <- load_job_info("name")
@@ -105,7 +108,8 @@ render_cv_as_pdf <- function(
     params = list(
       doctype = "PDF", 
       # resume_data_filename = data_filename,
-      target = "base"
+      target = "base",
+      sort_appended = sort_appended
     ),
     quiet = TRUE
   )
@@ -144,7 +148,8 @@ render_resume <- function(
     input_dir = "notebooks",
     data_dir = "input",
     output_dir = "output",
-    use_abridged = FALSE
+    use_abridged = FALSE,
+    sort_appended = FALSE
 ) {
   target <- match.arg(target)
   suffix_abridged <- ifelse(use_abridged, "_linkedin", "")
@@ -220,7 +225,8 @@ render_resume <- function(
       target = target,
       app_id = app_id,
       app_period = app_period,
-      use_abridged = use_abridged
+      use_abridged = use_abridged,
+      sort_appended = sort_appended
     ),
     quiet = TRUE
   )
@@ -245,7 +251,8 @@ render_resume_plain <- function(
     app_dir = "applications",
     data_dir = "input",
     output_dir = "output",
-    use_abridged = FALSE
+    use_abridged = FALSE,
+    sort_appended = FALSE
 ) {
   target <- match.arg(target)
   suffix_abridged <- ifelse(use_abridged, "_linkedin", "")
@@ -286,7 +293,8 @@ render_resume_plain <- function(
     target = target,
     app_id = app_id,
     app_period = app_period,
-    use_abridged = use_abridged
+    use_abridged = use_abridged,
+    sort_appended = sort_appended
   )
   writeLines(resume_text, output_filepath)
   fs::file_show(output_filepath)
@@ -533,8 +541,16 @@ render_base <- function(report_counts = TRUE) {
 #'
 #' @export
 render_linkedin <- function(report_counts = TRUE) {
-  render_resume_plain(target = "base", use_abridged = TRUE)
-  render_resume(target = "base", use_abridged = TRUE)
+  render_resume_plain(
+    target = "base",
+    use_abridged = TRUE,
+    sort_appended = FALSE
+  )
+  render_resume(
+    target = "base",
+    use_abridged = TRUE,
+    sort_appended = TRUE
+  )
   
   if (report_counts) {
     cli::cli_text("")

@@ -16,6 +16,7 @@ params:
   app_id: "latest"
   app_period: "latest"
   use_abridged: FALSE
+  sort_appended: FALSE
 ---
 
 ```{r setup, include=FALSE}
@@ -28,23 +29,13 @@ library(autocv)
 library(glue)
 library(dplyr)
 
-target       <- params$target
-app_id       <- params$app_id
-app_period   <- params$app_period
-use_abridged <- params$use_abridged
+target        <- params$target
+app_id        <- params$app_id
+app_period    <- params$app_period
+use_abridged  <- params$use_abridged
+sort_appended <- params$sort_appended
 
 # Load data and preprocess
-position_data <- autocv::load_application_data(
-  target = target,
-  filename = "resume_data.xlsx",
-  sheet = "entries",
-  # skip = 1
-  app_id = app_id,
-  app_period = app_period
-) %>% autocv::preprocess_entries(
-  ., style = "latex", bullet_style = "-", use_abridged = use_abridged
-)
-
 skill_data <- autocv::load_application_data(
   target = target,
   filename = "resume_data.xlsx",
@@ -53,6 +44,22 @@ skill_data <- autocv::load_application_data(
   app_id = app_id,
   app_period = app_period
 ) %>% autocv::sort_skills(., target = target, use_abridged = use_abridged)
+
+position_data <- autocv::load_application_data(
+  target = target,
+  filename = "resume_data.xlsx",
+  sheet = "entries",
+  # skip = 1
+  app_id = app_id,
+  app_period = app_period
+) %>% autocv::preprocess_entries(
+  .,
+  style = "latex",
+  bullet_style = "-",
+  use_abridged = use_abridged,
+  sort_appended = sort_appended,
+  skill_set_sorted = skill_data
+)
 
 contact_data <- autocv::load_application_data(
   target = target,

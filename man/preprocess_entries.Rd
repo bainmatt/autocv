@@ -9,7 +9,9 @@ preprocess_entries(
   style = c("markdown", "latex", "txt"),
   order = c("chronological", "reversed"),
   bullet_style = c("-", "+"),
-  use_abridged = FALSE
+  use_abridged = FALSE,
+  sort_appended = FALSE,
+  skill_set_sorted = NULL
 )
 }
 \description{
