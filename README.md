@@ -5,12 +5,39 @@
 [![docs](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml)
 <!-- badges: end -->
 
-This package houses the code and template data files used to construct 
-variations of my data-driven curriculum vitae. 
+This is a package which aims to provide a unified workflow for constructing 
+job application documents (such as a curriculum vitae, or CV),
+from data stored in spreadsheets.
 
-This approach uses the R programming language to automate repetitive 
-elements of the job application process, resulting in an efficient,
-reproducible, easily customized and extended workflow.
+The central workflow is provided as a user interface consisting of the
+following commands:
+
+1. ***Build** an application directory*.
+Given a job of interest, construct a directory containing all required
+documents, including template data files, to build a tailored job application.
+
+TODO: extend this
+
+2. 
+
+Find a reference for these functions [here](), along with the documentation
+for all related functions provided with the package for interested developers
+to tweak and extend package functionality as desired.
+
+Find a reference for all the relevant data files [here](). At the core
+are the following documents, provided with the package as templates:
+
+TODO: briefly describe these
+
+1. 
+
+<!--
+using a central spreadsheet housing resume data (work history, education, skills)
+
+Using a functional programming approach to
+automate repetitive elements of the job application process, `autocv`
+provides an efficient, reproducible, easily customized and extended workflow,
+!-->
 
 # Installation
 
@@ -21,8 +48,12 @@ it directly from GitHub by running the following in your console:
 
 # Usage
 
+TODO: include disclaimer in vignette (custom div) that it may be out of date
+
 Follow [this](./articles/example-cv.html) vignette in the autocv documentation 
 to get started.
+
+TODO: clean this up or remove
 
 Alternatively, if you're in a hurry, the most straightforward way to get
 up and running is to: 

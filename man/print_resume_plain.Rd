@@ -8,7 +8,8 @@ print_resume_plain(
   target = c("app", "base"),
   app_id = "latest",
   app_period = "latest",
-  use_abridged = FALSE
+  use_abridged = FALSE,
+  sort_appended = FALSE
 )
 }
 \description{

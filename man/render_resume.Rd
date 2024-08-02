@@ -16,7 +16,8 @@ render_resume(
   input_dir = "notebooks",
   data_dir = "input",
   output_dir = "output",
-  use_abridged = FALSE
+  use_abridged = FALSE,
+  sort_appended = FALSE
 )
 
 render_resume_plain(
@@ -27,7 +28,8 @@ render_resume_plain(
   app_dir = "applications",
   data_dir = "input",
   output_dir = "output",
-  use_abridged = FALSE
+  use_abridged = FALSE,
+  sort_appended = FALSE
 )
 }
 \description{

@@ -12,6 +12,7 @@ render_cv_as_html(
   data_dir = "input",
   output_dir = "output",
   stylesheets = list("custom_resume.css", "styles_html.css"),
+  sort_appended = FALSE,
   show = FALSE
 )
 
@@ -21,7 +22,8 @@ render_cv_as_pdf(
   input_dir = "notebooks",
   data_dir = "input",
   output_dir = "output",
-  stylesheets = list("custom_resume.css", "styles_pdf.css")
+  stylesheets = list("custom_resume.css", "styles_pdf.css"),
+  sort_appended = FALSE
 )
 }
 \description{

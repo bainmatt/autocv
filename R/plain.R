@@ -11,25 +11,14 @@ print_resume_plain <- function(
   target = c("app", "base"),
   app_id = "latest",
   app_period = "latest",
-  use_abridged = FALSE
+  use_abridged = FALSE,
+  sort_appended = FALSE
   # style = c("txt", "latex")
 ) {
   target = match.arg(target)
   # style = match.arg(style)
   
   # Load and process the data --------------------------------------------------
-  
-  position_data <- load_application_data(
-    target = target,
-    filename = "resume_data.xlsx",
-    sheet = "entries",
-    # skip = 1,
-    app_id = app_id,
-    app_period = app_period
-  ) %>% preprocess_entries(
-    ., style = "txt", bullet_style = "+", use_abridged = use_abridged
-  )
-
   skill_data <- load_application_data(
     target = target,
     filename = "resume_data.xlsx",
@@ -38,6 +27,22 @@ print_resume_plain <- function(
     app_id = app_id,
     app_period = app_period
   ) %>% sort_skills(., target = target, use_abridged = use_abridged)
+
+  position_data <- load_application_data(
+    target = target,
+    filename = "resume_data.xlsx",
+    sheet = "entries",
+    # skip = 1,
+    app_id = app_id,
+    app_period = app_period
+  ) %>% preprocess_entries(
+    .,
+    style = "txt",
+    bullet_style = "+",
+    use_abridged = use_abridged,
+    sort_appended = sort_appended,
+    skill_set_sorted = skill_data
+  )
   
   contact_data <- load_application_data(
     target = target,

@@ -145,7 +145,9 @@ append_skills_to_bullets <- function(
     data,
     ix,
     use_abridged = FALSE,
-    omit_prefix = "/"
+    omit_prefix = "/",
+    sort_appended = FALSE,
+    skill_set_sorted = NULL
 ) {
   if (use_abridged) {
     skill_prefix <- c("tool_", "competency_")
@@ -163,14 +165,37 @@ append_skills_to_bullets <- function(
       ~ ifelse(stringr::str_starts(., omit_prefix), NA, .)
     ))
   
+  # Prep sorted skill set for sorting individual bullet skill lists
+  do_sort_appended <- sort_appended && !is.null(skill_set_sorted)
+  if (do_sort_appended) {
+    skill_set_sorted <- skill_set_sorted %>% dplyr::pull(.data$skill) 
+  }
+  
   data <- data %>%
-    rowwise() %>%
-    mutate(
-      # Concatenate all skill_ix columns, filtering out NA values
+    dplyr::rowwise() %>%
+    
+    # Concatenate all skill_ix columns, filtering out NA values
+    dplyr::mutate(
       skills_concat = stringr::str_c(
         na.omit(dplyr::c_across(dplyr::starts_with(skill_prefix))), 
         collapse = ", "
       ),
+      
+      skills_vector = list(stringr::str_split(
+        .data$skills_concat, ", ", simplify = TRUE
+      )[1,]),
+      
+      # Sort each bullet skill list according to sorted skill set
+      skills_concat = if (do_sort_appended) {
+        stringr::str_c(.data$skills_vector[na.omit(match(
+          skill_set_sorted, .data$skills_vector))],
+          collapse = ", "
+        )
+      } else {
+        .data$skills_concat
+      },
+
+      # Replace bullets with bullets and appended skills
       !!rlang::sym(description_col) := if_else(
         .data$skills_concat != "",
         stringr::str_c(
@@ -449,7 +474,9 @@ preprocess_entries <- function(
     style = c("markdown", "latex", "txt"),
     order = c("chronological", "reversed"),
     bullet_style = c("-", "+"),
-    use_abridged = FALSE
+    use_abridged = FALSE,
+    sort_appended = FALSE,
+    skill_set_sorted = NULL
 ) {
   style <- match.arg(style)
   order <- match.arg(order)
@@ -461,7 +488,13 @@ preprocess_entries <- function(
     prepare_links(., style = style) %>%
     
     purrr::reduce(1:num_bullets, function(data, i) {
-      append_skills_to_bullets(data, i, use_abridged = use_abridged)
+      append_skills_to_bullets(
+        data,
+        i,
+        use_abridged = use_abridged,
+        sort_appended = sort_appended,
+        skill_set_sorted = skill_set_sorted
+      )
     }, .init = .) %>%
     
     omit_hidden_fields() %>%
