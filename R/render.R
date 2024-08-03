@@ -549,7 +549,7 @@ render_linkedin <- function(report_counts = TRUE) {
   render_resume(
     target = "base",
     use_abridged = TRUE,
-    sort_appended = TRUE
+    sort_appended = FALSE
   )
   
   if (report_counts) {

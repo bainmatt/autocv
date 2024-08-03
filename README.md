@@ -5,31 +5,57 @@
 [![docs](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml)
 <!-- badges: end -->
 
-This is a package which aims to provide a unified workflow for constructing 
-job application documents (such as a curriculum vitae, or CV),
+The autocv package provides a simple, unified workflow for constructing 
+a curriculum vitae (and related job application documents)
 from data stored in spreadsheets.
 
-The central workflow is provided as a user interface consisting of the
-following commands:
+##### User Interface
 
-1. ***Build** an application directory*.
-Given a job of interest, construct a directory containing all required
-documents, including template data files, to build a tailored job application.
+The core of the user interface is encapsulated in
+the following sequence of commands:
 
-TODO: extend this
+1. [Build](https://bainmatt.github.io/autocv/reference/build_app_directory.html)
+an application directory.
+Given a job of interest, construct a directory containing the
+template data files and folders required to build a tailored job application.
 
-2. 
+2. [Edit](https://bainmatt.github.io/autocv/reference/open_app.html)
+the application data files.
+Open the data files for a given job of interest and select
+the information (sections, entries, skills, ordering)
+to include or exclude from your application.
 
-Find a reference for these functions [here](), along with the documentation
-for all related functions provided with the package for interested developers
-to tweak and extend package functionality as desired.
+3. [Render](https://bainmatt.github.io/autocv/reference/render_app.html)
+your application documents.
+For a given job of interest, use the tailored data files
+to generate the requested application documents
+(plain text and/or PDF resume, PDF or HTML curriculum vitae,
+cover letter, etc.).
 
-Find a reference for all the relevant data files [here](). At the core
-are the following documents, provided with the package as templates:
+4. [Check](https://bainmatt.github.io/autocv/reference/run_skill_count.html)
+application keywords.
+Given a term bank of relevant job keywords as well as a job posting and
+the application documents for a given job of interest, extract keywords
+from your job application and cross-check them against the job posting.
 
-TODO: briefly describe these
+##### Reference
 
-1. 
+Find the documentation for these functions
+[here](https://bainmatt.github.io/autocv/reference/),
+along with documentation for additional functions
+included with the package so that developers may
+tweak and extend functionality as desired.
+
+##### Data files
+
+Included with the package are several template data files which the user
+should modify to reflect their work experience, skills, application text,
+and metadata for any job of interest. The core data files are:
+
+1. [example_skill_data](https://bainmatt.github.io/autocv/reference/example_skill_data.html):
+Contains ...
+
+WIP. finish this section
 
 <!--
 using a central spreadsheet housing resume data (work history, education, skills)
@@ -48,13 +74,12 @@ it directly from GitHub by running the following in your console:
 
 # Usage
 
-TODO: include disclaimer in vignette (custom div) that it may be out of date
-
 Follow [this](./articles/example-cv.html) vignette in the autocv documentation 
 to get started.
 
-TODO: clean this up or remove
+WIP. add disclaimer to vignette (custom div) that parts may be out of date
 
+<!--
 Alternatively, if you're in a hurry, the most straightforward way to get
 up and running is to: 
 
@@ -64,14 +89,15 @@ up and running is to:
 4. Open `resume_data.xlsx` and `cover_data.xlsx` and modify the entries
 5. Set your paths and job info in `job_data.xlsx`
 6. Run the commands in the [Makefile](link)
+!-->
 
 # Acknowledgements
 
-This project is inspired by, and heavily borrows from, Nick Strayer’s 
-excellent [data-driven cv][ddcv] template ([exemplar][nickstrayer]), 
-which builds upon the [pagedown][pagedown] `html_resume` template. 
-Further inspiration and design refinements were borrowed from 
-Matt Leary’s [resume][ddcv-mleary] repository ([examplar][mleary]). 
+This project is inspired by Nick Strayer’s [data-driven cv][ddcv]
+template ([exemplar][nickstrayer]), which extends the [pagedown][pagedown]
+`html_resume` template. Further inspiration and design refinements
+were borrowed from Matt Leary’s [resume][ddcv-mleary] repository
+([examplar][mleary]). 
 Thank you to the creators of these projects.
 
 [pagedown]: https://github.com/rstudio/pagedown/tree/main	"pagedown package"
