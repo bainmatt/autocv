@@ -34,6 +34,11 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-datasets" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Datasets</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-datasets">
 <li><a class="dropdown-item" href="../reference/example_skill_data.html">example_skill_data</a></li>
+    <li><a class="dropdown-item" href="../reference/example_position_data.html">example_position_data</a></li>
+    <li><a class="dropdown-item" href="../reference/example_contact_data.html">example_contact_data</a></li>
+    <li><a class="dropdown-item" href="../reference/example_text_data.html">example_text_data</a></li>
+    <li><a class="dropdown-item" href="../reference/example_job_metadata.html">example_job_metadata</a></li>
+    <li><a class="dropdown-item" href="../reference/example_posting.html">example_posting</a></li>
   </ul>
 </li>
 <li class="active nav-item dropdown">
@@ -79,6 +84,13 @@ package: automatically building a resume from spreadsheet data. If you
 have no interest in customizing or building upon the tools in this
 package, then you can safely ignore the <a href="../reference/index.html">Reference</a> section of this
 documentation and just follow along with this article.</p>
+<hr>
+<p>WIP. This article was written for a now-outdated version of autocv,
+and as a result may contain outdated information. Stay tuned for
+revisions, and in the meantime refer to the <a href="../index.html#user-interface">User Interface roadmap</a> and the
+<a href="../reference/index.html">API Reference</a> for usage
+guidelines.</p>
+<hr>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -234,8 +246,8 @@ Download as a PDF</a></p>
 <hr>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"Last updated on "</span>, <span class="st">"{Sys.Date()}"</span><span class="op">)</span></span></code></pre></div>
-<p>Last updated on 2024-08-03</p>
-<!-- Last updated on 2024-08-03. -->
+<p>Last updated on 2024-08-13</p>
+<!-- Last updated on 2024-08-13. -->
 <hr>
 </div>
 </div>
@@ -442,7 +454,7 @@ SciPy, GitHub Actions)</li>
 <p>You aren’t restricted to these particular sections. You may wish to
 change or add to them by modifying the <code>loc</code> column in your
 <code>position_data</code> spreadsheet (see the
-<code>example_position_data()</code> dataset for reference). Some other
+<code><a href="../reference/example_position_data.html">example_position_data()</a></code> dataset for reference). Some other
 possible sections you might wish to include are:</p>
 <ul>
 <li>Selected Publications</li>

@@ -36,6 +36,11 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-datasets" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Datasets</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-datasets">
 <li><a class="dropdown-item" href="reference/example_skill_data.html">example_skill_data</a></li>
+    <li><a class="dropdown-item" href="reference/example_position_data.html">example_position_data</a></li>
+    <li><a class="dropdown-item" href="reference/example_contact_data.html">example_contact_data</a></li>
+    <li><a class="dropdown-item" href="reference/example_text_data.html">example_text_data</a></li>
+    <li><a class="dropdown-item" href="reference/example_job_metadata.html">example_job_metadata</a></li>
+    <li><a class="dropdown-item" href="reference/example_posting.html">example_posting</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
@@ -66,28 +71,32 @@
 <div class="section level5">
 <h5 id="user-interface">User Interface<a class="anchor" aria-label="anchor" href="#user-interface"></a>
 </h5>
-<p>The core of the user interface is encapsulated in the following sequence of commands:</p>
+<p>The core of the user interface is encapsulated in the following sequence of commands for building and fine-tuning a job application:</p>
 <ol style="list-style-type: decimal">
-<li><p><a href="https://bainmatt.github.io/autocv/reference/build_app_directory.html" class="external-link">Build</a> an application directory. Given a job of interest, construct a directory containing the template data files and folders required to build a tailored job application.</p></li>
-<li><p><a href="https://bainmatt.github.io/autocv/reference/open_app.html" class="external-link">Edit</a> the application data files. Open the data files for a given job of interest and select the information (sections, entries, skills, ordering) to include or exclude from your application.</p></li>
-<li><p><a href="https://bainmatt.github.io/autocv/reference/render_app.html" class="external-link">Render</a> your application documents. For a given job of interest, use the tailored data files to generate the requested application documents (plain text and/or PDF resume, PDF or HTML curriculum vitae, cover letter, etc.).</p></li>
-<li><p><a href="https://bainmatt.github.io/autocv/reference/run_skill_count.html" class="external-link">Check</a> application keywords. Given a term bank of relevant job keywords as well as a job posting and the application documents for a given job of interest, extract keywords from your job application and cross-check them against the job posting.</p></li>
+<li><p><a href="./reference/build_app_directory.html">Build</a> an application directory. Given a job of interest, construct a directory containing the template data files and folders required to build a tailored job application.</p></li>
+<li><p><a href="./reference/open_app.html">Edit</a> the application data files. Open the data files for a given job of interest and select the information (sections, entries, skills, ordering) to include or exclude from your application.</p></li>
+<li><p><a href="./reference/render_app.html">Render</a> your application documents. For a given job of interest, use the tailored data files to generate the requested application documents (plain text and/or PDF resume, PDF or HTML curriculum vitae, cover letter, etc.).</p></li>
+<li><p><a href="./reference/run_skill_count.html">Check</a> application keywords. Given a term bank of relevant job keywords as well as a job posting and the application documents for a given job of interest, extract keywords from your job application and cross-check them against the job posting.</p></li>
+<li><p><a href="./reference/get_app_info.html">Review</a> job application data. Retrieve information about your existing job applications.</p></li>
 </ol>
 </div>
 <div class="section level5">
-<h5 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
+<h5 id="api-reference">API Reference<a class="anchor" aria-label="anchor" href="#api-reference"></a>
 </h5>
 <p>Find the documentation for these functions <a href="https://bainmatt.github.io/autocv/reference/" class="external-link">here</a>, along with documentation for additional functions included with the package so that developers may tweak and extend functionality as desired.</p>
 </div>
 <div class="section level5">
-<h5 id="data-files">Data files<a class="anchor" aria-label="anchor" href="#data-files"></a>
+<h5 id="data-reference">Data Reference<a class="anchor" aria-label="anchor" href="#data-reference"></a>
 </h5>
 <p>Included with the package are several template data files which the user should modify to reflect their work experience, skills, application text, and metadata for any job of interest. The core data files are:</p>
 <ol style="list-style-type: decimal">
-<li>
-<a href="https://bainmatt.github.io/autocv/reference/example_skill_data.html" class="external-link">example_skill_data</a>: Contains …</li>
+<li><p><a href="./reference/example_skill_data.html">example_skill_data</a>: A table with rows representing job-relevant skills, along with ratings of skill level and flags indicating whether or not to include each skill in the present job application.</p></li>
+<li><p><a href="./reference/example_position_data.html">example_position_data</a>: A table with rows representing professional roles, degrees and certificates earned, professional projects, etc., with optional fields including title, company, timeline, and description text.</p></li>
+<li><p><a href="./reference/example_contact_data.html">example_contact_data</a>: A table with rows containing personal contact information and associated links (address, email, personal website, etc.).</p></li>
+<li><p><a href="./reference/example_text_data.html">example_text_data</a>: A table with rows containing the textual building blocks of a job application, such as a resume bio or a cover letter.</p></li>
+<li><p><a href="./reference/example_job_metadata.html">example_job_metadata</a>: A named list with fields containing the details of a given job application, such as the company, position, associated URLs, and a unique identifier.</p></li>
+<li><p><a href="./reference/example_posting.html">example_posting</a>: A string containing the text of an example job posting.</p></li>
 </ol>
-<p>WIP. finish this section</p>
 <!--
 using a central spreadsheet housing resume data (work history, education, skills)
 

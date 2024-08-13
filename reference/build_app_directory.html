@@ -19,6 +19,11 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-datasets" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Datasets</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-datasets"><li><a class="dropdown-item" href="../reference/example_skill_data.html">example_skill_data</a></li>
+    <li><a class="dropdown-item" href="../reference/example_position_data.html">example_position_data</a></li>
+    <li><a class="dropdown-item" href="../reference/example_contact_data.html">example_contact_data</a></li>
+    <li><a class="dropdown-item" href="../reference/example_text_data.html">example_text_data</a></li>
+    <li><a class="dropdown-item" href="../reference/example_job_metadata.html">example_job_metadata</a></li>
+    <li><a class="dropdown-item" href="../reference/example_posting.html">example_posting</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
@@ -89,17 +94,17 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── Setting project paths ───────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Your current path is: /tmp/RtmpX43VSt/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Your current path is: /tmp/RtmpZ5bmPM/</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Set your desired project path relative to your current path: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> You entered the path: /tmp/RtmpX43VSt/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> You entered the path: /tmp/RtmpZ5bmPM/</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Setting your project root to: /tmp/RtmpX43VSt/</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Created file .here in /tmp/RtmpX43VSt . Please start a new R session in the new project directory.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Setting your project root to: /tmp/RtmpZ5bmPM/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Created file .here in /tmp/RtmpZ5bmPM . Please start a new R session in the new project directory.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing file: <span style="color: #00BB00;">.Rprofile</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing file: <span style="color: #00BB00;">mycv.Rproj</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Writing to: <span style="color: #00BB00;">../../../../../../../tmp/RtmpX43VSt</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Writing to: <span style="color: #00BB00;">../../../../../../../tmp/RtmpZ5bmPM</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── Creating directory tree ─────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Folder already exists: <span style="color: #00BBBB;">.</span> (skipping) </span>
@@ -119,7 +124,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 2. Building application...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Writing to: <span style="color: #00BB00;">../../../../../../../tmp/RtmpX43VSt/R/applications/2024-07-data-science/2024-08-03-01-company-name-data-scientist-AB</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Writing to: <span style="color: #00BB00;">../../../../../../../tmp/RtmpZ5bmPM/R/applications/2024-07-data-science/2024-08-13-01-company-name-data-scientist-AB</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── Creating directory tree ─────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Creating folder: <span style="color: #00BB00;">input</span></span>
@@ -148,18 +153,18 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 55 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    term                        matches</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Data Science                     74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Data Science                     73</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Data Analysis                    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> UX                                1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Statistics                       29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Cloud Computing                   4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Insights                         10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Survey Data                       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Algorithms                        4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Unstructured Data                 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Domain Knowledge                  3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Mathematics                       3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Computer Science                  6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Computer Science                  7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Survey Data                       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Algorithms                        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Unstructured Data                 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Domain Knowledge                  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Mathematics                       3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Data-Driven                       3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Statistical Knowledge             1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Data Visualization                3</span>
@@ -224,7 +229,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> (fontspec)                not installed (correctly), or there is a bug in</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> (fontspec)                the underlying font loading engine</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> (fontspec)                (XeTeX/luaotfload).</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> LaTeX failed to compile /tmp/RtmpX43VSt//./R/applications/2024-07-data-science/2024-08-03-01-company-name-data-scientist-AB/output/resume_yourname_AB.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See resume_yourname_AB.log for more info.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> LaTeX failed to compile /tmp/RtmpZ5bmPM//./R/applications/2024-07-data-science/2024-08-13-01-company-name-data-scientist-AB/output/resume_yourname_AB.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See resume_yourname_AB.log for more info.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
