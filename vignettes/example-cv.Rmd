@@ -20,6 +20,16 @@ in customizing or building upon the tools in this package, then you can
 safely ignore the [Reference](../reference/index.html) 
 section of this documentation and just follow along with this article.
 
+---
+
+WIP. This article was written for a now-outdated version of autocv, and
+as a result may contain outdated information.
+Stay tuned for revisions, and in the meantime refer to the
+[User Interface roadmap](../index.html#user-interface) and the
+[API Reference](../reference/index.html) for usage guidelines.
+   
+---
+
 # Installation
 
 {

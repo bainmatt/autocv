@@ -12,33 +12,38 @@ from data stored in spreadsheets.
 ##### User Interface
 
 The core of the user interface is encapsulated in
-the following sequence of commands:
+the following sequence of commands for
+building and fine-tuning a job application:
 
-1. [Build](https://bainmatt.github.io/autocv/reference/build_app_directory.html)
+1. [Build](./reference/build_app_directory.html)
 an application directory.
 Given a job of interest, construct a directory containing the
 template data files and folders required to build a tailored job application.
 
-2. [Edit](https://bainmatt.github.io/autocv/reference/open_app.html)
+2. [Edit](./reference/open_app.html)
 the application data files.
 Open the data files for a given job of interest and select
 the information (sections, entries, skills, ordering)
 to include or exclude from your application.
 
-3. [Render](https://bainmatt.github.io/autocv/reference/render_app.html)
+3. [Render](./reference/render_app.html)
 your application documents.
 For a given job of interest, use the tailored data files
 to generate the requested application documents
 (plain text and/or PDF resume, PDF or HTML curriculum vitae,
 cover letter, etc.).
 
-4. [Check](https://bainmatt.github.io/autocv/reference/run_skill_count.html)
+4. [Check](./reference/run_skill_count.html)
 application keywords.
 Given a term bank of relevant job keywords as well as a job posting and
 the application documents for a given job of interest, extract keywords
 from your job application and cross-check them against the job posting.
 
-##### Reference
+5. [Review](./reference/get_app_info.html)
+job application data.
+Retrieve information about your existing job applications.
+
+##### API Reference
 
 Find the documentation for these functions
 [here](https://bainmatt.github.io/autocv/reference/),
@@ -46,16 +51,36 @@ along with documentation for additional functions
 included with the package so that developers may
 tweak and extend functionality as desired.
 
-##### Data files
+##### Data Reference
 
 Included with the package are several template data files which the user
 should modify to reflect their work experience, skills, application text,
 and metadata for any job of interest. The core data files are:
 
-1. [example_skill_data](https://bainmatt.github.io/autocv/reference/example_skill_data.html):
-Contains ...
+1. [example_skill_data](./reference/example_skill_data.html):
+A table with rows representing job-relevant skills, along with ratings of
+skill level and flags indicating whether or not to include each
+skill in the present job application.
 
-WIP. finish this section
+2. [example_position_data](./reference/example_position_data.html):
+A table with rows representing professional roles,
+degrees and certificates earned, professional projects, etc.,
+with optional fields including title, company, timeline, and description text.
+
+3. [example_contact_data](./reference/example_contact_data.html):
+A table with rows containing personal contact information and associated links
+(address, email, personal website, etc.).
+
+4. [example_text_data](./reference/example_text_data.html):
+A table with rows containing the textual building blocks of a job application,
+such as a resume bio or a cover letter.
+
+5. [example_job_metadata](./reference/example_job_metadata.html):
+A named list with fields containing the details of a given job application,
+such as the company, position, associated URLs, and a unique identifier.
+
+6. [example_posting](./reference/example_posting.html):
+A string containing the text of an example job posting.
 
 <!--
 using a central spreadsheet housing resume data (work history, education, skills)

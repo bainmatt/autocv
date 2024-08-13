@@ -23,6 +23,16 @@ navbar:
       menu:
       - text: example_skill_data
         href: reference/example_skill_data.html
+      - text: example_position_data
+        href: reference/example_position_data.html
+      - text: example_contact_data
+        href: reference/example_contact_data.html
+      - text: example_text_data
+        href: reference/example_text_data.html
+      - text: example_job_metadata
+        href: reference/example_job_metadata.html
+      - text: example_posting
+        href: reference/example_posting.html
 
 figures:
   dev: ragg::agg_png
