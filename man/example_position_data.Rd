@@ -5,12 +5,61 @@
 \alias{example_position_data}
 \title{Sample position data}
 \format{
-A data frame with x rows and y columns:
+A data frame with 11 rows and 35 columns:
 \describe{
-\item{field}{description}
-\item{skill_1, skill_2, ..., skill_5}{description (all character)}
-\item{skill_ix_iy}{ ,
-where \code{ix} and \code{iy} can each be an integer from 1 to 5 (all character)}
+\item{section}{Name of the section under which
+the entry should appear in the resume (character).}
+
+\item{title}{Name or title of the role, experience,
+or project (character).}
+
+\item{in_base}{Flag indicating whether the entry should be included
+in your base resume, either "x" or NA (character).}
+
+\item{include}{Flag indicating whether the entry should be included
+in your tailored resume, either "x" or NA (character).}
+
+\item{institution}{Name of the institution associated with
+the role or experience (character).}
+
+\item{loc}{Name of the location associated with
+the role or experience (character).}
+
+\item{start}{Start date (YYYY-MM-DD) of the role or experience;
+set to 1900-01-01 (the origin) to indicate that the provided
+end date (see below) is a target
+(will be rendered as "Expected {End}" (date).}
+
+\item{end}{End date (YYYY-MM-DD) of the role or experience;
+set to NA to indicate that the role is ongoing
+(will be rendered as "{Start} -- Present") (date).}
+
+\item{link}{Web address to display next to the position name;
+optional (character).}
+
+\item{link_text}{The (clickable) text to display in place
+of the web address, if \code{link} supplied (character).}
+
+\item{short_summary}{Concise summary of the role or experience
+and the associated responsibilities, intended for use
+in a professional profile such as LinkedIn (character).}
+
+\item{description_i}{Bullet point to include under the entry,
+where \code{i} represents the bullet's ordering and
+can be an integer from 1 to 5 (all character).}
+
+\item{skill_ix_iy}{Name of a (comma-separated) skill to include
+in parentheses next to bullet point \code{ix}, in the order given by \code{iy},
+where \code{ix} and \code{iy} can each be an integer from 1 to 5 (all character).}
+
+\item{tool_1, tool_2, tool_3}{Name of a tool or technology required
+for the role or experience, intended for use
+in a professional profile such as LinkedIn (all character).}
+
+\item{competency_1, competency_2, competency_3}{Name of a skill
+which is not a tool or technology required
+for the role or experience, intended for use
+in a professional profile such as LinkedIn (all character).}
 }
 }
 \source{
@@ -20,7 +69,9 @@ Generated for demonstration purposes.
 example_position_data
 }
 \description{
-A synthetic dataset containing information about ...
+A synthetic dataset containing information about previous and current
+professional roles and experiences, including work, education,
+certifications, projects, and publications.
 }
 \examples{
 data(example_position_data)

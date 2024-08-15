@@ -5,9 +5,22 @@
 \alias{example_contact_data}
 \title{Sample contact data}
 \format{
-A data frame with x rows and y columns:
+A data frame with 9 rows and 5 columns:
 \describe{
-\item{field}{description}
+\item{loc}{Name of the contact info field (character).}
+
+\item{order}{Ordinal position in which to display the item
+in your resume (positive integer).}
+
+\item{icon}{Name of a Font Awesome icon to display next to the item;
+optional (character).}
+
+\item{address_text}{Text to display for the item,
+in place of the \code{address}, if provided (see below) (character).}
+
+\item{address}{Link or path to the website, web address, or file to
+redirect to when the corresponding \code{address_text} is clicked;
+optional (character).}
 }
 }
 \source{
@@ -17,7 +30,8 @@ Generated for demonstration purposes.
 example_contact_data
 }
 \description{
-A synthetic dataset containing information about ...
+A synthetic dataset containing personal contact information and
+associated links, including a home address, email, and personal websites.
 }
 \examples{
 data(example_contact_data)

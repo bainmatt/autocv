@@ -5,9 +5,23 @@
 \alias{example_text_data}
 \title{Sample text data}
 \format{
-A data frame with x rows and y columns:
+A data frame with 32 rows and 7 columns:
 \describe{
-\item{field}{description}
+\item{loc}{Name of the text block (character).}
+
+\item{include}{Flag indicating whether the item should be included
+in your tailored resume, either "x" or NA (character).}
+
+\item{text}{The actual text to display for the item (character).}
+
+\item{order}{Ordinal position in which to display the item
+in your application documents (positive integer).}
+
+\item{word_limit}{Limit to impose on the number of words
+for the text block (positive integer).}
+
+\item{word_count}{Computed number of words
+for the text block (positive integer).}
 }
 }
 \source{
@@ -17,7 +31,8 @@ Generated for demonstration purposes.
 example_text_data
 }
 \description{
-A synthetic dataset containing information about ...
+A synthetic dataset containing the textual building blocks of
+job application components such as a resume bio or a cover letter.
 }
 \examples{
 data(example_text_data)

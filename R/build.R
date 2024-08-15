@@ -364,8 +364,22 @@ get_app_info <- function(
     # Return only non-path and non-url fields by default
     app_df <- app_df %>%
       select(., !tidyselect::ends_with(c(
-        "path", "url", "email", "date_seq", "period", "base_id"
+        "path", "url", "email", "date_seq", "period", "base_id",
+        "date_created", "last_updated"
       )))
+    
+    # Add days since column for viewing time elapsed since applied
+    days_since <- ifelse(
+      app_df$date_applied == "/",
+      "/",
+      round(
+        difftime(Sys.Date(), as.Date(app_df$date_applied), units = "days")
+      )
+    )
+    app_df <- tibble::add_column(
+      app_df, days_since = days_since, .after = "date_applied"
+    )
+    
   } else {
     app_df <- app_df %>% 
       select(., dplyr::any_of(c("id", field))) 
@@ -373,14 +387,19 @@ get_app_info <- function(
   
   # Truncate long strings in the data frame for at-a-glance viewing
   if (all(field == "all")) {
-    columns_to_truncate <- c("company", "position")
-    # columns_to_truncate <- c("company", "position", "notes")
+    columns_to_truncate <- list(
+      c("company", "position"),
+      c("notes")
+    )
+    max_lengths <- c(15, 20)
     
-    app_df[columns_to_truncate] <- lapply(
-      app_df[columns_to_truncate], function(col) {
-        sapply(col, truncate_string, max_length = 15)
-      }
-    ) 
+    for (i in seq_along(columns_to_truncate)) {
+      app_df[columns_to_truncate[[i]]] <- lapply(
+        app_df[columns_to_truncate[[i]]], function(col) {
+          sapply(col, truncate_string, max_length = max_lengths[i])
+        }
+      )
+    }
   }
   return(app_df)
 }
