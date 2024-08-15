@@ -3,9 +3,9 @@
 \docType{data}
 \name{example_posting}
 \alias{example_posting}
-\title{Sample posting}
+\title{Sample job posting}
 \format{
-A ...
+A character vector of length 1
 }
 \source{
 Generated for demonstration purposes.
@@ -14,7 +14,7 @@ Generated for demonstration purposes.
 example_posting
 }
 \description{
-A synthetic dataset containing information about ...
+A hypothetical job posting.
 }
 \examples{
 data(example_posting)

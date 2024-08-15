@@ -5,9 +5,42 @@
 \alias{example_job_metadata}
 \title{Sample job metadata}
 \format{
-A named list with x fields:
+A named list with 11 fields:
 \describe{
-\item{field}{description}
+\item{name}{Your name (character).}
+
+\item{period}{Name of the current job application period, chosen
+by the user when creating the first application for the period;
+must be a valid directory name (character).}
+
+\item{id}{Unique identifier (relative to all other identifiers for the
+current period) to associate with the current application (character).}
+
+\item{base_id}{Identifier corresponding to an existing job application
+upon which to base the current application. If provided,
+the template data files for the current application
+directory will be copied from the \code{base_id} directory rather
+than the autocv template directory);
+must be an existing id for the current period; optional (character).}
+
+\item{company}{Name of the company to which you are
+applying (character).}
+
+\item{position}{Name of the position for which you are
+applying (character).}
+
+\item{portal_url}{URL of the job application portal; optional (character).}
+
+\item{posting_url}{URL of the job posting page (character).}
+
+\item{linkedin_url}{URL of the LinkedIn posting for the job application;
+optional (character).}
+
+\item{recruiter_email}{Email of the recruiter for the job;
+optional (character).}
+
+\item{notes}{Any notes to include in the log for the current
+job application; optional (character).}
 }
 }
 \source{
@@ -17,7 +50,7 @@ Generated for demonstration purposes.
 example_job_metadata
 }
 \description{
-A synthetic dataset containing information about ...
+A synthetic dataset containing information about a hypothetical job.
 }
 \examples{
 data(example_job_metadata)

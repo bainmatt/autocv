@@ -8,51 +8,51 @@
 A data frame with 113 rows and 14 columns:
 \describe{
 \item{category}{Name of the category
-under which to classify the skill (character)}
+under which to classify the skill (character).}
 
-\item{skill}{Name of the skill (character)}
+\item{skill}{Name of the skill (character).}
 
 \item{in_base}{Flag indicating whether the skill should be included
 in the skills section of your base resume,
-either "x" or NA (character)}
+either "x" or NA (character).}
 
 \item{include}{Flag indicating whether the skill should be included
-in the skills section of tailored resumes,
-either "x" or NA (character)}
+in the skills section of your tailored resume,
+either "x" or NA (character).}
 
-\item{level}{Level of proficiency, from 0--5 (float)}
+\item{level}{Level of proficiency, from 0-5 (float).}
 
 \item{core_tools}{Flag indicating whether the skill should be included
 in the "Core tools" section of your CV,
-either "x" or NA (character)}
+either "x" or NA (character).}
 
 \item{current_tech}{Flag indicating whether the skill should be included
 in the "Current tech" section of your CV,
-either "x" or NA (character)}
+either "x" or NA (character).}
 
 \item{key_competency}{Flag indicating whether the skill
 should be included in the "Key competencies" section of your CV,
-either "x" or NA (character)}
+either "x" or NA (character).}
 
 \item{in_stack}{Flag indicating whether the skill is in your tech stack,
 assuming the skill is a tools or technology,
-either "x" or NA (character)}
+either "x" or NA (character).}
 
 \item{is_a_tool}{Flag indicating whether the skill
-is a tool or technology, either "x" or NA (character)}
+is a tool or technology, either "x" or NA (character).}
 
 \item{in_resume}{Logical value indicating whether the skill is mentioned
-in the body text of your resume (logical)}
+in the body text of your resume (logical).}
 
 \item{in_profile}{Logical value indicating whether the skill is mentioned
-in the skills section of your abridged resume (logical)}
+in the skills section of your abridged resume (logical).}
 
 \item{category_id}{Number representing the chronological position
 in the resume skills section of the category
-to which the skill belongs (positive integer)}
+to which the skill belongs (positive integer).}
 
 \item{alias}{Name of the alias given to the category
-to which the skill belongs (character)}
+to which the skill belongs (character).}
 }
 }
 \source{
