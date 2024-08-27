@@ -18,7 +18,14 @@ knitr::opts_chunk$set(
 library(autocv)
 ```
 
-```{r example}
+# A reproducible example
+
+The following end-to-end example runs in a temporary environment on your
+local machine, constructing a project directory, an application directory,
+a resume, and keyword reports, all from the `autocv`-supplied
+example job posting, template datasets, and template stylesheets.
+
+```{r reproducible-demo, eval=FALSE}
 autocv::in_tmp_env({
   message("1. Build the project directory...")
   autocv::build_base_directory()
@@ -32,7 +39,8 @@ autocv::in_tmp_env({
   
   message("")
   message("3. Render the application...")
-  autocv::render_app(cover = FALSE, email = FALSE)
+  # autocv::render_app(cover = FALSE, email = FALSE)
+  autocv::render_resume_plain()
 
   message("")
   message("4. Check application keywords...")
@@ -41,20 +49,37 @@ autocv::in_tmp_env({
 
   message("")
   message("5. Inspect application metadata...")
-  print(autocv::get_app_info())
+  app_df <- autocv::get_app_info()
+  print(app_df)
   
   resume_path <- autocv::get_app_info(
     id = "AB", field = "resume_path"
   )$resume_path
   
-  # TODO: use non-tmp path (hardcode) and
-  # decide where to include an example file in the package repo.
-  # TODO: consider not using tmp env at all, with 
+  # /TODO: consider not using tmp env at all, with 
   # build_base_directory() + dir "vignettes/output"
-  target_path <- file.path(Sys.getenv("ROOT"), "demo")
-  autocv::copy_files(
-    source_paths = resume_path,
-    target_paths = target_path
-  )
+  # target_path <- file.path(Sys.getenv("ROOT"), "demo")
+  # autocv::copy_files(
+  #   source_paths = resume_path,
+  #   target_paths = target_path
+  # )
 })
+```
+
+In contrast to the above example, the following runs within your
+project root, in a supplied relative directory
+('vignettes/output', in this case).
+
+This example is included as a complete step-by-step demo which outputs
+documents and reports that you can review [here]().
+
+```{r complete-demo}
+# TODO: accepts project path relative to current path in build_base_directory;
+# supply vignettes/output here.
+#autocv::build_base_directory()
+
+# TODO: include all of the above with interleaved explanations
+
+#app_df <- autocv::get_app_info()
+#print(app_df)
 ```
