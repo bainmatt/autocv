@@ -46,7 +46,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/example-cv.html">Build a CV using autocv</a></li>
+<li><a class="dropdown-item" href="articles/demo-resume.html">An example resume generated with autocv</a></li>
+    <li><a class="dropdown-item" href="articles/example-cv.html">Build a CV using autocv</a></li>
   </ul>
 </li>
       </ul>
@@ -97,6 +98,27 @@
 <li><p><a href="./reference/example_job_metadata.html">example_job_metadata</a>: A named list with fields containing the details of a given job application, such as the company, position, associated URLs, and a unique identifier.</p></li>
 <li><p><a href="./reference/example_posting.html">example_posting</a>: A string containing the text of an example job posting.</p></li>
 </ol>
+</div>
+<div class="section level5">
+<h5 id="example-documents">Example documents<a class="anchor" aria-label="anchor" href="#example-documents"></a>
+</h5>
+<p>The autocv package includes functions and dynamic spreadsheets for generating the following documents:</p>
+<ol style="list-style-type: decimal">
+<li>
+<a href="./reference/render_resume.html">PDF resume</a> Either a general (“base”) resume for the role you are pursuing or a tailored resume, built upon the base, modified to suit a specific job to which you are applying. Uses the template file <code>resume_data.xlsx</code> (see <a href="./reference/example_contact_data.html">example_skill_data</a> and <a href="./reference/example_text_data.html">example_position_data</a>). View an example <a href="">here</a>.</li>
+</ol>
+<p>WIP: add exemplar pdf to an ‘examples’ dir in repo w/ script to generate</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p><a href="./reference/render_cover.html">PDF cover letter</a>: A cover letter containing the company and position information for a job of interest. Uses the template file <code>cover_data.xlsx</code> (see <a href="./reference/example_contact_data.html">example_contact_data</a> and <a href="./reference/example_text_data.html">example_text_data</a>).</p></li>
+<li><p><a href="./reference/render_resume.html">Plain text resume</a>: A resume containing the same information as the PDF resume and relying on the same template files but rendered in a plain text format for simplicity and ease of data entry.</p></li>
+<li><p><a href="./reference/render_cover.html">Plain text cover letter</a>: A cover letter containing the same information as the PDF cover letter and relying on the same template files but rendered in a plain text format for simplicity and ease of data entry.</p></li>
+<li><p><a href="./reference/render_cv_as_html.html">HTML curriculum vitae</a>: Am informal, web-friendly curriculum vitae containing an ongoing record of your professional history, a graphical breakdown of your skill set, and a space to include an image. Relies on the same template files as the PDF and plain text resume. View an example <a href="">here</a>.</p></li>
+</ol>
+<p>WIP: link to personal website-hosted CV (?and add script to examples dir to generate and save in appropriate site dir)</p>
+<ol start="6" style="list-style-type: decimal">
+<li><p><a href="./reference/render_cv_as_html.html">PDF curriculum vitae</a>: A curriculum vitae containing the same information as the HTML version and relying on the same template files but rendered as a PDF document for offline distribution.</p></li>
+<li><p><a href="./reference/render_resume.html">Professional profile curriculum vitae</a>: A streamlined curriculum vitae, rendered as a PDF using the PDF resume styling, based on concise information, provided in the data spreadsheet, intended for compatibility with an online professional profile such as LinkedIn. Relies on the same template files as the PDF and plain text resume.</p></li>
+</ol>
 <!--
 using a central spreadsheet housing resume data (work history, education, skills)
 
@@ -116,7 +138,6 @@ provides an efficient, reproducible, easily customized and extended workflow,
 <h1 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h1>
 <p>Follow <a href="./articles/example-cv.html">this</a> vignette in the autocv documentation to get started.</p>
-<p>WIP. add disclaimer to vignette (custom div) that parts may be out of date</p>
 <!--
 Alternatively, if you're in a hurry, the most straightforward way to get
 up and running is to:
