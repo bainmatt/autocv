@@ -82,6 +82,61 @@ such as the company, position, associated URLs, and a unique identifier.
 6. [example_posting](./reference/example_posting.html):
 A string containing the text of an example job posting.
 
+##### Example documents
+
+The autocv package includes functions and dynamic spreadsheets for generating
+the following documents:
+
+1. [PDF resume](./reference/render_resume.html)
+Either a general ("base") resume for the role you are pursuing or
+a tailored resume, built upon the base, modified to suit a specific job
+to which you are applying.
+Uses the template file `resume_data.xlsx` (see 
+[example_skill_data](./reference/example_contact_data.html) and
+[example_position_data](./reference/example_text_data.html)).
+View an example [here]().
+
+WIP: add exemplar pdf to an 'examples' dir in repo w/ script to generate
+
+2. [PDF cover letter](./reference/render_cover.html):
+A cover letter containing the company and position information for a
+job of interest.
+Uses the template file `cover_data.xlsx` (see 
+[example_contact_data](./reference/example_contact_data.html) and
+[example_text_data](./reference/example_text_data.html)).
+
+3. [Plain text resume](./reference/render_resume.html):
+A resume containing the same information as the PDF resume
+and relying on the same template files but
+rendered in a plain text format for simplicity and ease of data entry.
+
+4. [Plain text cover letter](./reference/render_cover.html):
+A cover letter containing the same information as the PDF cover letter
+and relying on the same template files but
+rendered in a plain text format for simplicity and ease of data entry.
+
+5. [HTML curriculum vitae](./reference/render_cv_as_html.html):
+Am informal, web-friendly curriculum vitae containing an ongoing record
+of your professional history, a graphical breakdown of your skill set,
+and a space to include an image.
+Relies on the same template files as the PDF and plain text resume.
+View an example [here]().
+
+WIP: link to personal website-hosted CV
+(?and add script to examples dir to generate and save in appropriate site dir)
+
+6. [PDF curriculum vitae](./reference/render_cv_as_html.html):
+A curriculum vitae containing the same information as the HTML version
+and relying on the same template files but
+rendered as a PDF document for offline distribution.
+
+7. [Professional profile curriculum vitae](./reference/render_resume.html):
+A streamlined curriculum vitae, rendered as a PDF using the PDF resume styling,
+based on concise information, provided in the data spreadsheet,
+intended for compatibility with an online professional profile
+such as LinkedIn.
+Relies on the same template files as the PDF and plain text resume.
+
 <!--
 using a central spreadsheet housing resume data (work history, education, skills)
 
@@ -101,8 +156,6 @@ it directly from GitHub by running the following in your console:
 
 Follow [this](./articles/example-cv.html) vignette in the autocv documentation 
 to get started.
-
-WIP. add disclaimer to vignette (custom div) that parts may be out of date
 
 <!--
 Alternatively, if you're in a hurry, the most straightforward way to get

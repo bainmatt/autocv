@@ -1,10 +1,27 @@
+% TODO: archive?
+% Conditional header and footer (enabled by default)
+% \newif\ifcustomshowheaders
+% \customshowheaderstrue
+% \customshowheadersfalse
+
 % Header/footer
 \usepackage{fancyhdr}
 \usepackage{xcolor}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{\color{gray}Matthew Bain}
-\fancyfoot[R]{\color{gray}\thepage {} / \pageref{LastPage}}
+
+% TODO: archive?
+% Conditional fancy headers and footers
+% \ifcustomshowheaders
+%   \fancyhead[R]{\color{gray}Matthew Bain}
+%   \fancyfoot[R]{\color{gray}\thepage {} / \pageref{LastPage}}
+% \else
+%   \fancyhf{}
+% \fi
+
+% NOTE: uncomment 2 lines below to enable head/footer for long resumes
+% \fancyhead[R]{\color{gray}Matthew Bain}
+% \fancyfoot[R]{\color{gray}\thepage {} / \pageref{LastPage}}
 \fancyfoot[L]{
   \color{gray}Built with 
   \myhref{https://bainmatt.github.io/autocv/}{autocv}, 

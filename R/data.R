@@ -42,17 +42,18 @@
 #'    is a tool or technology, either "x" or NA (character).}
 #'    
 #'   \item{in_resume}{Logical value indicating whether the skill is mentioned
-#'    in the body text of your resume (logical).}
+#'    in the body text of your resume; auto-populated (logical).}
 #'    
 #'   \item{in_profile}{Logical value indicating whether the skill is mentioned
-#'    in the skills section of your abridged resume (logical).}
+#'    in the skills section of your abridged resume;
+#'    auto-populated (logical).}
 #'    
 #'   \item{category_id}{Number representing the chronological position
 #'    in the resume skills section of the category
-#'    to which the skill belongs (positive integer).}
+#'    to which the skill belongs; auto-populated (positive integer).}
 #'    
 #'   \item{alias}{Name of the alias given to the category
-#'    to which the skill belongs (character).}
+#'    to which the skill belongs; auto-populated (character).}
 #' }
 #' 
 #' @source Generated for demonstration purposes.
@@ -94,11 +95,11 @@
 #'   \item{start}{Start date (YYYY-MM-DD) of the role or experience;
 #'    set to 1900-01-01 (the origin) to indicate that the provided
 #'    end date (see below) is a target
-#'    (will be rendered as "Expected {End}" (date).}
+#'    (will be rendered as "Expected - `end`" (date).}
 #'   
 #'   \item{end}{End date (YYYY-MM-DD) of the role or experience;
 #'    set to NA to indicate that the role is ongoing
-#'    (will be rendered as "{Start} -- Present") (date).}
+#'    (will be rendered as "`start` - Present") (date).}
 #'   
 #'   \item{link}{Web address to display next to the position name;
 #'    optional (character).}
@@ -111,8 +112,8 @@
 #'    in a professional profile such as LinkedIn (character).}
 #'   
 #'   \item{description_i}{Bullet point to include under the entry,
-#'    where `i` represents the bullet's ordering and
-#'    can be an integer from 1 to 5 (all character).}
+#'    where `i` can be an integer from 1 to 5 representing the
+#'    bullet's ordering (all character).}
 #'   
 #'   \item{skill_ix_iy}{Name of a (comma-separated) skill to include
 #'    in parentheses next to bullet point `ix`, in the order given by `iy`,
@@ -123,7 +124,7 @@
 #'    in a professional profile such as LinkedIn (all character).}
 #'    
 #'   \item{competency_1, competency_2, competency_3}{Name of a skill
-#'    which is not a tool or technology required
+#'    (other than a tool or technology) required
 #'    for the role or experience, intended for use
 #'    in a professional profile such as LinkedIn (all character).}
 #' }
@@ -157,7 +158,7 @@
 #'    in place of the `address`, if provided (see below) (character).}
 #'    
 #'   \item{address}{Link or path to the website, web address, or file to
-#'    redirect to when the corresponding `address_text` is clicked;
+#'    be redirected to when the corresponding `address_text` is clicked;
 #'    optional (character).}
 #' }
 #' 
@@ -192,7 +193,7 @@
 #'    for the text block (positive integer).}
 #'   
 #'   \item{word_count}{Computed number of words
-#'    for the text block (positive integer).}
+#'    for the text block; auto-populated (positive integer).}
 #' }
 #' 
 #' @source Generated for demonstration purposes.
@@ -224,7 +225,7 @@
 #'    upon which to base the current application. If provided,
 #'    the template data files for the current application
 #'    directory will be copied from the `base_id` directory rather
-#'    than the autocv template directory);
+#'    than the autocv template directory;
 #'    must be an existing id for the current period; optional (character).}
 #'    
 #'   \item{company}{Name of the company to which you are

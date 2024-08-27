@@ -1,0 +1,60 @@
+---
+title: "An example resume generated with autocv"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{An example resume generated with autocv}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(autocv)
+```
+
+```{r example}
+autocv::in_tmp_env({
+  message("1. Build the project directory...")
+  autocv::build_base_directory()
+  
+  data(example_job_metadata)
+  app_df <- autocv::construct_app_metadata(app_info = example_job_metadata)
+
+  message("")
+  message("2. Build the application...")
+  autocv::build_app_directory(app_df = app_df, open = FALSE)
+  
+  message("")
+  message("3. Render the application...")
+  autocv::render_app(cover = FALSE, email = FALSE)
+
+  message("")
+  message("4. Check application keywords...")
+  report_df <- autocv::check_skills()
+  print(report_df)
+
+  message("")
+  message("5. Inspect application metadata...")
+  print(autocv::get_app_info())
+  
+  resume_path <- autocv::get_app_info(
+    id = "AB", field = "resume_path"
+  )$resume_path
+  
+  # TODO: use non-tmp path (hardcode) and
+  # decide where to include an example file in the package repo.
+  # TODO: consider not using tmp env at all, with 
+  # build_base_directory() + dir "vignettes/output"
+  target_path <- file.path(Sys.getenv("ROOT"), "demo")
+  autocv::copy_files(
+    source_paths = resume_path,
+    target_paths = target_path
+  )
+})
+```

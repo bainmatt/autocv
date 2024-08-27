@@ -8,6 +8,12 @@ output:
     keep_tex: false
     includes:
       in_header: !expr fs::path_package("autocv", "extdata/latex","custom_resume.tex")
+# TODO: archive?
+# Turn off header and footer (\customshowheaders{true/false})
+# header-includes:
+#   - |
+#     \newif\ifcustomshowheaders
+#     \customshowheadersfalse
 fontsize: 11pt
 geometry: margin=0.55in, bottom=0.5in, headsep=0.15in, footskip=0.15in
 params:

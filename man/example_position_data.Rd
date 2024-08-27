@@ -28,11 +28,11 @@ the role or experience (character).}
 \item{start}{Start date (YYYY-MM-DD) of the role or experience;
 set to 1900-01-01 (the origin) to indicate that the provided
 end date (see below) is a target
-(will be rendered as "Expected {End}" (date).}
+(will be rendered as "Expected - \code{end}" (date).}
 
 \item{end}{End date (YYYY-MM-DD) of the role or experience;
 set to NA to indicate that the role is ongoing
-(will be rendered as "{Start} -- Present") (date).}
+(will be rendered as "\code{start} - Present") (date).}
 
 \item{link}{Web address to display next to the position name;
 optional (character).}
@@ -45,8 +45,8 @@ and the associated responsibilities, intended for use
 in a professional profile such as LinkedIn (character).}
 
 \item{description_i}{Bullet point to include under the entry,
-where \code{i} represents the bullet's ordering and
-can be an integer from 1 to 5 (all character).}
+where \code{i} can be an integer from 1 to 5 representing the
+bullet's ordering (all character).}
 
 \item{skill_ix_iy}{Name of a (comma-separated) skill to include
 in parentheses next to bullet point \code{ix}, in the order given by \code{iy},
@@ -57,7 +57,7 @@ for the role or experience, intended for use
 in a professional profile such as LinkedIn (all character).}
 
 \item{competency_1, competency_2, competency_3}{Name of a skill
-which is not a tool or technology required
+(other than a tool or technology) required
 for the role or experience, intended for use
 in a professional profile such as LinkedIn (all character).}
 }

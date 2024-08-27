@@ -42,17 +42,18 @@ either "x" or NA (character).}
 is a tool or technology, either "x" or NA (character).}
 
 \item{in_resume}{Logical value indicating whether the skill is mentioned
-in the body text of your resume (logical).}
+in the body text of your resume; auto-populated (logical).}
 
 \item{in_profile}{Logical value indicating whether the skill is mentioned
-in the skills section of your abridged resume (logical).}
+in the skills section of your abridged resume;
+auto-populated (logical).}
 
 \item{category_id}{Number representing the chronological position
 in the resume skills section of the category
-to which the skill belongs (positive integer).}
+to which the skill belongs; auto-populated (positive integer).}
 
 \item{alias}{Name of the alias given to the category
-to which the skill belongs (character).}
+to which the skill belongs; auto-populated (character).}
 }
 }
 \source{
