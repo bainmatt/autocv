@@ -521,6 +521,8 @@ render_app <- function(
 #'
 #' @export
 render_base <- function(report_counts = TRUE) {
+  # NOTE: set target to "app" for a 1-page resume;
+  # enable latex stylesheet header (name) and footer (page numbers) otherwise.
   render_cv_as_html()
   render_resume_plain(target = "base")
   render_resume(target = "base")

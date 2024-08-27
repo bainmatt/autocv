@@ -21,7 +21,7 @@ in your application documents (positive integer).}
 for the text block (positive integer).}
 
 \item{word_count}{Computed number of words
-for the text block (positive integer).}
+for the text block; auto-populated (positive integer).}
 }
 }
 \source{

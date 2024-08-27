@@ -20,7 +20,7 @@ current period) to associate with the current application (character).}
 upon which to base the current application. If provided,
 the template data files for the current application
 directory will be copied from the \code{base_id} directory rather
-than the autocv template directory);
+than the autocv template directory;
 must be an existing id for the current period; optional (character).}
 
 \item{company}{Name of the company to which you are

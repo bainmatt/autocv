@@ -19,7 +19,7 @@ optional (character).}
 in place of the \code{address}, if provided (see below) (character).}
 
 \item{address}{Link or path to the website, web address, or file to
-redirect to when the corresponding \code{address_text} is clicked;
+be redirected to when the corresponding \code{address_text} is clicked;
 optional (character).}
 }
 }
