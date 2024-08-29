@@ -73,8 +73,8 @@ This example is included as a complete step-by-step demo which outputs
 documents and reports that you can review [here]().
 
 ```{r complete-demo}
-# TODO: remove 'output' from gitignore?
-autocv::build_base_directory(relpath = "vignettes/output")
+autocv::get_path_to("src")
+# autocv::build_base_directory(relpath = "vignettes/output")
 
 # TODO: include all of the above with interleaved explanations
 
