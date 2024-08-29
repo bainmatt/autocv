@@ -877,6 +877,8 @@ build_app_directory <- function(
 
 #' Create the file tree and necessary data files to begin building a resume.
 #' 
+#' @param relpath the desired project path relative to your working directory.
+#'
 #' @examples
 #' in_tmp_env({
 #'   build_base_directory()
@@ -884,13 +886,13 @@ build_app_directory <- function(
 #' 
 #' @family cli
 #' @export
-build_base_directory <- function() {
+build_base_directory <- function(relpath = NULL) {
   # Set environment path variables (ask, then set "ROOT" and set as 'here'),
   # as well as Rproject and Rprofile files (sourced to complete path config).
   cli::cli_text("")
   cli::cli_rule("Setting project paths")
   
-  set_project_paths()
+  set_project_paths(relpath = relpath)
   root_path <- Sys.getenv("ROOT")
   create_rproject(root_path = root_path, project_name = "mycv")
   
@@ -1335,9 +1337,11 @@ open_doc_and_wait <- function(
 
 #' Establish the root directory when building a new project.
 #'
-#' @family build-dev 
+#' @param relpath the desired project path relative to your working directory.
+#'
+#' @family build-dev
 #' @export
-set_project_paths <- function() {
+set_project_paths <- function(relpath = NULL) {
   prompt <- paste0(
     "Set your desired project path relative to your current path: "
   )
@@ -1347,14 +1351,15 @@ set_project_paths <- function() {
   # Request new path
   while (!root_exists) {
     message("\nYour current path is: ", current_path, "/")
-    
-    response <- readline(prompt)
+
+    response <- if (!is.null(relpath)) relpath else readline(prompt)
     root_entered <- file.path(current_path, as.character(response))
     root_exists <- dir.exists(root_entered)
     message("\nYou entered the path: ", root_entered)
     
     if (!root_exists) { 
       message("The path entered does not exist. Try again.")
+      if (!is.null(relpath)) relpath <- NULL
     }
   }
   
