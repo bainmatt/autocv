@@ -4,7 +4,10 @@
 \alias{build_base_directory}
 \title{Create the file tree and necessary data files to begin building a resume.}
 \usage{
-build_base_directory()
+build_base_directory(relpath = NULL)
+}
+\arguments{
+\item{relpath}{the desired project path relative to your working directory.}
 }
 \description{
 Create the file tree and necessary data files to begin building a resume.

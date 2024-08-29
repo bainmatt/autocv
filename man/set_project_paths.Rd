@@ -4,7 +4,10 @@
 \alias{set_project_paths}
 \title{Establish the root directory when building a new project.}
 \usage{
-set_project_paths()
+set_project_paths(relpath = NULL)
+}
+\arguments{
+\item{relpath}{the desired project path relative to your working directory.}
 }
 \description{
 Establish the root directory when building a new project.

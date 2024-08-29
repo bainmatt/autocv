@@ -66,17 +66,14 @@ autocv::in_tmp_env({
 })
 ```
 
-In contrast to the above example, the following runs within your
-project root, in a supplied relative directory
-('vignettes/output', in this case).
+In contrast to the above example, the following runs in a supplied directory
+('vignettes/output', in this case) relative to your project root.
 
 This example is included as a complete step-by-step demo which outputs
 documents and reports that you can review [here]().
 
 ```{r complete-demo}
-# TODO: accepts project path relative to current path in build_base_directory;
-# supply vignettes/output here.
-#autocv::build_base_directory()
+autocv::build_base_directory(relpath = "vignettes/output")
 
 # TODO: include all of the above with interleaved explanations
 
