@@ -3,7 +3,6 @@
 # Development I/O folders (arbitrarily nested)
 **/input/
 **/output/
-!vignettes/output/
 **/applications/
 
 # Archives (with arbitrary nesting and basename)

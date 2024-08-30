@@ -52,32 +52,52 @@ autocv::in_tmp_env({
   app_df <- autocv::get_app_info()
   print(app_df)
   
-  resume_path <- autocv::get_app_info(
-    id = "AB", field = "resume_path"
-  )$resume_path
+  # resume_path <- autocv::get_app_info(
+  #   id = "AB", field = "resume_path"
+  # )$resume_path
   
-  # /TODO: consider not using tmp env at all, with 
-  # build_base_directory() + dir "vignettes/output"
+  # /TODO: somehow copy tmpenv output into repo 
   # target_path <- file.path(Sys.getenv("ROOT"), "demo")
   # autocv::copy_files(
   #   source_paths = resume_path,
-  #   target_paths = target_path
+  #   target_paths = "."
   # )
 })
 ```
 
 In contrast to the above example, the following runs in a supplied directory
-('vignettes/output', in this case) relative to your project root.
+('output', in this case) relative to your project root.
 
 This example is included as a complete step-by-step demo which outputs
 documents and reports that you can review [here]().
 
-```{r complete-demo}
-autocv::get_path_to("src")
-# autocv::build_base_directory(relpath = "vignettes/output")
+```{r build-base}
+# TODO: include each of the above with interleaved explanations
+# TODO: capture output directory somehow (move over from temp)
 
-# TODO: include all of the above with interleaved explanations
+autocv::in_tmp_env({
+  message("1. Build the project directory...")
+  autocv::build_base_directory()
+  
+  data(example_job_metadata)
+  app_df <- autocv::construct_app_metadata(app_info = example_job_metadata)
+})
 
-#app_df <- autocv::get_app_info()
-#print(app_df)
+```
+
+```{r build-app}
+autocv::in_tmp_env({
+  message("2. Build the application...")
+  autocv::build_app_directory(app_df = app_df, open = FALSE)
+})
+
+```
+
+```{r render-app}
+autocv::in_tmp_env({
+  message("3. Render the application...")
+  # autocv::render_app(cover = FALSE, email = FALSE)
+  autocv::render_resume_plain()
+})
+
 ```
