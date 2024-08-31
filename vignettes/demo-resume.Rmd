@@ -51,17 +51,6 @@ autocv::in_tmp_env({
   message("5. Inspect application metadata...")
   app_df <- autocv::get_app_info()
   print(app_df)
-  
-  # resume_path <- autocv::get_app_info(
-  #   id = "AB", field = "resume_path"
-  # )$resume_path
-  
-  # /TODO: somehow copy tmpenv output into repo 
-  # target_path <- file.path(Sys.getenv("ROOT"), "demo")
-  # autocv::copy_files(
-  #   source_paths = resume_path,
-  #   target_paths = "."
-  # )
 })
 ```
 
@@ -73,7 +62,6 @@ documents and reports that you can review [here]().
 
 ```{r build-base}
 # TODO: include each of the above with interleaved explanations
-# TODO: capture output directory somehow (move over from temp)
 
 autocv::in_tmp_env({
   message("1. Build the project directory...")
@@ -98,6 +86,42 @@ autocv::in_tmp_env({
   message("3. Render the application...")
   # autocv::render_app(cover = FALSE, email = FALSE)
   autocv::render_resume_plain()
+})
+
+```
+
+```{r check}
+autocv::in_tmp_env({
+  message("4. Check application keywords...")
+  report_df <- autocv::check_skills()
+  print(report_df)
+})
+
+```
+
+```{r inspect}
+autocv::in_tmp_env({
+  message("5. Inspect application metadata...")
+  app_df <- autocv::get_app_info()
+  print(app_df)
+})
+
+```
+
+```{r log-test}
+autocv::in_tmp_env({
+  resume_plain_path <- autocv::get_app_info(
+    id = "AB", field = "resume_plain_path"
+  )$resume_plain_path
+  
+  print(fs::path_wd())
+  
+  # TODO: copy tmpenv output into repo in git-compat way) (fs::path_wd)
+  target_path <- file.path(fs::path_wd(), basename(resume_plain_path))
+  autocv::copy_files(
+    source_paths = resume_plain_path,
+    target_paths = target_path
+  )
 })
 
 ```
