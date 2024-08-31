@@ -110,16 +110,16 @@ autocv::in_tmp_env({
 
 ```{r log-test}
 autocv::in_tmp_env({
-  resume_path <- autocv::get_app_info(
+  resume_plain_path <- autocv::get_app_info(
     id = "AB", field = "resume_plain_path"
   )$resume_plain_path
   
   print(fs::path_wd())
   
   # TODO: copy tmpenv output into repo in git-compat way) (fs::path_wd)
-  target_path <- fs::path_wd()
+  target_path <- file.path(fs::path_wd(), basename(resume_plain_path))
   autocv::copy_files(
-    source_paths = resume_path,
+    source_paths = resume_plain_path,
     target_paths = target_path
   )
 })
