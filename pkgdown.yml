@@ -4,4 +4,7 @@ pkgdown_sha: ~
 articles:
   demo-resume: demo-resume.html
   example-cv: example-cv.html
-last_built: 2024-08-31T01:59Z
+last_built: 2024-09-04T23:57Z
+urls:
+  reference: https://bainmatt.github.io/autocv/reference
+  article: https://bainmatt.github.io/autocv/articles

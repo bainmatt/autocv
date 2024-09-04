@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>An example resume generated with autocv • autocv</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">autocv</a>
 
@@ -54,6 +54,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/bainmatt" aria-label="GitHub"><span class="fa fa-github"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -77,7 +85,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">autocv</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bainmatt.github.io/autocv">autocv</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="a-reproducible-example">A reproducible example<a class="anchor" aria-label="anchor" href="#a-reproducible-example"></a>
 </h2>
@@ -113,35 +121,39 @@ template stylesheets.</p>
 <span>  <span class="va">app_df</span> <span class="op">&lt;-</span> <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/get_app_info.html">get_app_info</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">app_df</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>In contrast to the above example, the following runs in a supplied
-directory (‘output’, in this case) relative to your project root.</p>
-<p>This example is included as a complete step-by-step demo which
-outputs documents and reports that you can review <a href="">here</a>.</p>
+</div>
+<div class="section level2">
+<h2 id="a-step-by-step-example">A step-by-step example<a class="anchor" aria-label="anchor" href="#a-step-by-step-example"></a>
+</h2>
+<p>Let us now walk through each of these steps in greater depth, keeping
+track of the evolving file tree and copying the generated documents from
+the temporary environment to your working directory, for your
+reference.</p>
+<!-- TODO: add brief interleaved explanations -->
+<div class="section level3">
+<h3 id="step-1-build-the-project-directory">Step 1: Build the project directory<a class="anchor" aria-label="anchor" href="#step-1-build-the-project-directory"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># TODO: include each of the above with interleaved explanations</span></span>
-<span></span>
-<span><span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/in_tmp_env.html">in_tmp_env</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"1. Build the project directory..."</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/in_tmp_env.html">in_tmp_env</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/build_base_directory.html">build_base_directory</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_job_metadata</span><span class="op">)</span></span>
 <span>  <span class="va">app_df</span> <span class="op">&lt;-</span> <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/construct_app_metadata.html">construct_app_metadata</a></span><span class="op">(</span>app_info <span class="op">=</span> <span class="va">example_job_metadata</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 1. Build the project directory...</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── Setting project paths ───────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Your current path is: /tmp/RtmptHGQxP/</span></span>
+<span><span class="co">#&gt; Your current path is: /tmp/RtmpvF4fch/</span></span>
 <span><span class="co">#&gt; Set your desired project path relative to your current path:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; You entered the path: /tmp/RtmptHGQxP/</span></span>
+<span><span class="co">#&gt; You entered the path: /tmp/RtmpvF4fch/</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Setting your project root to: /tmp/RtmptHGQxP/</span></span>
-<span><span class="co">#&gt; Created file .here in /tmp/RtmptHGQxP . Please start a new R session in the new project directory.</span></span>
+<span><span class="co">#&gt; Setting your project root to: /tmp/RtmpvF4fch/</span></span>
+<span><span class="co">#&gt; Created file .here in /tmp/RtmpvF4fch . Please start a new R session in the new project directory.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Writing file: <span style="color: #00BB00;">.Rprofile</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Writing file: <span style="color: #00BB00;">mycv.Rproj</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Writing to: <span style="color: #00BB00;">../../../../../../tmp/RtmptHGQxP</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Writing to: <span style="color: #00BB00;">../../../../../../tmp/RtmpvF4fch</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── Creating directory tree ─────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Folder already exists: <span style="color: #00BBBB;">.</span> (skipping)</span></span>
@@ -158,14 +170,27 @@ outputs documents and reports that you can review <a href="">here</a>.</p>
 <span><span class="co">#&gt; ── Writing resume-building notebooks ───────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Writing file: <span style="color: #00BB00;">resume.Rmd</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Writing file: <span style="color: #00BB00;">cv.Rmd</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">#&gt; Current file tree:</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">.</span></span></span>
+<span><span class="co">#&gt; ├── <span style="color: #00BB00;">demo-resume.Rmd</span></span></span>
+<span><span class="co">#&gt; ├── <span style="color: #00BB00;">example-cv.Rmd</span></span></span>
+<span><span class="co">#&gt; ├── example-cv.html</span></span>
+<span><span class="co">#&gt; └── <span style="color: #0000BB; font-weight: bold;">output</span></span></span>
+<span><span class="co">#&gt;     ├── keyword_counts_AB.csv</span></span>
+<span><span class="co">#&gt;     ├── resume_yourname_AB.txt</span></span>
+<span><span class="co">#&gt;     ├── skill_counts_posting_AB.csv</span></span>
+<span><span class="co">#&gt;     ├── skill_counts_resume_AB.csv</span></span>
+<span><span class="co">#&gt;     └── skill_report_AB.csv</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="step-2-build-the-application">Step 2: Build the application<a class="anchor" aria-label="anchor" href="#step-2-build-the-application"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/in_tmp_env.html">in_tmp_env</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"2. Build the application..."</span><span class="op">)</span></span>
 <span>  <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/build_app_directory.html">build_app_directory</a></span><span class="op">(</span>app_df <span class="op">=</span> <span class="va">app_df</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2. Build the application...</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Writing to: <span style="color: #00BB00;">../../../../../../tmp/RtmptHGQxP/R/applications/2024-07-data-science/2024-08-31-01-company-name-data-scientist-AB</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Writing to: <span style="color: #00BB00;">../../../../../../tmp/RtmpvF4fch/R/applications/2024-07-data-science/2024-09-04-01-company-name-data-scientist-AB</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── Creating directory tree ─────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Creating folder: <span style="color: #00BB00;">input</span></span></span>
@@ -251,23 +276,56 @@ outputs documents and reports that you can review <a href="">here</a>.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">55</span> Developers                        1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Opening: <span style="color: #00BB00;">.</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">#&gt; Current file tree:</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpvF4fch/./R/applications</span></span></span>
+<span><span class="co">#&gt; └── <span style="color: #0000BB; font-weight: bold;">2024-07-data-science</span></span></span>
+<span><span class="co">#&gt;     ├── <span style="color: #0000BB; font-weight: bold;">2024-09-04-01-company-name-data-scientist-AB</span></span></span>
+<span><span class="co">#&gt;     │   ├── <span style="color: #0000BB; font-weight: bold;">input</span></span></span>
+<span><span class="co">#&gt;     │   │   ├── cover_data_AB.xlsx</span></span>
+<span><span class="co">#&gt;     │   │   ├── posting_AB.txt</span></span>
+<span><span class="co">#&gt;     │   │   ├── report.xlsx</span></span>
+<span><span class="co">#&gt;     │   │   └── resume_data_AB.xlsx</span></span>
+<span><span class="co">#&gt;     │   ├── metadata_AB.yml</span></span>
+<span><span class="co">#&gt;     │   └── <span style="color: #0000BB; font-weight: bold;">output</span></span></span>
+<span><span class="co">#&gt;     │       ├── keyword_counts_AB.csv</span></span>
+<span><span class="co">#&gt;     │       └── skill_counts_posting_AB.csv</span></span>
+<span><span class="co">#&gt;     └── log.rds</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="step-3-render-the-application">Step 3: Render the application<a class="anchor" aria-label="anchor" href="#step-3-render-the-application"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/in_tmp_env.html">in_tmp_env</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"3. Render the application..."</span><span class="op">)</span></span>
 <span>  <span class="co"># autocv::render_app(cover = FALSE, email = FALSE)</span></span>
 <span>  <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/render_resume.html">render_resume_plain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 3. Render the application...</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">Building resume.txt</span> ─────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Writing file: <span style="color: #00BB00;">output/resume_yourname_AB.txt</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">#&gt; Current file tree:</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpvF4fch/./R/applications</span></span></span>
+<span><span class="co">#&gt; └── <span style="color: #0000BB; font-weight: bold;">2024-07-data-science</span></span></span>
+<span><span class="co">#&gt;     ├── <span style="color: #0000BB; font-weight: bold;">2024-09-04-01-company-name-data-scientist-AB</span></span></span>
+<span><span class="co">#&gt;     │   ├── <span style="color: #0000BB; font-weight: bold;">input</span></span></span>
+<span><span class="co">#&gt;     │   │   ├── cover_data_AB.xlsx</span></span>
+<span><span class="co">#&gt;     │   │   ├── posting_AB.txt</span></span>
+<span><span class="co">#&gt;     │   │   ├── report.xlsx</span></span>
+<span><span class="co">#&gt;     │   │   └── resume_data_AB.xlsx</span></span>
+<span><span class="co">#&gt;     │   ├── metadata_AB.yml</span></span>
+<span><span class="co">#&gt;     │   └── <span style="color: #0000BB; font-weight: bold;">output</span></span></span>
+<span><span class="co">#&gt;     │       ├── keyword_counts_AB.csv</span></span>
+<span><span class="co">#&gt;     │       ├── resume_yourname_AB.txt</span></span>
+<span><span class="co">#&gt;     │       └── skill_counts_posting_AB.csv</span></span>
+<span><span class="co">#&gt;     └── log.rds</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="step-4-check-application-keywords">Step 4: Check application keywords<a class="anchor" aria-label="anchor" href="#step-4-check-application-keywords"></a>
+</h3>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/in_tmp_env.html">in_tmp_env</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"4. Check application keywords..."</span><span class="op">)</span></span>
 <span>  <span class="va">report_df</span> <span class="op">&lt;-</span> <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/run_skill_count.html">check_skills</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">report_df</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 4. Check application keywords...</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">Keyword check: Posting vs job terms list</span> ────────────────────────────────────</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> File already exists: <span style="color: #00BBBB;">output/keyword_counts_AB.csv</span> (skipping)</span></span>
@@ -490,34 +548,92 @@ outputs documents and reports that you can review <a href="">here</a>.</p>
 <span><span class="co">#&gt; 53                         ETL     1       0            TRUE            FALSE</span></span>
 <span><span class="co">#&gt; 54                         ELT     1       0           FALSE            FALSE</span></span>
 <span><span class="co">#&gt; 55                  Developers     1       0           FALSE            FALSE</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">#&gt; Current file tree:</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpvF4fch/./R/applications</span></span></span>
+<span><span class="co">#&gt; └── <span style="color: #0000BB; font-weight: bold;">2024-07-data-science</span></span></span>
+<span><span class="co">#&gt;     ├── <span style="color: #0000BB; font-weight: bold;">2024-09-04-01-company-name-data-scientist-AB</span></span></span>
+<span><span class="co">#&gt;     │   ├── <span style="color: #0000BB; font-weight: bold;">input</span></span></span>
+<span><span class="co">#&gt;     │   │   ├── cover_data_AB.xlsx</span></span>
+<span><span class="co">#&gt;     │   │   ├── posting_AB.txt</span></span>
+<span><span class="co">#&gt;     │   │   ├── report.xlsx</span></span>
+<span><span class="co">#&gt;     │   │   └── resume_data_AB.xlsx</span></span>
+<span><span class="co">#&gt;     │   ├── metadata_AB.yml</span></span>
+<span><span class="co">#&gt;     │   └── <span style="color: #0000BB; font-weight: bold;">output</span></span></span>
+<span><span class="co">#&gt;     │       ├── keyword_counts_AB.csv</span></span>
+<span><span class="co">#&gt;     │       ├── resume_yourname_AB.txt</span></span>
+<span><span class="co">#&gt;     │       ├── skill_counts_posting_AB.csv</span></span>
+<span><span class="co">#&gt;     │       ├── skill_counts_resume_AB.csv</span></span>
+<span><span class="co">#&gt;     │       └── skill_report_AB.csv</span></span>
+<span><span class="co">#&gt;     └── log.rds</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="step-5-inspect-application-metadata">Step 5: Inspect application metadata<a class="anchor" aria-label="anchor" href="#step-5-inspect-application-metadata"></a>
+</h3>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/in_tmp_env.html">in_tmp_env</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"5. Inspect application metadata..."</span><span class="op">)</span></span>
 <span>  <span class="va">app_df</span> <span class="op">&lt;-</span> <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/get_app_info.html">get_app_info</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">app_df</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 5. Inspect application metadata...</span></span>
 <span><span class="co">#&gt;   id      company       position status date_applied days_since notes</span></span>
 <span><span class="co">#&gt; 1 AB Company Name Data Scientist    ipr            /          /     /</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">#&gt; Current file tree:</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpvF4fch/./R/applications</span></span></span>
+<span><span class="co">#&gt; └── <span style="color: #0000BB; font-weight: bold;">2024-07-data-science</span></span></span>
+<span><span class="co">#&gt;     ├── <span style="color: #0000BB; font-weight: bold;">2024-09-04-01-company-name-data-scientist-AB</span></span></span>
+<span><span class="co">#&gt;     │   ├── <span style="color: #0000BB; font-weight: bold;">input</span></span></span>
+<span><span class="co">#&gt;     │   │   ├── cover_data_AB.xlsx</span></span>
+<span><span class="co">#&gt;     │   │   ├── posting_AB.txt</span></span>
+<span><span class="co">#&gt;     │   │   ├── report.xlsx</span></span>
+<span><span class="co">#&gt;     │   │   └── resume_data_AB.xlsx</span></span>
+<span><span class="co">#&gt;     │   ├── metadata_AB.yml</span></span>
+<span><span class="co">#&gt;     │   └── <span style="color: #0000BB; font-weight: bold;">output</span></span></span>
+<span><span class="co">#&gt;     │       ├── keyword_counts_AB.csv</span></span>
+<span><span class="co">#&gt;     │       ├── resume_yourname_AB.txt</span></span>
+<span><span class="co">#&gt;     │       ├── skill_counts_posting_AB.csv</span></span>
+<span><span class="co">#&gt;     │       ├── skill_counts_resume_AB.csv</span></span>
+<span><span class="co">#&gt;     │       └── skill_report_AB.csv</span></span>
+<span><span class="co">#&gt;     └── log.rds</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="review-the-generated-documents">Review the generated documents<a class="anchor" aria-label="anchor" href="#review-the-generated-documents"></a>
+</h3>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/in_tmp_env.html">in_tmp_env</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="va">resume_plain_path</span> <span class="op">&lt;-</span> <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/get_app_info.html">get_app_info</a></span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="st">"AB"</span>, field <span class="op">=</span> <span class="st">"resume_plain_path"</span></span>
-<span>  <span class="op">)</span><span class="op">$</span><span class="va">resume_plain_path</span></span>
+<span>  <span class="va">source_paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/get_app_info.html">get_app_info</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"AB"</span>,</span>
+<span>    field <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"resume_plain_path"</span>,</span>
+<span>      <span class="st">"keyword_counts_posting"</span>,</span>
+<span>      <span class="st">"skill_counts_posting"</span>,</span>
+<span>      <span class="st">"skill_counts_resume"</span>,</span>
+<span>      <span class="st">"skill_report"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">target_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path_wd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"output"</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">target_dir</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">target_dir</span><span class="op">)</span> <span class="op">}</span></span>
+<span>  <span class="va">target_paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">target_dir</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">source_paths</span><span class="op">)</span><span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path_wd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># TODO: copy tmpenv output into repo in git-compat way) (fs::path_wd)</span></span>
-<span>  <span class="va">target_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path_wd</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">resume_plain_path</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu">autocv</span><span class="fu">::</span><span class="fu"><a href="../reference/copy_files.html">copy_files</a></span><span class="op">(</span></span>
-<span>    source_paths <span class="op">=</span> <span class="va">resume_plain_path</span>,</span>
-<span>    target_paths <span class="op">=</span> <span class="va">target_path</span></span>
+<span>    source_paths <span class="op">=</span> <span class="va">source_paths</span>,</span>
+<span>    target_paths <span class="op">=</span> <span class="va">target_paths</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/home/runner/work/autocv/autocv/vignettes</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Writing file: <span style="color: #00BB00;">resume_yourname_AB.txt</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> File already exists: <span style="color: #00BBBB;">output/resume_yourname_AB.txt</span> (skipping)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> File already exists: <span style="color: #00BBBB;">output/keyword_counts_AB.csv</span> (skipping)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> File already exists: <span style="color: #00BBBB;">output/skill_counts_posting_AB.csv</span> (skipping)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> File already exists: <span style="color: #00BBBB;">output/skill_counts_resume_AB.csv</span> (skipping)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> File already exists: <span style="color: #00BBBB;">output/skill_report_AB.csv</span> (skipping)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Working directory output file tree:</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/home/runner/work/autocv/autocv/vignettes/output</span></span></span>
+<span><span class="co">#&gt; ├── keyword_counts_AB.csv</span></span>
+<span><span class="co">#&gt; ├── resume_yourname_AB.txt</span></span>
+<span><span class="co">#&gt; ├── skill_counts_posting_AB.csv</span></span>
+<span><span class="co">#&gt; ├── skill_counts_resume_AB.csv</span></span>
+<span><span class="co">#&gt; └── skill_report_AB.csv</span></span></code></pre>
 </div>
-  </main>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
