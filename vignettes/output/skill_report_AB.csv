@@ -1,0 +1,56 @@
+"","term","count","matches","in_my_skill_set","in_my_skill_list"
+"1","Data Science",73,0,FALSE,FALSE
+"2","Data Analysis",15,0,FALSE,FALSE
+"3","UX",1,0,FALSE,FALSE
+"4","Statistics",29,0,TRUE,FALSE
+"5","Cloud Computing",4,0,FALSE,FALSE
+"6","Insights",10,0,FALSE,FALSE
+"7","Computer Science",7,0,FALSE,FALSE
+"8","Survey Data",1,0,FALSE,FALSE
+"9","Algorithms",4,0,FALSE,FALSE
+"10","Unstructured Data",2,0,FALSE,FALSE
+"11","Domain Knowledge",3,0,FALSE,FALSE
+"12","Mathematics",3,0,FALSE,FALSE
+"13","Data-Driven",3,0,FALSE,FALSE
+"14","Statistical Knowledge",1,0,FALSE,FALSE
+"15","Data Visualization",3,0,TRUE,FALSE
+"16","Machine Learning",8,1,TRUE,FALSE
+"17","C",8,0,FALSE,FALSE
+"18","Classification",3,0,TRUE,FALSE
+"19","Data Mining",4,0,FALSE,FALSE
+"20","Statistical Learning",3,0,TRUE,FALSE
+"21","Data Collection",1,0,FALSE,FALSE
+"22","Big Data",13,0,TRUE,FALSE
+"23","Exploratory Data Analysis",2,0,TRUE,FALSE
+"24","Data Management",2,0,TRUE,FALSE
+"25","Data Cleaning",1,0,FALSE,FALSE
+"26","Predictive Models",3,0,FALSE,FALSE
+"27","Models",2,0,FALSE,FALSE
+"28","Data-Driven Decisions",1,0,FALSE,FALSE
+"29","Statistical Analysis",2,0,TRUE,FALSE
+"30","Data Preprocessing",1,0,TRUE,FALSE
+"31","Feature Engineering",1,0,TRUE,FALSE
+"32","Model Selection",1,0,TRUE,FALSE
+"33","Implementation",1,0,FALSE,FALSE
+"34","Analytical Techniques",1,0,FALSE,FALSE
+"35","Analytical",1,0,FALSE,FALSE
+"36","Large Datasets",2,0,FALSE,FALSE
+"37","Non-Technical Audiences",1,0,FALSE,FALSE
+"38","Critical Thinking",1,0,TRUE,FALSE
+"39","Data-Driven Decision-Making",1,0,FALSE,FALSE
+"40","Data Analytics",1,0,FALSE,FALSE
+"41","Cloud Services",1,0,FALSE,FALSE
+"42","Python",1,2,TRUE,TRUE
+"43","R",2,2,TRUE,TRUE
+"44","Data Engineering",1,0,FALSE,FALSE
+"45","HTML",4,0,TRUE,FALSE
+"46","Statistical Modeling",1,0,TRUE,FALSE
+"47","Causal Inference",1,0,TRUE,FALSE
+"48","Collaboration",1,0,FALSE,FALSE
+"49","Signal Processing",1,0,FALSE,FALSE
+"50","Spark",1,0,TRUE,FALSE
+"51","Spark SQL",1,0,FALSE,FALSE
+"52","Data Ethics",1,0,FALSE,FALSE
+"53","ETL",1,0,TRUE,FALSE
+"54","ELT",1,0,FALSE,FALSE
+"55","Developers",1,0,FALSE,FALSE

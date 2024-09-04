@@ -1,4 +1,4 @@
-# url: https://bainmatt.github.io/autocv/
+url: https://bainmatt.github.io/autocv/
 repo:
   url:
     home: https://github.com/bainmatt/autocv/
@@ -8,11 +8,12 @@ repo:
 
 template:
   bootstrap: 5
+  light-switch: true
 
 navbar:
   structure:
     left:  [reference, datasets, articles]
-    right: [search, github]
+    right: [search, github, lightswitch]
   components:
     github:
       icon: fa-github
@@ -33,6 +34,10 @@ navbar:
         href: reference/example_job_metadata.html
       - text: example_posting
         href: reference/example_posting.html
+
+# articles:
+#   toc:
+#     collapse: false
 
 figures:
   dev: ragg::agg_png
