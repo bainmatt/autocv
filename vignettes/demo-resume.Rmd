@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
+```{r setup}
 library(autocv)
 ```
 
@@ -54,17 +54,19 @@ autocv::in_tmp_env({
 })
 ```
 
-In contrast to the above example, the following runs in a supplied directory
-('output', in this case) relative to your project root.
+# A step-by-step example
 
-This example is included as a complete step-by-step demo which outputs
-documents and reports that you can review [here]().
+Let us now walk through each of these steps in greater depth,
+keeping track of the evolving file tree
+and copying the generated documents from the temporary environment
+to your working directory, for your reference.
+
+<!-- TODO: add brief interleaved explanations -->
+
+## Step 1: Build the project directory
 
 ```{r build-base}
-# TODO: include each of the above with interleaved explanations
-
 autocv::in_tmp_env({
-  message("1. Build the project directory...")
   autocv::build_base_directory()
   
   data(example_job_metadata)
@@ -73,55 +75,122 @@ autocv::in_tmp_env({
 
 ```
 
+```{r, echo=FALSE}
+autocv::in_tmp_env({
+  message("Current file tree:")
+  fs::dir_tree()
+})
+
+```
+
+## Step 2: Build the application
+
 ```{r build-app}
 autocv::in_tmp_env({
-  message("2. Build the application...")
   autocv::build_app_directory(app_df = app_df, open = FALSE)
 })
 
 ```
 
+```{r, echo=FALSE}
+autocv::in_tmp_env({
+  message("Current file tree:")
+  fs::dir_tree(autocv::get_path_to("applications"))
+})
+
+```
+
+## Step 3: Render the application
+
 ```{r render-app}
 autocv::in_tmp_env({
-  message("3. Render the application...")
   # autocv::render_app(cover = FALSE, email = FALSE)
   autocv::render_resume_plain()
 })
 
 ```
 
+```{r, echo=FALSE}
+autocv::in_tmp_env({
+  message("Current file tree:")
+  fs::dir_tree(autocv::get_path_to("applications"))
+})
+
+```
+
+## Step 4: Check application keywords
+
 ```{r check}
 autocv::in_tmp_env({
-  message("4. Check application keywords...")
   report_df <- autocv::check_skills()
   print(report_df)
 })
 
 ```
 
+```{r, echo=FALSE}
+autocv::in_tmp_env({
+  message("Current file tree:")
+  fs::dir_tree(autocv::get_path_to("applications"))
+})
+
+```
+
+## Step 5: Inspect application metadata
+
 ```{r inspect}
 autocv::in_tmp_env({
-  message("5. Inspect application metadata...")
   app_df <- autocv::get_app_info()
   print(app_df)
 })
 
 ```
 
-```{r log-test}
+```{r, echo=FALSE}
 autocv::in_tmp_env({
-  resume_plain_path <- autocv::get_app_info(
-    id = "AB", field = "resume_plain_path"
-  )$resume_plain_path
+  message("Current file tree:")
+  fs::dir_tree(autocv::get_path_to("applications"))
+})
+
+```
+
+## Review the generated documents
+
+```{r log-files}
+autocv::in_tmp_env({
+  source_paths <- as.character(autocv::get_app_info(
+    id = "AB",
+    field = c(
+      "resume_plain_path",
+      "keyword_counts_posting",
+      "skill_counts_posting",
+      "skill_counts_resume",
+      "skill_report"
+    )
+  )[2:6])
+  target_dir <- file.path(fs::path_wd(), "output")
+  if (!dir.exists(target_dir)) { dir.create(target_dir) }
+  target_paths <- file.path(target_dir, basename(source_paths))
   
-  print(fs::path_wd())
-  
-  # TODO: copy tmpenv output into repo in git-compat way) (fs::path_wd)
-  target_path <- file.path(fs::path_wd(), basename(resume_plain_path))
   autocv::copy_files(
-    source_paths = resume_plain_path,
-    target_paths = target_path
+    source_paths = source_paths,
+    target_paths = target_paths
   )
 })
+
+```
+
+```{r, echo=FALSE}
+autocv::in_tmp_env({
+  message("Working directory output file tree:")
+  fs::dir_tree(file.path(fs::path_wd(), "output"))
+})
+
+# TODO: cell to render html resume and pdf resume and copy (+ html to site)
+# (workflow will have trouble with latex so run as cell but turn off eval).
+  
+# TODO: link to the generated docs in repo
+# TODO: link to template data files (source) in git repo on data doc pages
+# TODO: use explicit web hyperlinks in README
 
 ```
