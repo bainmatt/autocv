@@ -6,6 +6,7 @@ repo:
     issue: https://github.com/bainmatt/autocv/issues/
     user: https://github.com/bainmatt
 
+# TODO: set dark mode highlight style to default...workflow screws it up
 template:
   bootstrap: 5
   light-switch: true

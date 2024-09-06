@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r}
 library(autocv)
 ```
 
@@ -78,7 +78,7 @@ autocv::in_tmp_env({
 ```{r, echo=FALSE}
 autocv::in_tmp_env({
   message("Current file tree:")
-  fs::dir_tree()
+  fs::dir_tree(autocv::get_path_to("applications"))
 })
 
 ```
@@ -186,11 +186,36 @@ autocv::in_tmp_env({
   fs::dir_tree(file.path(fs::path_wd(), "output"))
 })
 
-# TODO: cell to render html resume and pdf resume and copy (+ html to site)
-# (workflow will have trouble with latex so run as cell but turn off eval).
-  
-# TODO: link to the generated docs in repo
-# TODO: link to template data files (source) in git repo on data doc pages
-# TODO: use explicit web hyperlinks in README
+```
+
+```{r render-cv, eval=FALSE}
+# NOTE: eval is off due to LaTeX rendering issues when running GitHub workflow
+autocv::in_tmp_env({
+  autocv::render_cv_as_html()
+  autocv::render_resume()
+})
 
 ```
+
+<!-- TODO: list + link to the generated docs in repo -->
+
+```{r log-base-files, eval=FALSE}
+autocv::in_tmp_env({
+  source_paths <- c(
+    as.character(autocv::get_app_info(id = "AB", field = "resume_path")[2]),
+    file.path(autocv::get_path_to("output"), "cv_yourname.html")
+  )
+  target_dir <- file.path(fs::path_wd(), "output")
+  if (!dir.exists(target_dir)) { dir.create(target_dir) }
+  target_paths <- file.path(target_dir, basename(source_paths))
+  
+  autocv::copy_files(
+    source_paths = source_paths,
+    target_paths = target_paths
+  )
+})
+
+```
+
+<!-- TODO: link to temp data files (source) in git repo on data doc pages -->
+<!-- TODO: use explicit web hyperlinks in README -->

@@ -8,6 +8,13 @@
 \description{
 autocv is a collection of functions for generating your resume from data stored in a spreadsheet. It includes tools for retrieving job postings from the web, analyzing their key words, and assessing your resume based on its alignment with those key words. Spreadsheet templates are provided with conditional formatting to evaluate the quality of the content and skills included in your resume. Functions and spreadsheets for generating cover letters, as well as HTML, PDF, LaTeX, and plain text resumes, are included. The HTML version is optimized for long-form web-hosted CVs, while the LaTeX version is optimized for ATS compatibility.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://bainmatt.github.io/autocv}
+}
+
+}
 \author{
 \strong{Maintainer}: Matthew Bain \email{bainmatt@outlook.com}
 

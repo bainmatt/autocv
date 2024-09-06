@@ -523,6 +523,15 @@ preprocess_contacts <- function(
     arrange(.data$order) %>%
     mutate(contact_text = NA)
   
+  # Use default photo if invalid or null path provided
+  # TODO: FINISH THIS ***
+  if (!file.exists(contact_data[contact_data$loc == "pic",]$address)) {
+    default_pic_path <- system.file(
+      "extdata", "figures", "user-profile-default.png", package = "autocv"
+    )
+    contact_data[contact_data$loc == "pic",]$address <- default_pic_path
+  }
+  
   # Populate name/pic fields manually
   contact_data[contact_data$loc == "name",] <- contact_data %>% 
     filter(., .data$loc == "name") %>% 
