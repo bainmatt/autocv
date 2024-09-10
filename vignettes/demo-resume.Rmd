@@ -188,7 +188,13 @@ autocv::in_tmp_env({
 
 ```
 
-```{r render-cv, eval=FALSE}
+```{r, include=FALSE}
+evaluate_chunks <- FALSE
+knitr::opts_chunk$set(eval = evaluate_chunks)
+
+```
+
+```{r render-cv}
 # NOTE: eval is off due to LaTeX rendering issues when running GitHub workflow
 autocv::in_tmp_env({
   autocv::render_cv_as_html()
@@ -197,9 +203,23 @@ autocv::in_tmp_env({
 
 ```
 
-<!-- TODO: list + link to the generated docs in repo -->
+<!-- TODO: add HTML to /docs and link to as
+https://bainmatt.github.io/autocv/cv_yourname.html -->
 
-```{r log-base-files, eval=FALSE}
+<!-- TODO: add to build workflow to automatically add to docs/ with built site:
+- name: Build pkgdown site
+        run: |
+          Rscript -e 'pkgdown::build_site()'
+
+      - name: Copy HTML file
+        run: |
+          cp mypage.html docs/
+-->
+
+<!-- TODO: add navbar tab for example cv:
+navbar: right: text: "My Page" href: mypage.html -->
+
+```{r log-base-files}
 autocv::in_tmp_env({
   source_paths <- c(
     as.character(autocv::get_app_info(id = "AB", field = "resume_path")[2]),
@@ -216,6 +236,20 @@ autocv::in_tmp_env({
 })
 
 ```
+
+```{r build-html}
+filename <- "cv_yourname.html"
+source_path <- file.path(
+  autocv::get_path_to("notebooks"), "vignettes", "output", filename
+)
+target_path <- file.path(
+  autocv::get_path_to("notebooks"), "docs", filename
+)
+file.copy(source_path, target_path, overwrite = TRUE)
+
+```
+
+<!-- TODO: list + link to the generated docs in repo -->
 
 <!-- TODO: link to temp data files (source) in git repo on data doc pages -->
 <!-- TODO: use explicit web hyperlinks in README -->

@@ -10,10 +10,22 @@ repo:
 template:
   bootstrap: 5
   light-switch: true
+  # TODO: discard this
+  # after_build: inst/scripts/copy_html.R
+  # before_deploy: inst/scripts/copy_html.R
 
 navbar:
   structure:
-    left:  [reference, datasets, articles]
+    # left:
+    #   - text: "Reference"
+    #     href: reference
+    #   - text: "Datasets"
+    #     href: datasets
+    #   - text: "Articles"
+    #     href: articles
+    #   - text: "Example CV"
+    #     href: cv_yourname.html
+    left:  [reference, datasets, articles, example-cv]
     right: [search, github, lightswitch]
   components:
     github:
@@ -35,6 +47,9 @@ navbar:
         href: reference/example_job_metadata.html
       - text: example_posting
         href: reference/example_posting.html
+    example-cv:
+      text: "Example"
+      href: cv_yourname.html
 
 # articles:
 #   toc:
