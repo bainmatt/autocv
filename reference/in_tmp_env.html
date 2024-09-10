@@ -48,6 +48,7 @@ running application keyword checks
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/demo-resume.html">An example resume generated with autocv</a></li>
     <li><a class="dropdown-item" href="../articles/example-cv.html">Build a CV using autocv</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../cv_yourname.html">Example</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/bainmatt" aria-label="GitHub"><span class="fa fa-github"></span></a></li>
@@ -108,7 +109,7 @@ for testing the following application-building functionality:</p><ul><li><p>buil
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Set temporary path environment variables ----------------------------------</span></span></span>
 <span class="r-in"><span><span class="fu">in_tmp_env</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Temporary root directory: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ROOT"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Temporary root directory: /tmp/Rtmpmj3J3V</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Temporary root directory: /tmp/RtmpzBvmYr</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Reset root directory: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ROOT"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reset root directory: /home/runner/work/autocv/autocv</span>
 <span class="r-in"><span></span></span>
@@ -142,7 +143,7 @@ for testing the following application-building functionality:</p><ul><li><p>buil
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"In "</span>, <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi-styles.html" class="external-link">col_blue</a></span><span class="op">(</span><span class="va">fil</span><span class="op">)</span>, <span class="st">":\n"</span>, <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">fil</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> In <span style="color: #0000BB;">/tmp/Rtmpmj3J3V/./R/input/test.txt</span>:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> In <span style="color: #0000BB;">/tmp/RtmpzBvmYr/./R/input/test.txt</span>:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> this is a test</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
