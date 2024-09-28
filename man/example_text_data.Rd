@@ -33,6 +33,9 @@ example_text_data
 \description{
 A synthetic dataset containing the textual building blocks of
 job application components such as a resume bio or a cover letter.
+For more details, refer to the corresponding
+\href{https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cover_data.xlsx}{template spreadsheet}
+in the repository.
 }
 \examples{
 data(example_text_data)

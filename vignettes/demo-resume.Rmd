@@ -1,8 +1,8 @@
 ---
-title: "An example resume generated with autocv"
+title: "Demo of autocv"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{An example resume generated with autocv}
+  %\VignetteIndexEntry{Demo of autocv}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,7 +18,10 @@ knitr::opts_chunk$set(
 library(autocv)
 ```
 
-# A reproducible example
+In this demo I cover the fundamental end-to-end workflow involved in creating
+and managing tailored job applications using `autocv`.
+
+## A minimal reproducible example
 
 The following end-to-end example runs in a temporary environment on your
 local machine, constructing a project directory, an application directory,
@@ -29,14 +32,14 @@ example job posting, template datasets, and template stylesheets.
 autocv::in_tmp_env({
   message("1. Build the project directory...")
   autocv::build_base_directory()
-  
+
   data(example_job_metadata)
   app_df <- autocv::construct_app_metadata(app_info = example_job_metadata)
 
   message("")
   message("2. Build the application...")
   autocv::build_app_directory(app_df = app_df, open = FALSE)
-  
+
   message("")
   message("3. Render the application...")
   # autocv::render_app(cover = FALSE, email = FALSE)
@@ -54,23 +57,39 @@ autocv::in_tmp_env({
 })
 ```
 
-# A step-by-step example
+## A step-by-step example
 
 Let us now walk through each of these steps in greater depth,
 keeping track of the evolving file tree
 and copying the generated documents from the temporary environment
-to your working directory, for your reference.
+to your working directory for reference later.
 
-<!-- TODO: add brief interleaved explanations -->
+### Step 1: Build the project directory
 
-## Step 1: Build the project directory
+We begin by creating the basic file tree
+upon which to build tailored job applications. The file tree includes
+placeholder `output/` and `applications/` directories that store generated
+documents, as well as an `input/` directory containing the template
+spreadsheets
+[`resume_data.xlsx`](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx)
+(see [`example_skill_data`](../reference/example_skill_data.html) and
+[`example_position_data`](../reference/example_position_data.html)),
+[`cover_data.xlsx`](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cover_data.xlsx)
+(see [`example_contact_data`](../reference/example_contact_data.html) and
+[`example_text_data`](../reference/example_text_data.html)), and
+`job_metadata.yml`
+([`example_job_metadata`](../reference/example_job_metadata.html)).
+A `.Rprofile` file
+containing path environment variables is automatically generated,
+along with an `Rproj` file and the notebooks
+[`resume.Rmd`](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume.Rmd) and
+[`cover.Rmd`](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cv.Rmd),
+which are used to render job application documents
+from data contained in the aforementioned spreadsheets.
 
 ```{r build-base}
 autocv::in_tmp_env({
   autocv::build_base_directory()
-  
-  data(example_job_metadata)
-  app_df <- autocv::construct_app_metadata(app_info = example_job_metadata)
 })
 
 ```
@@ -78,15 +97,27 @@ autocv::in_tmp_env({
 ```{r, echo=FALSE}
 autocv::in_tmp_env({
   message("Current file tree:")
-  fs::dir_tree(autocv::get_path_to("applications"))
+  fs::dir_tree(autocv::get_path_to("notebooks"))
 })
 
 ```
 
-## Step 2: Build the application
+### Step 2: Build the application directory
+
+With the project directory constructed and template data files copied over,
+we can now generate tailored job applications. To do so, you should
+update the fields in the `input/job_metadata.yml` file with information
+relevant to the job of interest, namely the `id`, `company`, `position`,
+and `posting_url` fields, as well as optionally populating the
+`base_id`, `portal_url`, `linkedin_url`, `recruiter_email`, and `notes`
+fields. For additional information, see
+[`example_job_metadata`](../reference/example_job_metadata.html).
+
 
 ```{r build-app}
 autocv::in_tmp_env({
+  data(example_job_metadata)
+  app_df <- autocv::construct_app_metadata(app_info = example_job_metadata)
   autocv::build_app_directory(app_df = app_df, open = FALSE)
 })
 
@@ -100,7 +131,20 @@ autocv::in_tmp_env({
 
 ```
 
-## Step 3: Render the application
+### Step 3: Edit the application
+
+After building the application directory, run `autocv::edit_app()`. This will
+open the spreadsheets, namely
+[`resume_data.xlsx`](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx) and
+[`cover_data.xlsx`](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cover_data.xlsx),
+containing the data that will be used to generate your
+application documents. Edit the entries and metadata in these documents
+as desired to suit the job in question.
+
+### Step 4: Render the application
+
+Once you've tailored the information in your application
+to the job in question, you are ready to render your application documents.
 
 ```{r render-app}
 autocv::in_tmp_env({
@@ -118,7 +162,17 @@ autocv::in_tmp_env({
 
 ```
 
-## Step 4: Check application keywords
+### Step 5: Check application keywords
+
+Having generated a resume, we can now analyze its contents
+to determine which data-related keywords we included and whether
+they align with the keywords in the job posting. This step
+performs three independent checks -- identify general job-related
+keywords in the job posting, identify data science keywords
+in the job posting, identify data science keywords in the resume --
+followed by a keyword match of the data science terms from the job posting
+against those mentioned in the resume, either in the skills section or in the
+body text.
 
 ```{r check}
 autocv::in_tmp_env({
@@ -136,7 +190,19 @@ autocv::in_tmp_env({
 
 ```
 
-## Step 5: Inspect application metadata
+The following spreadsheets were generated by this step:
+
+- [`keyword_counts_AB.csv`](https://github.com/bainmatt/autocv/blob/main/vignettes/output/keyword_counts_AB.csv): General keyword counts for the job posting
+- [`skill_counts_posting_AB.csv`](https://github.com/bainmatt/autocv/blob/main/vignettes/output/skill_counts_posting_AB.csv): Data-related keyword counts for the job posting
+- [`skill_counts_resume_AB.csv`](https://github.com/bainmatt/autocv/blob/main/vignettes/output/skill_counts_resume_AB.csv): Data-related keyword counts for the generated resume
+- [`skill_report_AB.csv`](https://github.com/bainmatt/autocv/blob/main/vignettes/output/skill_report_AB.csv): Job posting keywords included in the generated resume
+
+### Step 6: Inspect application metadata
+
+Every step so far has yielded metadata that was automatically stored in
+a log file, with each row corresponding to a unique job application.
+If at any point you wish to review the information for an existing
+job application, you can easily retrieve it from the log.
 
 ```{r inspect}
 autocv::in_tmp_env({
@@ -146,15 +212,28 @@ autocv::in_tmp_env({
 
 ```
 
-```{r, echo=FALSE}
+### Step 7: Update application metadata
+
+At this point we can update the job application log with new information
+as desired, such as changes to the status of the application or a note
+about the job in question.
+
+```{r update}
 autocv::in_tmp_env({
-  message("Current file tree:")
-  fs::dir_tree(autocv::get_path_to("applications"))
+  autocv::apply_to(app_id = "AB")
+  autocv::update_app_info(app_id = "AB", notes = "Excited about this role")
+
+  app_df <- autocv::get_app_info()
+  print(app_df)
 })
 
 ```
 
 ## Review the generated documents
+
+Let's conclude by transferring some of documents generated within our
+temporary environment into long-term memory. Each `autocv`-generated
+application document is displayed below for reference.
 
 ```{r log-files}
 autocv::in_tmp_env({
@@ -171,7 +250,7 @@ autocv::in_tmp_env({
   target_dir <- file.path(fs::path_wd(), "output")
   if (!dir.exists(target_dir)) { dir.create(target_dir) }
   target_paths <- file.path(target_dir, basename(source_paths))
-  
+
   autocv::copy_files(
     source_paths = source_paths,
     target_paths = target_paths
@@ -212,7 +291,7 @@ autocv::in_tmp_env({
   target_dir <- file.path(fs::path_wd(), "output")
   if (!dir.exists(target_dir)) { dir.create(target_dir) }
   target_paths <- file.path(target_dir, basename(source_paths))
-  
+
   autocv::copy_files(
     source_paths = source_paths,
     target_paths = target_paths
@@ -235,13 +314,37 @@ file.copy(source_path, target_path, overwrite = TRUE)
 
 The following documents were generated by `autocv`:
 
-- [Plain text resume](https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.txt)
-- [PDF resume](https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.pdf)
-- [Web-based CV](https://bainmatt.github.io/autocv/cv_yourname.html)
-- [Spreadsheet of general keyword counts for the job posting](https://github.com/bainmatt/autocv/blob/main/vignettes/output/https://github.com/bainmatt/autocv/blob/main/vignettes/output/keyword_counts_AB.csv)
-- [Spreadsheet of data-related keyword counts for the job posting](https://github.com/bainmatt/autocv/blob/main/vignettes/output/skill_counts_posting_AB.csv)
-- [Spreadsheet of data-related keyword counts for the generated resume](https://github.com/bainmatt/autocv/blob/main/vignettes/output/skill_counts_resume_AB.csv)
-- [Spreadsheet of job posting keywords included in the generated resume](https://github.com/bainmatt/autocv/blob/main/vignettes/output/skill_report_AB.csv)
+- [`resume_yourname_AB.pdf`](https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.pdf) (PDF resume):
 
-<!-- TODO: link to temp data files (source) in git repo on data doc pages -->
-<!-- TODO: use explicit web hyperlinks in README -->
+<br>
+<object data="output/resume_yourname_AB.pdf" type="application/pdf" width="100%" height="500px" style="padding:10px">
+  <p>Unable to display PDF file. <a href="output/resume_yourname_AB.pdf">Download</a> instead.</p>
+</object>
+<br>
+
+- [`cv_yourname.html`](https://bainmatt.github.io/autocv/cv_yourname.html) (web-based CV):
+
+<br>
+<object data="output/cv_yourname.html" type="text/html" width="100%" height="500px" style="padding:10px">
+  <p>Unable to display HTML file. <a href="output/cv_yourname.html">Download</a> instead.</p>
+</object>
+<br>
+
+- [`resume_yourname_AB.txt`](https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.txt) (plain text resume):
+
+<br>
+<object data="output/resume_yourname_AB.txt" type="text/plain" width="100%" height="500px" style="padding:10px">
+  <p>Unable to display text file. <a href="output/resume_yourname_AB.txt">Download</a> instead.</p>
+</object>
+<br>
+
+<!-- <br> -->
+<!-- <object data="templates/template_resume_data.xlsx" type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" width="100%" height="500px" style="padding:10px"> -->
+<!--   <p>Unable to display spreadsheet. <a href="templates/template_resume_data.xlsx">Download</a> instead.</p> -->
+<!-- </object> -->
+<!-- <br> -->
+
+And there you have it! A few steps
+("build, edit, render, check" and "inspect, update"), neatly encapsulated
+within `autocv`'s core user interface, are all you need to construct
+beautiful, tailored, easily tracked, resume documents and job applications.

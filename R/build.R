@@ -970,9 +970,23 @@ build_base_directory <- function(relpath = NULL) {
 #' 
 #' `apply_to` sets the `date_applied` datestamp and `status` to applied.
 #' 
+#' @details
+#' The following metadata fields (see \link{example_job_metadata})
+#' are immutable and cannot be updated using `update_app_info`:
+#'
+#' - `id`
+#' - `base_id`
+#' - `period`
+#' - `company`
+#' - `position`
+#' - `date_created`
+#' - `date_seq`
+#'
 #' @param id The unique identifier associated with the application of interest.
 #' @param ... Key-value pairs of the fields to update and their new values.
 #' If none are provided, the log is updated directly from the metadata file.
+#'
+#' @return Updates the application log and metadata with the new information.
 #'
 #' @family cli
 #' @export

@@ -18,6 +18,9 @@ If none are provided, the log is updated directly from the metadata file.}
 
 \item{id}{The unique identifier associated with the application of interest.}
 }
+\value{
+Updates the application log and metadata with the new information.
+}
 \description{
 Update the log entry for a particular application as well its metadata file.
 
@@ -26,6 +29,19 @@ Update the log entry for a particular application as well its metadata file.
 \code{update_datestamp} auto-updates the application datestamp upon rendering.
 
 \code{apply_to} sets the \code{date_applied} datestamp and \code{status} to applied.
+}
+\details{
+The following metadata fields (see \link{example_job_metadata})
+are immutable and cannot be updated using \code{update_app_info}:
+\itemize{
+\item \code{id}
+\item \code{base_id}
+\item \code{period}
+\item \code{company}
+\item \code{position}
+\item \code{date_created}
+\item \code{date_seq}
+}
 }
 \seealso{
 Other cli: 

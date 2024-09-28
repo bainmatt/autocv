@@ -72,6 +72,9 @@ example_position_data
 A synthetic dataset containing information about previous and current
 professional roles and experiences, including work, education,
 certifications, projects, and publications.
+For more details, refer to the corresponding
+\href{https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx}{template spreadsheet}
+in the repository.
 }
 \examples{
 data(example_position_data)

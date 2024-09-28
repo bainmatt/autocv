@@ -65,6 +65,9 @@ example_skill_data
 \description{
 A synthetic dataset containing information about job-relevant skills,
 including skill ratings and inclusion/exclusion flags.
+For more details, refer to the corresponding
+\href{https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx}{template spreadsheet}
+in the repository.
 }
 \examples{
 data(example_skill_data)

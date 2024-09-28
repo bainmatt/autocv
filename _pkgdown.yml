@@ -10,9 +10,6 @@ repo:
 template:
   bootstrap: 5
   light-switch: true
-  # TODO: discard this
-  # after_build: inst/scripts/copy_html.R
-  # before_deploy: inst/scripts/copy_html.R
 
 navbar:
   structure:
