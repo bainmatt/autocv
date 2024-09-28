@@ -32,6 +32,9 @@ example_contact_data
 \description{
 A synthetic dataset containing personal contact information and
 associated links, including a home address, email, and personal websites.
+For more details, refer to the corresponding
+\href{https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cover_data.xlsx}{template spreadsheet}
+in the repository.
 }
 \examples{
 data(example_contact_data)

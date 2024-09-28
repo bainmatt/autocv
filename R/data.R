@@ -3,7 +3,10 @@
 #' Sample skill data
 #'
 #' A synthetic dataset containing information about job-relevant skills,
-#'  including skill ratings and inclusion/exclusion flags.
+#' including skill ratings and inclusion/exclusion flags.
+#' For more details, refer to the corresponding
+#' [template spreadsheet](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx)
+#' in the repository.
 #' 
 #' @format A data frame with 113 rows and 14 columns:
 #' \describe{
@@ -69,8 +72,11 @@
 #' Sample position data
 #'
 #' A synthetic dataset containing information about previous and current
-#'  professional roles and experiences, including work, education,
-#'  certifications, projects, and publications.
+#' professional roles and experiences, including work, education,
+#' certifications, projects, and publications.
+#' For more details, refer to the corresponding
+#' [template spreadsheet](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx)
+#' in the repository.
 #' 
 #' @format A data frame with 11 rows and 35 columns:
 #' \describe{
@@ -142,7 +148,10 @@
 #' Sample contact data
 #'
 #' A synthetic dataset containing personal contact information and
-#'  associated links, including a home address, email, and personal websites.
+#' associated links, including a home address, email, and personal websites.
+#' For more details, refer to the corresponding
+#' [template spreadsheet](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cover_data.xlsx)
+#' in the repository.
 #' 
 #' @format A data frame with 9 rows and 5 columns:
 #' \describe{
@@ -175,7 +184,10 @@
 #' Sample text data
 #'
 #' A synthetic dataset containing the textual building blocks of
-#'  job application components such as a resume bio or a cover letter.
+#' job application components such as a resume bio or a cover letter.
+#' For more details, refer to the corresponding
+#' [template spreadsheet](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cover_data.xlsx)
+#' in the repository.
 #' 
 #' @format A data frame with 32 rows and 7 columns:
 #' \describe{
@@ -209,6 +221,9 @@
 #' Sample job metadata
 #'
 #' A synthetic dataset containing information about a hypothetical job.
+#' For more details, refer to the corresponding
+#' [template file](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_job_metadata.yml)
+#' in the repository.
 #' 
 #' @format A named list with 11 fields:
 #' \describe{

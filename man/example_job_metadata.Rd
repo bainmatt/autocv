@@ -51,6 +51,9 @@ example_job_metadata
 }
 \description{
 A synthetic dataset containing information about a hypothetical job.
+For more details, refer to the corresponding
+\href{https://github.com/bainmatt/autocv/blob/main/inst/templates/template_job_metadata.yml}{template file}
+in the repository.
 }
 \examples{
 data(example_job_metadata)
