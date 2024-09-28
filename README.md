@@ -81,7 +81,7 @@ such as a resume bio or a cover letter.
 A named list with fields containing the details of a given job application,
 such as the company, position, associated URLs, and a unique identifier.
 
-6. [`example_posting`](./reference/example_posting.html):
+6. [`example_posting`](https://bainmatt.github.io/autocv/reference/example_posting.html):
 A string containing the text of an example job posting.
 
 ### Example documents
@@ -125,7 +125,7 @@ and relying on the same template files but
 rendered in a plain text format for simplicity and ease of data entry.
 
 5. [HTML curriculum vitae](https://bainmatt.github.io/autocv/reference/render_cv_as_html.html):
-Am informal, web-friendly curriculum vitae containing an ongoing record
+An informal, web-friendly curriculum vitae containing an ongoing record
 of your professional history, a graphical breakdown of your skill set,
 and a space to include an image.
 Relies on the notebook `cv.Rmd` (see
