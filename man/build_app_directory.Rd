@@ -14,18 +14,18 @@ Create the file tree and data files for the present application.
 in_tmp_env({
   message("1. Building project directory...")
   build_base_directory()
-  
+
   data(example_job_metadata)
   app_df <- construct_app_metadata(app_info = example_job_metadata)
-  
+
   message("")
   message("2. Building application...")
   build_app_directory(app_df = app_df, open = FALSE)
-  
+
   message("")
   message("3. Rendering application...")
   render_app(cover = FALSE, email = FALSE)
-  
+
   message("")
   message("4. Checking keywords...")
   report_df <- check_skills()

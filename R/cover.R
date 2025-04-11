@@ -25,6 +25,7 @@ print_achievements <- function(text_data, bullet_style = c("-", "+")) {
 #' @family print
 #' @export
 print_cover_body <- function(
+    target = c("app", "base"),
     text_data,
     position,
     company,
@@ -34,9 +35,14 @@ print_cover_body <- function(
     bullet_style = c("-", "+"),
     type = c("cover", "email")
 ) {
+  target <- match.arg(target)
   style <- match.arg(style)
   type <- match.arg(type)
   sep <- switch(style, latex = "\\vspace{{5pt}}\n\n", txt = "\n\n")
+  
+  if (target == "base") {
+    type <- "cover_base"
+  }
   
   # Filter
   text_data <- text_data %>% dplyr::filter(.data$include == "x")
@@ -58,15 +64,35 @@ print_cover_body <- function(
     body <- text_data[text_data$loc == paste0(type, "_body"),]$text
   }
   
-  body_text <- glue::glue(
-    "{salutation}",
-    "{opening}",
-    "{body}",
-    "{closing}",
-    "{postscript}",
-    "{signoff}",
-    .sep = sep
-  )
+  if (closing != "/") {
+    body_text <- glue::glue(
+      "{salutation}",
+      "{opening}",
+      "{body}",
+      "{closing}",
+      "{postscript}",
+      "{signoff}",
+      .sep = sep
+    )
+  } else {
+    body_text <- glue::glue(
+      "{salutation}",
+      "{opening}",
+      "{body}",
+      "{postscript}",
+      "{signoff}",
+      .sep = sep
+    )
+  }
+  # body_text <- glue::glue(
+  #   "{salutation}",
+  #   "{opening}",
+  #   "{body}",
+  #   "{closing}",
+  #   "{postscript}",
+  #   "{signoff}",
+  #   .sep = sep
+  # )
   if (type == "email") {
     subject <- paste(
       "Subject:", text_data[text_data$loc == "email_subject",]$text
@@ -74,10 +100,12 @@ print_cover_body <- function(
     body_text <- glue::glue("{subject}", "{body_text}", .sep = sep)
   }
   
-  body_text <- body_text %>%
-    glue::glue_collapse(.) %>% 
-    gsub("<company>", company, .) %>% 
-    gsub("<position>", position, .)
+  if (target == "app") {
+    body_text <- body_text %>%
+      glue::glue_collapse(.) %>% 
+      gsub("<company>", company, .) %>% 
+      gsub("<position>", position, .)
+  }
   
   return(body_text)
 }
@@ -88,9 +116,9 @@ print_cover_body <- function(
 #' @family print
 #' @export
 print_cover_plain <- function(
+    target = c("app", "base"),
     position,
     company,
-    # target = c("app", "base"),
     app_id = "latest",
     app_period = "latest",
     # style = c("txt", "latex"),
@@ -98,14 +126,14 @@ print_cover_plain <- function(
     bullet_style = c("-", "+"),
     type = c("cover", "email")
 ) {
+  target <- match.arg(target)
   type <- match.arg(type)
-  # target = match.arg(target)
   # style = match.arg(style)
   
   # Load and process the data --------------------------------------------------
   
   contact_data <- load_application_data(
-    target = "app",
+    target = target,
     filename = "cover_data.xlsx",
     sheet = "contact_info",
     app_id = app_id,
@@ -113,7 +141,7 @@ print_cover_plain <- function(
   ) %>% preprocess_contacts(., style = "txt")
   
   text_data <- autocv::load_application_data(
-    target = "app",
+    target = target,
     filename = "cover_data.xlsx",
     sheet = "text_blocks",
     app_id = app_id,
@@ -133,6 +161,7 @@ print_cover_plain <- function(
   # Build ----------------------------------------------------------------------
   
   body_text <- print_cover_body(
+    target = target,
     text_data,
     position = position,
     company = company,

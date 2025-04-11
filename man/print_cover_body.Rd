@@ -5,6 +5,7 @@
 \title{Print a cover letter from a text dataframe in a plain text or LaTeX style.}
 \usage{
 print_cover_body(
+  target = c("app", "base"),
   text_data,
   position,
   company,

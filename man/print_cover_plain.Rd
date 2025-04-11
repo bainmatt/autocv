@@ -5,6 +5,7 @@
 \title{Prepare and print each section of a plain text cover letter.}
 \usage{
 print_cover_plain(
+  target = c("app", "base"),
   position,
   company,
   app_id = "latest",

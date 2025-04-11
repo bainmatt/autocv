@@ -37,15 +37,15 @@ in_tmp_env({
 # Handle input/output operations in the temporary environment ---------------
 in_tmp_env({
   tmpdir <- get_path_to("input")
-  if (!dir.exists(tmpdir)) { 
-    dir.create(tmpdir, recursive = TRUE) 
+  if (!dir.exists(tmpdir)) {
+    dir.create(tmpdir, recursive = TRUE)
   }
-  
+
   fil <- file.path(tmpdir, "test.txt")
   con <- file(fil, open = "w")
   writeLines("this is a test", con = con)
   close(con)
-  
+
   cat(paste0("In ", cli::col_blue(fil), ":\n", readLines(fil)))
 })
 

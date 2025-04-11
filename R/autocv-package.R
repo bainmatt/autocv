@@ -11,6 +11,7 @@
 #' @importFrom tibble add_row
 #' @importFrom rvest read_html
 #' @importFrom usethis use_data
+#' @importFrom withr with_envvar
 #' @importFrom readxl read_excel
 #' @importFrom writexl write_xlsx
 #' @importFrom purrr map_chr reduce

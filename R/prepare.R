@@ -56,8 +56,13 @@ prepare_timeline <- function(
   sep <- switch(style, markdown = " - ", latex = " -- ", txt = " - ")
   
   data <- data %>%
-    # Sort data by end date in descending order
-    arrange(desc(.data$end)) %>%
+    # Sort by end date in descending order, starting with present
+    mutate(
+      temp_end = if_else(is.na(.data$end), as.Date("9999-12-31"), .data$end)
+    ) %>%
+    arrange(desc(.data$temp_end), .data$start) %>%
+    select(-.data$temp_end) %>%
+    # arrange(desc(.data$end)) %>%
     # Format dates: if month supplied, use mmm-YYYY format
     mutate(
       formatted_start_date = format(as.Date(.data$start), "%b %Y"),
@@ -97,7 +102,7 @@ prepare_timeline <- function(
 }
 
 
-# TODO: add function (render_links()) to detect links (of the style []())
+# TODO: #1 add function (render_links()) to detect links (of the style []())
 # + extract text/link in raw resume/cover body text
 # + format as either markdown, latex, or txt by calling prepare_links
 # (call render_links() first in preprocess_text/_entries).
@@ -585,12 +590,18 @@ preprocess_text <- function(
 print_contact_info <- function(
     contact_data, 
     section = c("info", "links", "both", "signoff"),
-    sep = c(" | ", "\n")
+    sep = c(" | ", "\n"),
+    anonymize = FALSE
 ) {
   section <- match.arg(section)
   # sep <- match.arg(sep)
   
-  info_fields    <- c("location", "email", "phone")
+  info_fields <- if (anonymize) {
+    "location"
+  } else {
+    c("location", "email", "phone")
+  }
+  # info_fields    <- c("location", "email", "phone")
   link_fields    <- c("website", "github", "linkedin")
   all_fields     <- c(info_fields, link_fields)
   signoff_fields <- c("name", "email", "phone")

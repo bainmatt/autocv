@@ -7,7 +7,8 @@
 print_contact_info(
   contact_data,
   section = c("info", "links", "both", "signoff"),
-  sep = c(" | ", "\\n")
+  sep = c(" | ", "\\n"),
+  anonymize = FALSE
 )
 }
 \description{

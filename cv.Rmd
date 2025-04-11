@@ -80,7 +80,8 @@ pic_text <- glue::glue_collapse(
 contact_text <- autocv::print_contact_info(
   contact_data, 
   section = "both", 
-  sep = "\n"
+  sep = "\n",
+  anonymize = TRUE
 )
 
 ```
@@ -99,7 +100,7 @@ contact_text <- autocv::print_contact_info(
 if(params$doctype == "HTML"){
   paste0(
     "[<i class='fas fa-download'></i> Download as a PDF]",
-    "(https://github.com/bainmatt/resume/main/bainmatt_resume.pdf)"
+    "(https://bainmatt.github.io/cv/cv_matthewbain.pdf)"
   ) %>% 
   glue::glue_collapse(sep = "\n")
 }
@@ -114,7 +115,7 @@ autocv::build_skill_bars(skill_data %>% dplyr::filter(core_tools == "x"))
 
 ```
 
-## Current tech {#stack}
+## Platforms {#stack}
 
 ```{r stack, dev.args = list(bg = 'transparent')}
 
@@ -158,6 +159,12 @@ Last updated on `r Sys.Date()`. <br> <br>
 ### `r paste(role)`
 
 `r paste(bio)`
+
+[![LeetCode](https://custom-icon-badges.demolab.com/badge/-LeetCode-909090?logo=leetcode&logoColor=white)](https://leetcode.com/u/mattbain/)
+[![Kaggle](https://custom-icon-badges.demolab.com/badge/-Kaggle-909090?logo=kaggle&logoColor=white)](https://www.kaggle.com/mattbain)
+[![Tableau](https://custom-icon-badges.demolab.com/badge/-Tableau-909090?logo=tableau&logoColor=white)](https://public.tableau.com/app/profile/mattbain/vizzes)
+[![Streamlit](https://custom-icon-badges.demolab.com/badge/-Streamlit-909090?logo=streamlit&logoColor=white)](https://share.streamlit.io/user/bainmatt)
+[![Hugging Face](https://img.shields.io/badge/Hugging_Face-909090?logo=huggingface&logoColor=fff)](https://huggingface.co/mattbain)
 
 ## Professional Experience {data-icon="suitcase"}
 
