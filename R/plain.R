@@ -84,7 +84,7 @@ print_resume_plain <- function(
     bullet_style = "+",
     bold_headers = FALSE,
     separate_competencies = TRUE,
-    competencies_header = "Other"
+    competencies_header = "Expertise"
   )
   
   # Print ----------------------------------------------------------------------

@@ -107,12 +107,13 @@ skills_list <- autocv::build_skill_list(
   skill_data, 
   sep = " • ",
   separate_competencies = TRUE,
-  competencies_header = "Other"
+  competencies_header = "Expertise"
 )
 
 ```
 
-\myname{`r paste0(name, ", ", suffix)`} `r paste(contacts_text)`
+\myname{`r paste0(name)`} `r paste(contacts_text)`
+<!-- \myname{`r paste0(name, ", ", suffix)`} `r paste(contacts_text)` -->
 
 <!-- \vspace{-4pt} -->
 <!-- ### \myrole{`r paste(role)`} -->
@@ -162,6 +163,7 @@ autocv::print_latex_section(
 )
 ```
 
+<!--
 ## \mysection{Selected Projects} \mysectionrule{}
 
 ```{r projects}
@@ -172,5 +174,6 @@ autocv::print_latex_section(
   target = target
 )
 ```
+-->
 
 \label{LastPage}

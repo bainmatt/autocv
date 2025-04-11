@@ -314,6 +314,7 @@ render_resume_plain <- function(
 #' @family cli
 #' @export
 render_cover <- function(
+    target = c("app", "base"),
     app_id = "latest",
     app_period = "latest",
     use_bullets = TRUE,
@@ -329,22 +330,39 @@ render_cover <- function(
     data_dir = "input",
     output_dir = "output"
 ) {
-  # Load application data
-  log <- load_log(app_period = app_period, app_dir = app_dir)
-  if (app_id == "latest") {
-    app_df <- get_latest_entry(log = log)
-    app_id <- app_df$id
-  } else {
-    app_df <- log[log$id == app_id,]
-  }
+  target <- match.arg(target)
+  
+  # Get paths to application data and output files
+  if (target == "app") {
+    log <- load_log(app_period = app_period, app_dir = app_dir)
+    if (app_id == "latest") {
+      app_df <- get_latest_entry(log = log)
+      app_id <- app_df$id
+    } else {
+      app_df <- log[log$id == app_id,]
+    }
     
-  # Get metadata and paths
-  company         <- app_df$company
-  position        <- app_df$position
+    # Get metadata and paths
+    company         <- app_df$company
+    position        <- app_df$position
+    
+    input_filepath  <- file.path(get_path_to(input_dir), input_filename)
+    output_filepath <- app_df$cover_path
+    base_dir        <- app_df$app_path
 
-  input_filepath  <- file.path(get_path_to(input_dir), input_filename)
-  output_filepath <- app_df$cover_path
-  base_dir        <- app_df$app_path
+  } else if (target == "base") {
+    name <- load_job_info("name")
+    suffix <- paste0("_", str_to_filename(name, sep = ""))
+    output_filename <- paste0(output_basename, suffix, ".pdf")
+
+    # Get metadata and paths
+    company         <- NULL
+    position        <- NULL
+    
+    input_filepath  <- file.path(get_path_to(input_dir), input_filename)
+    output_filepath <- file.path(get_path_to(output_dir), output_filename)
+    base_dir        <- "."
+  }
   
   custom_tex <- sapply(
     stylesheets,
@@ -374,6 +392,7 @@ render_cover <- function(
     ),
     params = list(
       # cover_data_filename = data_filename,
+      target = target,
       position = position,
       company = company,
       use_bullets = use_bullets,
@@ -390,6 +409,7 @@ render_cover <- function(
 #'
 #' @export
 render_cover_plain <- function(
+    target = c("app", "base"),
     app_id = "latest",
     app_period = "latest",
     use_bullets = TRUE,
@@ -403,28 +423,42 @@ render_cover_plain <- function(
     data_dir = "input",
     output_dir = "output"
 ) {
+  target <- match.arg(target)
   type <- match.arg(type)
   output_basename <- type
   
   # Load application data
-  log <- load_log(app_period = app_period, app_dir = app_dir)
-  if (app_id == "latest") {
-    app_df <- get_latest_entry(log = log)
-    app_id <- app_df$id
-  } else {
-    app_df <- log[log$id == app_id,]
+  if (target == "app") {
+    log <- load_log(app_period = app_period, app_dir = app_dir)
+    if (app_id == "latest") {
+      app_df <- get_latest_entry(log = log)
+      app_id <- app_df$id
+    } else {
+      app_df <- log[log$id == app_id,]
+    }
+    
+    # Get metadata and paths
+    company         <- app_df$company
+    position        <- app_df$position
+    base_dir        <- app_df$app_path
+    
+    output_filepath <- switch(
+      type,
+      cover = app_df$cover_plain_path,
+      email = app_df$email_path
+    )
+  } else if (target == "base") {
+    name <- load_job_info("name")
+    suffix <- paste0("_", str_to_filename(name, sep = ""))
+    output_filename <- paste0(output_basename, suffix, ".txt")
+    
+    # Get metadata and paths
+    company         <- NULL
+    position        <- NULL
+    
+    output_filepath <- file.path(get_path_to(output_dir), output_filename)
+    base_dir        <- "."
   }
-  
-  # Get metadata and paths
-  company         <- app_df$company
-  position        <- app_df$position
-  base_dir        <- app_df$app_path
-  
-  output_filepath <- switch(
-    type,
-    cover = app_df$cover_plain_path,
-    email = app_df$email_path
-  )
   
   # Issue alerts
   cli::cli_text("")
@@ -439,6 +473,7 @@ render_cover_plain <- function(
   
   # Render
   cover_text <- print_cover_plain(
+    target = target,
     position = position,
     company = company,
     app_id = app_id,
@@ -481,6 +516,7 @@ render_app <- function(
 ) {
   if (email) {
     render_cover_plain(
+      target = "app",
       app_id = app_id,
       app_period = app_period,
       use_bullets = FALSE,
@@ -491,12 +527,14 @@ render_app <- function(
   
   if (cover) {
     render_cover_plain(
+      target = "app",
       app_id = app_id, 
       app_period = app_period,
       use_bullets = use_bullets,
       bullet_style = "+"
     )
     render_cover(
+      target = "app",
       app_id = app_id, 
       app_period = app_period, 
       use_bullets = use_bullets,
@@ -505,7 +543,7 @@ render_app <- function(
   }
   
   render_resume_plain(
-    target = "app", 
+    target = "app",
     app_id = app_id, 
     app_period = app_period
   )
@@ -517,17 +555,26 @@ render_app <- function(
 }
 
 
+# TODO: add loc cover_base_{opening, body, closing, ps} to temp_cover_data
+
 #' @rdname render_app
 #'
 #' @export
-render_base <- function(report_counts = TRUE) {
+render_base <- function(
+    report_counts = TRUE,
+    cover = FALSE
+) {
   # NOTE: set target to "app" for a 1-page resume;
   # enable latex stylesheet header (name) and footer (page numbers) otherwise.
   render_cv_as_html()
+  # render_cv_as_pdf()
   render_resume_plain(target = "base")
   render_resume(target = "base")
-  # render_cover(use_bullets = FALSE)
-  # render_cover_plain(use_bullets = FALSE)
+  
+  if (cover) {
+    render_cover(target = "base", use_bullets = FALSE)
+    render_cover_plain(target = "base", type = "cover", use_bullets = FALSE)
+  }
   
   if (report_counts) {
     cli::cli_text("")

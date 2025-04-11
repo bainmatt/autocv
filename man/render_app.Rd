@@ -14,7 +14,7 @@ render_app(
   use_bullets = TRUE
 )
 
-render_base(report_counts = TRUE)
+render_base(report_counts = TRUE, cover = FALSE)
 
 render_linkedin(report_counts = TRUE)
 }

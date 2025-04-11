@@ -6,6 +6,7 @@
 \title{Construct a cover letter based on spreadsheet data.}
 \usage{
 render_cover(
+  target = c("app", "base"),
   app_id = "latest",
   app_period = "latest",
   use_bullets = TRUE,
@@ -20,6 +21,7 @@ render_cover(
 )
 
 render_cover_plain(
+  target = c("app", "base"),
   app_id = "latest",
   app_period = "latest",
   use_bullets = TRUE,
