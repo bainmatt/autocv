@@ -62,7 +62,6 @@ prepare_timeline <- function(
     ) %>%
     arrange(desc(.data$temp_end), .data$start) %>%
     select(-.data$temp_end) %>%
-    # arrange(desc(.data$end)) %>%
     # Format dates: if month supplied, use mmm-YYYY format
     mutate(
       formatted_start_date = format(as.Date(.data$start), "%b %Y"),
@@ -89,12 +88,11 @@ prepare_timeline <- function(
           glue('{formatted_start_date}', '{sep}', 'Present'),
           glue('Present', '{sep}',  '{formatted_start_date}')
         ),
-        # is.na(end) ~ glue('Present - {formatted_start_date}'),
         start == end ~ formatted_end_date,
         TRUE ~ ifelse(
           order == "chronological",
-          glue('{formatted_start_date}', '{sep}', '{formatted_end_date}'),
-          glue('{formatted_end_date}', '{sep}', '{formatted_start_date}')
+          glue('{formatted_start_date}{sep}{formatted_end_date}'),
+          glue('{formatted_end_date}{sep}{formatted_start_date}')
         )
       )
     )
