@@ -65,12 +65,11 @@ print_section <- function(
   # Filter
   position_data <- position_data %>% 
     filter(
-      .data$section == section_id &
-        (
-          (target == "app" & .data$include == "x") |
-          (target == "base" & (.data$in_base == "x" | .data$in_base == "~"))
-          # (target == "base" & .data$in_base == "x")
-        )
+      .data$section == section_id & (
+        (target == "app" & .data$include == "x") |
+        (target == "base" & .data$in_base %in% c("x", "~"))
+        # (target == "base" & .data$in_base == "x")
+      )
     )
   
   # Construct

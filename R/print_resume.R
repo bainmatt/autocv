@@ -69,22 +69,20 @@ print_latex_section <- function(
     ),
     short_entries = FALSE,
     target = c("app", "base"),
-    padding = 1
+    padding = 1,
+    use_abridged = FALSE
 ) {
   section_id <- match.arg(section_id)
   target     <- match.arg(target)
   
   # Filter
-  # TODO: Refactor filtering logic into prepare.filter_position_data() and
-  # call in print_resume_plain()/cv/resume.Rmd after load/prep position_data
-  # i.e. before print_{text/latex/}section() (before position_data passed).
   position_data <- position_data %>% 
     filter(
-      .data$section == section_id & 
-        (
-          (target == "app" & .data$include == "x") |
-          (target == "base" & .data$in_base == "x")
-        )
+      .data$section == section_id & (
+        (target == "app" & .data$include == "x") |
+        (target == "base" & .data$in_base == "x" & !use_abridged) |
+        (target == "base" & .data$in_base %in% c("x", "~") & use_abridged)
+      )
     )
   # if (target == "app") {
   #   position_data <- position_data %>% 

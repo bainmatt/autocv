@@ -8,7 +8,8 @@ print_txt_section(
   position_data,
   section_id = c("work", "education", "certifications", "projects", "writing",
     "publications", "volunteering", "additional_info"),
-  target = c("app", "base")
+  target = c("app", "base"),
+  use_abridged = FALSE
 )
 }
 \description{

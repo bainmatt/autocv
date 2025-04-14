@@ -10,7 +10,8 @@ print_latex_section(
     "publications", "volunteering", "additional_info"),
   short_entries = FALSE,
   target = c("app", "base"),
-  padding = 1
+  padding = 1,
+  use_abridged = FALSE
 )
 }
 \description{

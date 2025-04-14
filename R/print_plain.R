@@ -14,8 +14,8 @@ print_txt_section <- function(
       "work", "education", "certifications", "projects", 
       "writing", "publications", "volunteering", "additional_info"
     ),
-    target = c("app", "base")
-    # use_abridged = FALSE
+    target = c("app", "base"),
+    use_abridged = FALSE
 ) {
   section_id <- match.arg(section_id)
   target     <- match.arg(target)
@@ -23,11 +23,11 @@ print_txt_section <- function(
   # Filter
   position_data <- position_data %>% 
     filter(
-      .data$section == section_id & 
-        (
-          (target == "app" & .data$include == "x") |
-          (target == "base" & .data$in_base == "x")
-        )
+      .data$section == section_id & (
+        (target == "app" & .data$include == "x") |
+        (target == "base" & .data$in_base == "x" & !use_abridged) |
+        (target == "base" & .data$in_base %in% c("x", "~") & use_abridged)
+      )
     )
   
   # Construct
