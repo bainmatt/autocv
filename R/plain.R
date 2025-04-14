@@ -103,28 +103,32 @@ print_resume_plain <- function(
     "{print_txt_section(
       position_data, 
       section_id = 'work', 
-      target = target
+      target = target,
+      use_abridged = use_abridged
     )}",
     
     "{print_txt_header('education')}",
     "{print_txt_section(
       position_data, 
       section_id = 'education', 
-      target = target
+      target = target,
+      use_abridged = use_abridged
     )}",
     
     "{print_txt_header('certifications')}",
     "{print_txt_section(
       position_data, 
       section_id = 'certifications',
-      target = target
+      target = target,
+      use_abridged = use_abridged
     )}",
 
     "{print_txt_header('projects')}",
     "{print_txt_section(
       position_data, 
       section_id = 'projects',
-      target = target
+      target = target,
+      use_abridged = use_abridged
     )}"
   )
   

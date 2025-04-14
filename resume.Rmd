@@ -137,7 +137,8 @@ autocv::print_latex_section(
   position_data, 
   section_id = "work", 
   short_entries = TRUE, 
-  target = target
+  target = target,
+  use_abridged = use_abridged
 )
 ```
 
@@ -148,7 +149,8 @@ autocv::print_latex_section(
   position_data, 
   section_id = "education", 
   short_entries = TRUE, 
-  target = target
+  target = target,
+  use_abridged = use_abridged
 )
 ```
 
@@ -159,7 +161,8 @@ autocv::print_latex_section(
   position_data,
   section_id = "certifications",
   short_entries = TRUE,
-  target = target
+  target = target,
+  use_abridged = use_abridged
 )
 ```
 
@@ -171,7 +174,8 @@ autocv::print_latex_section(
   position_data,
   section_id = "projects",
   short_entries = TRUE,
-  target = target
+  target = target,
+  use_abridged = use_abridged
 )
 ```
 -->
