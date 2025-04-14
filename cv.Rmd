@@ -154,7 +154,8 @@ Last updated on `r Sys.Date()`. <br> <br>
 
 # Main
 
-## `r paste0(name, ", ", suffix)` {#title}
+## `r paste0(name)` {#title}
+<!-- ## `r paste0(name, ", ", suffix)` {#title} -->
 
 ### `r paste(role)`
 
@@ -164,7 +165,7 @@ Last updated on `r Sys.Date()`. <br> <br>
 [![Kaggle](https://custom-icon-badges.demolab.com/badge/-Kaggle-909090?logo=kaggle&logoColor=white)](https://www.kaggle.com/mattbain)
 [![Tableau](https://custom-icon-badges.demolab.com/badge/-Tableau-909090?logo=tableau&logoColor=white)](https://public.tableau.com/app/profile/mattbain/vizzes)
 [![Streamlit](https://custom-icon-badges.demolab.com/badge/-Streamlit-909090?logo=streamlit&logoColor=white)](https://share.streamlit.io/user/bainmatt)
-[![Hugging Face](https://img.shields.io/badge/Hugging_Face-909090?logo=huggingface&logoColor=fff)](https://huggingface.co/mattbain)
+<!-- [![Hugging Face](https://img.shields.io/badge/Hugging_Face-909090?logo=huggingface&logoColor=fff)](https://huggingface.co/mattbain) -->
 
 ## Professional Experience {data-icon="suitcase"}
 
