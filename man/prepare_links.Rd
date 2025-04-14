@@ -2,10 +2,17 @@
 % Please edit documentation in R/prepare.R
 \name{prepare_links}
 \alias{prepare_links}
-\title{Prepare properly formatted links with custom text.}
+\alias{render_links}
+\title{Prepare formatted links with custom text.}
 \usage{
 prepare_links(
   data,
+  style = c("markdown", "latex", "txt"),
+  macro = c("myhref", "href", NA)
+)
+
+render_links(
+  text,
   style = c("markdown", "latex", "txt"),
   macro = c("myhref", "href", NA)
 )
@@ -16,7 +23,9 @@ prepare_links(
 \item{macro}{macro to use for "latex" references}
 }
 \description{
-Prepare properly formatted links with custom text.
+\code{prepare_links} constructs formatted links from link and text fields.
+
+\code{render_links} detects and formats text-embedded links.
 }
 \seealso{
 Other prepare: 

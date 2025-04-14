@@ -106,7 +106,12 @@ prepare_timeline <- function(
 # (call render_links() first in preprocess_text/_entries).
 
 
-#' Prepare properly formatted links with custom text.
+#' Prepare formatted links with custom text.
+#' 
+#' @description
+#' `prepare_links` constructs formatted links from link and text fields.
+#' 
+#' `render_links` detects and formats text-embedded links.
 #' 
 #' @param style style of link, either "markdown", "latex", or "txt" (plain)
 #' @param macro macro to use for "latex" references
@@ -138,6 +143,42 @@ prepare_links <- function(
       )
     )
   return(data)
+}
+
+
+#' @rdname prepare_links
+#'
+render_links <- function(
+    text,
+    style = c("markdown", "latex", "txt"),
+    macro = c("myhref", "href", NA)
+) {
+  style <- match.arg(style)
+  macro <- match.arg(macro)
+  
+  links <- stringr::str_match_all(text, "\\[([^\\]]+)\\]\\(([^\\)]+)\\)")[[1]]
+  
+  if (nrow(links) == 0) {
+    return(text)
+  }
+
+  df <- tibble(
+    full_match = links[, 1],
+    link_text = links[, 2],
+    link = links[, 3]
+  ) %>% 
+    prepare_links(., style = style, macro = macro)
+
+  for (i in seq_len(nrow(df))) {
+    text <- sub(
+      stringr::fixed(df$full_match[i]),
+      df$formatted_link[i],
+      text,
+      fixed = TRUE
+    )
+  }
+  
+  return(text)
 }
 
 
@@ -488,7 +529,14 @@ preprocess_entries <- function(
   
   data <- entry_data %>%
     prepare_timeline(., order = order, style = style) %>%
-    prepare_links(., style = style) %>%
+    prepare_links(style = style) %>%
+    dplyr::mutate(
+      dplyr::across(
+        .cols = dplyr::matches("^description_|^short_summary"),
+        .fns = ~ render_links(., style = style),
+        .names = "{.col}"
+      )
+    ) %>%
     
     purrr::reduce(1:num_bullets, function(data, i) {
       append_skills_to_bullets(
@@ -573,8 +621,13 @@ preprocess_text <- function(
 ) {
   style <- match.arg(style)
   
-  text_data <- text_data %>% 
+  text_data <- text_data %>%
+    dplyr::mutate(
+      text = vapply(text, render_links, character(1), style = style)
+    ) %>%
     prepare_bio(use_abridged = use_abridged)
+  
+  return(text_data)
 }
 
 

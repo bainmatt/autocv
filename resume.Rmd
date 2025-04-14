@@ -81,7 +81,7 @@ text_data <- autocv::load_application_data(
   sheet = "text_blocks",
   app_id = app_id,
   app_period = app_period
-) %>% autocv::preprocess_text(use_abridged = use_abridged)
+) %>% autocv::preprocess_text(use_abridged = use_abridged, style = "latex")
 
 ```
 

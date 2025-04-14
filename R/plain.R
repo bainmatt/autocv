@@ -58,7 +58,7 @@ print_resume_plain <- function(
     sheet = "text_blocks",
     app_id = app_id,
     app_period = app_period
-  ) %>% preprocess_text(use_abridged = use_abridged)
+  ) %>% preprocess_text(use_abridged = use_abridged, style = "txt")
   
   # Extract key elements -------------------------------------------------------
   

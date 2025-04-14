@@ -146,7 +146,7 @@ print_cover_plain <- function(
     sheet = "text_blocks",
     app_id = app_id,
     app_period = app_period
-  ) %>% autocv::preprocess_text()
+  ) %>% autocv::preprocess_text(style = "txt")
   
   # Extract key elements -------------------------------------------------------
 

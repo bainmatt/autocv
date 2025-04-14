@@ -63,7 +63,7 @@ text_data <- autocv::load_application_data(
   target = target,
   filename = "cover_data.xlsx",
   sheet = "text_blocks"
-) %>% autocv::preprocess_text()
+) %>% autocv::preprocess_text(., style = "markdown")
 
 ```
 
