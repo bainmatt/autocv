@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   demo-resume: demo-resume.html
-last_built: 2025-04-11T23:27Z
+last_built: 2025-04-14T16:41Z
 urls:
   reference: https://bainmatt.github.io/autocv/reference
   article: https://bainmatt.github.io/autocv/articles
