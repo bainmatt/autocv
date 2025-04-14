@@ -52,7 +52,7 @@ text_data <- autocv::load_application_data(
   sheet = "text_blocks",
   app_id = app_id,
   app_period = app_period
-) %>% autocv::preprocess_text()
+) %>% autocv::preprocess_text(., style = "latex")
 
 ```
 
