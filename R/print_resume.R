@@ -75,6 +75,9 @@ print_latex_section <- function(
   target     <- match.arg(target)
   
   # Filter
+  # TODO: Refactor filtering logic into prepare.filter_position_data() and
+  # call in print_resume_plain()/cv/resume.Rmd after load/prep position_data
+  # i.e. before print_{text/latex/}section() (before position_data passed).
   position_data <- position_data %>% 
     filter(
       .data$section == section_id & 

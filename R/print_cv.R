@@ -79,7 +79,7 @@ print_section <- function(
     
     # Prepare formatted links. Note: Since this is an added field that is not
     # present in the base pagedown template, we will manually omit NA entries.
-    # TODO put this & below in prep func along w/ latex (prepare NA fields)
+    # TODO: Put this & below in prep func along w/ latex (prepare NA fields).
     mutate(
       link = ifelse(is.na(.data$formatted_link), "", .data$formatted_link)
     ) %>% 
