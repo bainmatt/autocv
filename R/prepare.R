@@ -41,10 +41,10 @@ prepare_bio <- function(
 }
 
 
-#' Prepare dates. 
-#' 
+#' Prepare dates.
+#'
 #' @param data A spreadsheet containing position data.
-#' 
+#'
 #' @family prepare
 prepare_timeline <- function(
     data,
@@ -54,7 +54,7 @@ prepare_timeline <- function(
   order <- match.arg(order)
   style <- match.arg(style)
   sep <- switch(style, markdown = " - ", latex = " -- ", txt = " - ")
-  
+
   data <- data %>%
     # Sort by end date in descending order, starting with present
     mutate(
@@ -76,7 +76,7 @@ prepare_timeline <- function(
         paste("Expected", .data$formatted_end_date),
         .data$formatted_end_date
       )
-    ) %>% 
+    ) %>%
     rowwise %>%
     # Construct timeline for each entry based on start/end pairs provided
     mutate(
@@ -107,15 +107,15 @@ prepare_timeline <- function(
 
 
 #' Prepare formatted links with custom text.
-#' 
+#'
 #' @description
 #' `prepare_links` constructs formatted links from link and text fields.
-#' 
+#'
 #' `render_links` detects and formats text-embedded links.
-#' 
+#'
 #' @param style style of link, either "markdown", "latex", or "txt" (plain)
 #' @param macro macro to use for "latex" references
-#' 
+#'
 #' @family prepare
 prepare_links <- function(
     data,
@@ -124,9 +124,9 @@ prepare_links <- function(
 ) {
   style <- match.arg(style)
   macro <- match.arg(macro)
-  
-  data <- data %>% 
-    rowwise() %>% 
+
+  data <- data %>%
+    rowwise() %>%
     mutate(
       formatted_link = dplyr::case_when(
         is.na(.data$link) ~ NA,
@@ -155,9 +155,9 @@ render_links <- function(
 ) {
   style <- match.arg(style)
   macro <- match.arg(macro)
-  
+
   links <- stringr::str_match_all(text, "\\[([^\\]]+)\\]\\(([^\\)]+)\\)")[[1]]
-  
+
   if (nrow(links) == 0) {
     return(text)
   }
@@ -166,7 +166,7 @@ render_links <- function(
     full_match = links[, 1],
     link_text = links[, 2],
     link = links[, 3]
-  ) %>% 
+  ) %>%
     prepare_links(., style = style, macro = macro)
 
   for (i in seq_len(nrow(df))) {
@@ -177,13 +177,13 @@ render_links <- function(
       fixed = TRUE
     )
   }
-  
+
   return(text)
 }
 
 
 #' Append skills to a description field with matching index.
-#' 
+#'
 #' @family prepare-dev
 append_skills_to_bullets <- function(
     data,
@@ -199,36 +199,36 @@ append_skills_to_bullets <- function(
 
   } else {
     skill_prefix <- paste0("skill_", ix)
-    description_col <- paste0("description_", ix) 
+    description_col <- paste0("description_", ix)
   }
-  
+
   # Omit skills starting with a given prefix with NA
   data <- data %>%
     dplyr::mutate(dplyr::across(
       tidyselect::starts_with(skill_prefix),
       ~ ifelse(stringr::str_starts(., omit_prefix), NA, .)
     ))
-  
+
   # Prep sorted skill set for sorting individual bullet skill lists
   do_sort_appended <- sort_appended && !is.null(skill_set_sorted)
   if (do_sort_appended) {
-    skill_set_sorted <- skill_set_sorted %>% dplyr::pull(.data$skill) 
+    skill_set_sorted <- skill_set_sorted %>% dplyr::pull(.data$skill)
   }
-  
+
   data <- data %>%
     dplyr::rowwise() %>%
-    
+
     # Concatenate all skill_ix columns, filtering out NA values
     dplyr::mutate(
       skills_concat = stringr::str_c(
-        na.omit(dplyr::c_across(dplyr::starts_with(skill_prefix))), 
+        na.omit(dplyr::c_across(dplyr::starts_with(skill_prefix))),
         collapse = ", "
       ),
-      
+
       skills_vector = list(stringr::str_split(
         .data$skills_concat, ", ", simplify = TRUE
       )[1,]),
-      
+
       # Sort each bullet skill list according to sorted skill set
       skills_concat = if (do_sort_appended) {
         stringr::str_c(.data$skills_vector[na.omit(match(
@@ -251,13 +251,13 @@ append_skills_to_bullets <- function(
     ungroup() %>%
     # Remove temporary column
     select(-.data$skills_concat)
-  
+
   return(data)
 }
 
 
 # PERF: Optimize prepare_description_bullets w/ tidyr::unite,starts_with. Use:
-# use tidyr::unite(tidyr::starts_with('description'), 
+# use tidyr::unite(tidyr::starts_with('description'),
 # col = "description_bullets", sep = "\n- ", na.rm = TRUE) as in:
 # cv$entries_data %<>%
 #   tidyr::unite(
@@ -271,8 +271,8 @@ append_skills_to_bullets <- function(
 #   )
 
 
-#' Prepare entry descriptions. 
-#' 
+#' Prepare entry descriptions.
+#'
 #' @family prepare
 prepare_description_bullets <- function(
     data,
@@ -280,16 +280,16 @@ prepare_description_bullets <- function(
     use_abridged = FALSE
 ) {
   bullet_style <- match.arg(bullet_style)
-  
+
   # Use short summaries if creating a summary document
   if (use_abridged) {
     data <- data %>%
       mutate(description_bullets = paste(bullet_style, .data$short_summary))
     return(data)
   }
-  
+
   # Otherwise combine description bullets for each entry
-  data <- data %>% 
+  data <- data %>%
     mutate(id = dplyr::row_number()) %>%
     tidyr::pivot_longer(
       .,
@@ -304,20 +304,20 @@ prepare_description_bullets <- function(
     mutate(
       descriptions = list(.data$description),
       no_descriptions = is.na(first(.data$description))
-    ) %>% 
+    ) %>%
     ungroup() %>%
     filter(.data$description_num == 'description_1') %>%
     mutate(
       description_bullets = case_when(
         .data$no_descriptions ~ ' ',
         TRUE ~ purrr::map_chr(
-          .data$descriptions, 
+          .data$descriptions,
           ~paste(bullet_style, ., collapse = '\n')
         )
       )
     ) %>%
     select(-c(
-      .data$description, .data$descriptions, 
+      .data$description, .data$descriptions,
       .data$no_descriptions, .data$description_num
     ))
   return(data)
@@ -349,7 +349,7 @@ omit_hidden_fields <- function(
 
 #' Prepare individual entry in contact info card.
 #'
-#' @description 
+#' @description
 #' `make_markdown_contacts` prepares an individual markdown entry.
 #'
 #' `make_latex_contacts` prepares an individual LaTeX entry.
@@ -360,8 +360,8 @@ omit_hidden_fields <- function(
 #'
 #' @family prepare-dev
 make_markdown_contacts <- function(contact_data) {
-  contact_data <- contact_data %>% 
-    rowwise %>% 
+  contact_data <- contact_data %>%
+    rowwise %>%
     mutate(contact_text = if_else(
       is.na(.data$address),
       glue('- <i class="fa fa-{icon}"></i> {address_text}'),
@@ -375,8 +375,8 @@ make_markdown_contacts <- function(contact_data) {
 #'
 #' @param macro The desired LaTeX macro to use for rendering hyperlinks.
 make_latex_contacts <- function(contact_data, macro) {
-  contact_data <- contact_data %>% 
-    rowwise %>% 
+  contact_data <- contact_data %>%
+    rowwise %>%
     mutate(contact_text = if_else(
       is.na(.data$address),
       .data$address_text,
@@ -389,10 +389,10 @@ make_latex_contacts <- function(contact_data, macro) {
 
 
 #' @rdname make_markdown_contacts
-#' 
+#'
 make_txt_contacts <- function(contact_data) {
-  contact_data <- contact_data %>% 
-    rowwise %>% 
+  contact_data <- contact_data %>%
+    rowwise %>%
     dplyr::mutate(contact_text = dplyr::case_when(
       is.na(.data$address) ~ .data$address_text,
       .data$loc %in% c("email", "phone") ~ .data$address_text,
@@ -415,7 +415,7 @@ sort_skills <- function(
 
   if (use_abridged) { target = "abridged" }
 
-  skill_data <- skill_data %>% 
+  skill_data <- skill_data %>%
     filter(
       (
         (target == "app"      & .data$include == "x") |
@@ -423,12 +423,12 @@ sort_skills <- function(
         (target == "abridged" & .data$in_profile)
       )
     )
-  
+
   # Verify that required fields are present
   assert_that(all(c("category_id", "is_a_tool") %in% names(skill_data)))
-  
+
   # Sort by tools/competencies (tools first) -> section id -> skill level
-  skill_data <- skill_data %>% 
+  skill_data <- skill_data %>%
     # filter(.data$include == "x") %>%
     arrange(.data$is_a_tool, .data$category_id, desc(.data$level))
   return(skill_data)
@@ -439,7 +439,7 @@ sort_skills <- function(
 
 
 #' Load application data.
-#' 
+#'
 #' @family data
 #' @export
 load_application_data <- function(
@@ -474,16 +474,16 @@ load_application_data <- function(
       doc = doc,
       app_period = app_period
     )
-    
+
   } else if (target == "base") {
     data_filepath <- file.path(get_path_to(data_dir), filename)
   }
-  
+
   if (!all(file.exists(data_filepath))) {
     warn_file_missing(data_filepath)
     stop("Missing data file")
   }
-    
+
   data <- readxl::read_excel(
     data_filepath,
     sheet = sheet,
@@ -498,11 +498,11 @@ load_application_data <- function(
 
 
 #' Run each resume data pre-processing step in sequence.
-#' 
+#'
 #' @family pipeline
 #' @export
 preprocess_entries <- function(
-    entry_data, 
+    entry_data,
     style = c("markdown", "latex", "txt"),
     order = c("chronological", "reversed"),
     bullet_style = c("-", "+"),
@@ -514,7 +514,7 @@ preprocess_entries <- function(
   order <- match.arg(order)
   bullet_style <- match.arg(bullet_style)
   num_bullets <- ifelse(use_abridged, 1, 5)
-  
+
   data <- entry_data %>%
     prepare_timeline(., order = order, style = style) %>%
     prepare_links(style = style) %>%
@@ -525,7 +525,7 @@ preprocess_entries <- function(
         .names = "{.col}"
       )
     ) %>%
-    
+
     purrr::reduce(1:num_bullets, function(data, i) {
       append_skills_to_bullets(
         data,
@@ -535,7 +535,7 @@ preprocess_entries <- function(
         skill_set_sorted = skill_set_sorted
       )
     }, .init = .) %>%
-    
+
     omit_hidden_fields() %>%
     prepare_description_bullets(
       ., bullet_style = bullet_style, use_abridged = use_abridged
@@ -550,15 +550,15 @@ preprocess_entries <- function(
 #' @family pipeline
 #' @export
 preprocess_contacts <- function(
-    contact_data, 
-    style = c("markdown", "latex", "txt"), 
+    contact_data,
+    style = c("markdown", "latex", "txt"),
     macro = c("myhref", "href", NA)
 ) {
   style <- match.arg(style)
   macro <- match.arg(macro)
-  
+
   # Initialize a new column for processed contact info
-  contact_data <- contact_data %>% 
+  contact_data <- contact_data %>%
     arrange(.data$order) %>%
     mutate(contact_text = NA)
 
@@ -572,18 +572,18 @@ preprocess_contacts <- function(
   }
 
   # Populate name/pic fields manually
-  contact_data[contact_data$loc == "name",] <- contact_data %>% 
-    filter(., .data$loc == "name") %>% 
+  contact_data[contact_data$loc == "name",] <- contact_data %>%
+    filter(., .data$loc == "name") %>%
     mutate(contact_text = .data$address_text)
-  
-  contact_data[contact_data$loc == "pic",] <- contact_data %>% 
-    filter(., .data$loc == "pic") %>% 
+
+  contact_data[contact_data$loc == "pic",] <- contact_data %>%
+    filter(., .data$loc == "pic") %>%
     mutate(contact_text = glue('
       ![{address_text}]({address}){{.circular-frame}}
     '))
 
-  # Populate links 
-  entries <- contact_data %>% 
+  # Populate links
+  entries <- contact_data %>%
     filter(!.data$loc %in% c("name", "pic")) %>%
     pull(.data$loc)
   contact_data[contact_data$loc %in% entries,] <- contact_data %>%
@@ -598,8 +598,8 @@ preprocess_contacts <- function(
 }
 
 
-#' Prepare text blocks. 
-#' 
+#' Prepare text blocks.
+#'
 #' @family pipeline
 #' @export
 preprocess_text <- function(
@@ -623,11 +623,11 @@ preprocess_text <- function(
 
 
 #' Print contact info.
-#' 
+#'
 #' @family print
 #' @export
 print_contact_info <- function(
-    contact_data, 
+    contact_data,
     section = c("info", "links", "both", "signoff"),
     sep = c(" | ", "\n"),
     anonymize = FALSE
@@ -653,7 +653,7 @@ print_contact_info <- function(
     signoff = signoff_fields
   )
 
-  contact_text <- contact_data %>% 
+  contact_text <- contact_data %>%
     filter(.data$loc %in% entries) %>%
     pull(contact_text) %>%
     glue::glue_collapse(sep)
@@ -721,7 +721,7 @@ build_skill_list <- function(
   for (i in seq_along(sections)) {
     # Concatenate skills
     skills <- stringr::str_c(
-      core_skills_data[core_skills_data$alias == sections[i],]$skill, 
+      core_skills_data[core_skills_data$alias == sections[i],]$skill,
       collapse = ", "
     )
     # Concatenate section header and skills

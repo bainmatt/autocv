@@ -46,9 +46,9 @@ build_skill_bars <- function(skill_data) {
 #' @family print
 #' @export
 print_section <- function(
-    position_data, 
+    position_data,
     section_id = c(
-      "work", "education", "certifications", "projects", 
+      "work", "education", "certifications", "projects",
       "writing", "publications", "volunteering", "additional_info"
     ),
     target = c("base", "app")
@@ -56,7 +56,7 @@ print_section <- function(
   section_id <- match.arg(section_id)
   target     <- match.arg(target)
 
-  position_data <- position_data %>% 
+  position_data <- position_data %>%
     filter(
       .data$section == section_id & (
         (target == "app" & .data$include == "x") |
@@ -76,8 +76,8 @@ print_section <- function(
         where(is.character),
         ~ ifelse(is.na(.), "N/A", .)
       )
-    ) %>% 
-    rowwise() %>% 
+    ) %>%
+    rowwise() %>%
     mutate(markdown_output = glue(
       "### {title} <span style='font-weight: normal;'>{link}</span>",
       "\n\n",
@@ -89,7 +89,7 @@ print_section <- function(
       "\n\n",
       "{description_bullets}",
       "\n\n\n"
-    )) %>% 
-    pull(.data$markdown_output) %>% 
+    )) %>%
+    pull(.data$markdown_output) %>%
     cat(sep = "\n")
 }

@@ -41,9 +41,9 @@ build_skill_table <- function(skill_data) {
     category <- sections[i]
     skills <- skill_data$skill[skill_data$alias == category]
     skill_table <- paste(
-      skill_table, 
-      "\\textbf{", category, ":} ", 
-      paste(skills, collapse = ", "), 
+      skill_table,
+      "\\textbf{", category, ":} ",
+      paste(skills, collapse = ", "),
       sep = ""
     )
     if (i %% 2 == 0) {
@@ -52,19 +52,19 @@ build_skill_table <- function(skill_data) {
       skill_table <- paste(skill_table, "&", sep = "")
     }
   }
-  skill_table <- paste(skill_table, "\\end{tabular}\n\n", sep = "") 
+  skill_table <- paste(skill_table, "\\end{tabular}\n\n", sep = "")
   return(skill_table)
 }
 
 
 #' Print a section from a position dataframe to LaTeX.
-#' 
+#'
 #' @family print
 #' @export
 print_latex_section <- function(
-    position_data, 
+    position_data,
     section_id = c(
-      "work", "education", "certifications", "projects", 
+      "work", "education", "certifications", "projects",
       "writing", "publications", "volunteering", "additional_info"
     ),
     short_entries = FALSE,
@@ -74,9 +74,9 @@ print_latex_section <- function(
 ) {
   section_id <- match.arg(section_id)
   target     <- match.arg(target)
-  
+
   # Filter
-  position_data <- position_data %>% 
+  position_data <- position_data %>%
     filter(
       .data$section == section_id & (
         (target == "app" & .data$include == "x") |
@@ -84,9 +84,9 @@ print_latex_section <- function(
         (target == "base" & .data$in_base %in% c("x", "~") & use_abridged)
       )
     )
-  
+
   # Construct
-  position_data <- position_data %>% 
+  position_data <- position_data %>%
     # filter(.data$section == section_id & .data$include == "x") %>%
     mutate(
       # Handle missing entry elements
@@ -106,7 +106,7 @@ print_latex_section <- function(
       link = if_else(
         !is.na(.data$formatted_link), glue("{formatted_link}"), ""
       ),
-      
+
       # Handle spacing around entry elements
       # TODO: From print_latex_section: prep_padding: args txt size/scale/short
       row_id = row_number(),
@@ -115,13 +115,13 @@ print_latex_section <- function(
       no_inst_or_loc = (.data$no_inst & .data$no_loc),
       no_bullets = grepl("^\\s*$", .data$bullets),
       no_link = .data$link == "",
-      
+
       short_entry_comma_1 = if_else(.data$no_inst, "", ", "),
       short_entry_comma_2 = if_else(.data$no_loc, "", ", "),
       short_entry_comma_3 = if_else(.data$no_link, "", ", "),
-      
+
       entry_prepadding = if_else(
-        .data$row_id != min(.data$row_id), 
+        .data$row_id != min(.data$row_id),
         "\\vspace{3pt}",
         "\\vspace{-7pt}"
       ),
@@ -131,11 +131,11 @@ print_latex_section <- function(
         "\n\n"
       ),
       entry_postpadding = if_else(
-        .data$no_bullets & .data$row_id != max(.data$row_id), 
+        .data$no_bullets & .data$row_id != max(.data$row_id),
         "\\vspace{-7pt}\n\n",
         "\n\n"
       ),
-      
+
       # Concatenate
       latex_output = case_when(
         short_entries == TRUE ~ glue(
@@ -160,7 +160,7 @@ print_latex_section <- function(
           "{bullets}",
           "{entry_postpadding}"
         ),
-        
+
         short_entries == FALSE ~ glue(
           "{entry_prepadding}",
           # Underline work entries
@@ -178,7 +178,7 @@ print_latex_section <- function(
           "{entry_postpadding}"
         )
       )
-    ) %>% 
-    pull(.data$latex_output) %>% 
+    ) %>%
+    pull(.data$latex_output) %>%
     cat(sep = "\n")
 }

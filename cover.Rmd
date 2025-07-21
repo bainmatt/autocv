@@ -22,7 +22,7 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  results='asis', 
+  results='asis',
   echo = FALSE
 )
 
@@ -63,13 +63,13 @@ role <- text_data$text[text_data$loc == "title"]
 suffix <- contact_data$address_text[contact_data$loc == "title"]
 
 contacts_text <- autocv::print_contact_info(
-  contact_data, 
-  section = "signoff", 
+  contact_data,
+  section = "signoff",
   sep = "\n\n\\vspace{-5pt}"
 )
 links_text <- autocv::print_contact_info(
-  contact_data, 
-  section = "links", 
+  contact_data,
+  section = "links",
   sep = " | "
 )
 

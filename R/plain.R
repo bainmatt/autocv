@@ -17,7 +17,7 @@ print_resume_plain <- function(
 ) {
   target = match.arg(target)
   # style = match.arg(style)
-  
+
   # Load and process the data --------------------------------------------------
   skill_data <- load_application_data(
     target = target,
@@ -43,7 +43,7 @@ print_resume_plain <- function(
     sort_appended = sort_appended,
     skill_set_sorted = skill_data
   )
-  
+
   contact_data <- load_application_data(
     target = target,
     filename = "cover_data.xlsx",
@@ -51,7 +51,7 @@ print_resume_plain <- function(
     app_id = app_id,
     app_period = app_period
   ) %>% preprocess_contacts(., style = "txt")
-  
+
   text_data <- load_application_data(
     target = target,
     filename = "cover_data.xlsx",
@@ -59,22 +59,22 @@ print_resume_plain <- function(
     app_id = app_id,
     app_period = app_period
   ) %>% preprocess_text(use_abridged = use_abridged, style = "txt")
-  
+
   # Extract key elements -------------------------------------------------------
-  
+
   name <- contact_data$address_text[contact_data$loc == "name"]
   role <- text_data$text[text_data$loc == "title"]
   bio <- text_data$text[text_data$loc == "bio"]
   suffix <- contact_data$address_text[contact_data$loc == "title"]
-  
+
   contacts_text <- print_contact_info(
-    contact_data, 
-    section = "info", 
+    contact_data,
+    section = "info",
     sep = "\n"
   )
   links_text <- print_contact_info(
-    contact_data, 
-    section = "links", 
+    contact_data,
+    section = "links",
     sep = "\n"
   )
 
@@ -86,38 +86,38 @@ print_resume_plain <- function(
     separate_competencies = TRUE,
     competencies_header = "Expertise"
   )
-  
+
   # Print ----------------------------------------------------------------------
-  
+
   resume <- glue::glue(
     "{name}, {suffix}", "\n",
     "{contacts_text}",  "\n",
     "{links_text}",
-    
+
     "{print_txt_header('professional summary')}",
     "{bio}",
     "{print_txt_header('relevant skills')}",
     "{skills_list}",
-    
+
     "{print_txt_header('professional experience')}",
     "{print_txt_section(
-      position_data, 
-      section_id = 'work', 
+      position_data,
+      section_id = 'work',
       target = target,
       use_abridged = use_abridged
     )}",
-    
+
     "{print_txt_header('education')}",
     "{print_txt_section(
-      position_data, 
-      section_id = 'education', 
+      position_data,
+      section_id = 'education',
       target = target,
       use_abridged = use_abridged
     )}",
-    
+
     "{print_txt_header('certifications')}",
     "{print_txt_section(
-      position_data, 
+      position_data,
       section_id = 'certifications',
       target = target,
       use_abridged = use_abridged
@@ -125,34 +125,34 @@ print_resume_plain <- function(
 
     "{print_txt_header('projects')}",
     "{print_txt_section(
-      position_data, 
+      position_data,
       section_id = 'projects',
       target = target,
       use_abridged = use_abridged
     )}"
   )
-  
+
   # Post-process ---------------------------------------------------------------
-  
+
   # FIXME: hacky
-  
+
   # Write to/read from tempfile to make processing line-by-line easier
   fil <- tempfile(fileext = ".txt")
   writeLines(resume, con = fil)
   lines <- readLines(fil)
-  
+
   # Remove leading spaces from each line
   lines <- sub("^\\s+", "", lines)
-  
+
   # Replace instances of four consecutive blanklines with two
   lines <- paste(lines, collapse = "\n")
   lines <- gsub(
     "(\n\\s*\n\\s*\n\\s*\n\\s*\n)+", "\n\n\n", lines, perl = TRUE
   )
-  
+
   # Replace two consecutive lines at the end of the file with one
   lines <- gsub("(\n\\s*\n)+$", "\n", lines, perl = TRUE)
   lines <- strsplit(lines, "\n")[[1]]
-  
+
   return(lines)
 }
