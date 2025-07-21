@@ -67,6 +67,53 @@ text_data <- autocv::load_application_data(
 
 ```
 
+```{r save-positions, include=FALSE}
+process_projects <- function(position_data) {
+  position_data %>%
+    # Filter
+    dplyr::filter(
+      .data$section == "projects" &
+      .data$in_base %in% c("x", "~")
+    ) %>%
+    dplyr::select(
+      "title", "link", "short_summary", "description_bullets"
+    ) %>% 
+    
+    # Create transparent link_text from link
+    dplyr::mutate(
+      link_text = stringr::str_remove(.data$link, "^https?://"),
+      link_text = stringr::str_replace(link_text, "^(([^/]+/[^/]+)).*$", "\\1"),
+      link_text = stringr::str_remove(link_text, "/$")
+    ) %>%   
+    
+    # Extract tools from processed description
+    dplyr::mutate(tools = stringr::str_match(
+      .data$description_bullets, "\\(([^)]*)\\)$")[, 2]
+    ) %>%
+    dplyr::select(-.data$description_bullets)
+}
+
+utils::write.csv(
+  process_projects(position_data),
+  file.path(get_path_to("input"), "projects.csv"),
+  row.names = FALSE
+)
+
+```
+
+<!--
+```{r}
+x <- c(
+  "Used tools (R, Python)",
+  "No tools mentioned",
+  "Something else (SQL, Git, Bash)"
+)
+
+stringr::str_match(x, "\\(([^)]*)\\)$")[, 2]
+
+```
+-->
+
 ```{r extract, include=FALSE}
 
 name <- contact_data$address_text[contact_data$loc == "name"]
