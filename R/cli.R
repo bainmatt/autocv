@@ -95,7 +95,7 @@ Details:
   )
   pos_args <- args_parsed$args
   opts <- args_parsed$options
-  
+
   # if (!opts$base & length(pos_args) == 0) {
   #   stop(glue::glue("
   #     Error: Require <id> argument unless --base is specified.
@@ -135,7 +135,7 @@ cli_render <- function(args) {
       help = "Edit the base application data instead of a specific period/job"
     )
   )
-  
+
   parser <- optparse::OptionParser(
     usage = "cv render [id='latest'] [--period PERIOD='latest'] [--base]",
     option_list = opt_list,
@@ -159,7 +159,7 @@ Details:
   )
   pos_args <- args_parsed$args
   opts <- args_parsed$options
-  
+
   # if (!opts$base & length(pos_args) == 0) {
   #   stop(glue::glue("
   #     Error: Require <id> argument unless --base is specified.

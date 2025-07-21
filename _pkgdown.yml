@@ -73,7 +73,7 @@ reference:
 
 - title: For fine-grained control
   desc: Finer control over data preparation, rendering, and keyword checks.
-  
+
 - subtitle: Prepare
   desc: Fine-grained control over spreadsheet data preparation.
 - contents:

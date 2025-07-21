@@ -5,7 +5,7 @@
 [![docs](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/bainmatt/autocv/actions/workflows/pkgdown.yaml)
 <!-- badges: end -->
 
-The `autocv` package provides a simple, unified workflow for constructing 
+The `autocv` package provides a simple, unified workflow for constructing
 a curriculum vitae (and related job application documents)
 from data stored in spreadsheets.
 
@@ -47,8 +47,8 @@ Retrieve information about your existing job applications.
 
 ### API reference
 
-Find the documentation for these functions
-[here](https://bainmatt.github.io/autocv/reference/),
+Find the documentation for these functions in the
+[reference](https://bainmatt.github.io/autocv/reference/),
 along with documentation for additional functions
 included with the package so that developers may
 tweak and extend functionality as desired.
@@ -96,7 +96,7 @@ to which you are applying.
 Uses the notebook `resume.Rmd` (see
 [template](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume.Rmd))
 and the spreadsheet `resume_data.xlsx` (see
-[template](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx), 
+[template](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx),
 as well as the corresponding example datasets
 [example_skill_data](https://bainmatt.github.io/autocv/reference/example_skill_data.html) and
 [example_position_data](https://bainmatt.github.io/autocv/reference/example_position_data.html)).
@@ -116,8 +116,7 @@ as well as the corresponding example datasets
 A resume containing the same information as the PDF resume
 and relying on the same template files but
 rendered in a plain text format for simplicity and ease of data entry.
-View an example
-[here](https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.txt).
+View an [example](https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.txt).
 
 4. [Plain text cover letter](https://bainmatt.github.io/autocv/reference/render_cover.html):
 A cover letter containing the same information as the PDF cover letter
@@ -131,7 +130,7 @@ and a space to include an image.
 Relies on the notebook `cv.Rmd` (see
 [template](https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cv.Rmd))
 and the same spreadsheet files as the PDF and plain text resume.
-View an example [here](https://bainmatt.github.io/autocv/cv_yourname.html).
+View an [example](https://bainmatt.github.io/autocv/cv_yourname.html).
 
 6. [PDF curriculum vitae](https://bainmatt.github.io/autocv/reference/render_cv_as_html.html):
 A curriculum vitae containing the same information as the HTML version
@@ -163,7 +162,7 @@ This project is inspired by Nick Strayer’s [data-driven cv][ddcv]
 template ([exemplar][nickstrayer]), which extends the [pagedown][pagedown]
 `html_resume` template. Further inspiration and design refinements
 were borrowed from Matt Leary’s [resume][ddcv-mleary] repository
-([examplar][mleary]). 
+([examplar][mleary]).
 Thank you to the creators of these projects.
 
 [pagedown]: https://github.com/rstudio/pagedown/tree/main	"pagedown package"

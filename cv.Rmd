@@ -19,7 +19,7 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  results='asis', 
+  results='asis',
   echo = FALSE
 )
 
@@ -45,9 +45,9 @@ position_data <- autocv::load_application_data(
   sheet = "entries",
   # skip = 1
 ) %>% autocv::preprocess_entries(
-  ., 
-  style = "markdown", 
-  order = "reversed", 
+  .,
+  style = "markdown",
+  order = "reversed",
   bullet_style = "-",
   sort_appended = sort_appended,
   skill_set_sorted = skill_data
@@ -77,15 +77,15 @@ process_projects <- function(position_data) {
     ) %>%
     dplyr::select(
       "title", "link", "short_summary", "description_bullets"
-    ) %>% 
-    
+    ) %>%
+
     # Create transparent link_text from link
     dplyr::mutate(
       link_text = stringr::str_remove(.data$link, "^https?://"),
       link_text = stringr::str_replace(link_text, "^(([^/]+/[^/]+)).*$", "\\1"),
       link_text = stringr::str_remove(link_text, "/$")
-    ) %>%   
-    
+    ) %>%
+
     # Extract tools from processed description
     dplyr::mutate(tools = stringr::str_match(
       .data$description_bullets, "\\(([^)]*)\\)$")[, 2]
@@ -125,8 +125,8 @@ pic_text <- glue::glue_collapse(
   contact_data[contact_data$loc == "pic",]$contact_text
 )
 contact_text <- autocv::print_contact_info(
-  contact_data, 
-  section = "both", 
+  contact_data,
+  section = "both",
   sep = "\n",
   anonymize = TRUE
 )
@@ -148,7 +148,7 @@ if(params$doctype == "HTML"){
   paste0(
     "[<i class='fas fa-download'></i> Download as a PDF]",
     "(https://bainmatt.github.io/cv/cv_matthewbain.pdf)"
-  ) %>% 
+  ) %>%
   glue::glue_collapse(sep = "\n")
 }
 

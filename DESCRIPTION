@@ -1,10 +1,10 @@
 Package: autocv
 Title: Generate ATS- and Web-Friendly Resume Documents from Spreadsheets
 Version: 0.0.1
-Authors@R: 
+Authors@R:
   person("Matthew", "Bain", , "bainmatt@outlook.com", role = c("aut", "cre"))
-Description: autocv is a collection of functions for generating 
-  your resume from data stored in a spreadsheet. It includes tools for 
+Description: autocv is a collection of functions for generating
+  your resume from data stored in a spreadsheet. It includes tools for
   retrieving job postings from the web, analyzing their key words,
   and assessing your resume based on its alignment with those key words.
   Spreadsheet templates are provided with conditional formatting to evaluate
@@ -43,11 +43,11 @@ Imports:
     tidyselect
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Suggests: 
+Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-Depends: 
+Depends:
     R (>= 2.10)
 LazyData: true
 URL: https://bainmatt.github.io/autocv

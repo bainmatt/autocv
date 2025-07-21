@@ -9,9 +9,9 @@ library(dplyr)
 #' @family print
 #' @export
 print_txt_section <- function(
-    position_data, 
+    position_data,
     section_id = c(
-      "work", "education", "certifications", "projects", 
+      "work", "education", "certifications", "projects",
       "writing", "publications", "volunteering", "additional_info"
     ),
     target = c("app", "base"),
@@ -20,7 +20,7 @@ print_txt_section <- function(
   section_id <- match.arg(section_id)
   target     <- match.arg(target)
 
-  position_data <- position_data %>% 
+  position_data <- position_data %>%
     filter(
       .data$section == section_id & (
         (target == "app" & .data$include == "x") |
@@ -43,7 +43,7 @@ print_txt_section <- function(
       no_bullets = grepl("^\\s+$", .data$description_bullets),
       bullets_prepadding = if_else(.data$no_inst_or_loc, "", "\n\n"),
       entry_postpadding = ifelse(.data$no_bullets, "", "\n\n"),
-      
+
       # Print
       txt_output = glue::glue(
         "{timeline}",
@@ -63,7 +63,7 @@ print_txt_section <- function(
 
 
 #' Print a formatted plain text resume header.
-#' 
+#'
 #' @examples
 #' print_txt_header("this is my header")
 #'
@@ -71,7 +71,7 @@ print_txt_section <- function(
 #' @export
 print_txt_header <- function(header) {
   n_char <- stringr::str_length(header)
-  
+
   formatted_header <- glue::glue(
     "\n\n\n\n",
     "{stringr::str_to_upper(header)}",
