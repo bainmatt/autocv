@@ -115,7 +115,7 @@ count_terms <- function(
   # Collect and count all matches in the doc
   matches_df <- data.frame(
     
-    # FIXME: cleaner solution for matches/position unlisting?
+    # FIXME: In count_terms: Cleaner solution for matches/position unlisting?
     
     term = terms,
     t(sapply(terms, function(term) {
@@ -128,16 +128,13 @@ count_terms <- function(
     row.names = NULL
   )
   
-  # FIXME: put this in function
-  
+  # PERF: Refactor as purify_matches_df in count_terms
   # For each skill with n occurrences: if contained in any other 
   # term with m occurrences (as a whole word match), subtract m from n.
   matches_df <- matches_df %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      
-      # FIXME: resolve contained_in list/duplicate_count num conversion/unlist
-      
+
       contained_in = list(matches_df$term[!is.na(
         stringr::str_match(
           stringr::str_to_lower(matches_df$term),
@@ -221,9 +218,6 @@ report_skill_metrics <- function(skill_report_df) {
 sort_skill_report <- function(skill_report_df) {
   df_sorted <- skill_report_df %>% dplyr::arrange(
     dplyr::desc(.data$matches > 0)
-    # dplyr::desc(.data$in_my_skill_set)
-    # .data$term,
-    # dplyr::desc(.data$count)
   )
   return(df_sorted)
 }
@@ -349,6 +343,7 @@ run_skill_count <- function(
   return(output_df)
 }
 
+# TODO: In run_skill_report: Clarify whether orderby is left or right in join
 
 #' Generate a skill report for a given job application.
 #' 
@@ -357,7 +352,6 @@ run_skill_count <- function(
 run_skill_report <- function(
     app_id = "latest",
     log = load_log(),
-    # TODO: clarify whether orderby left or right in join (doc implies source)
     orderby = c("source", "counts", "doc")
 ) {
   orderby <- match.arg(orderby)
@@ -398,7 +392,9 @@ run_skill_report <- function(
   
   # Join counts on posting terms
   output_df <- dplyr::left_join(
-    skill_counts_posting, skill_counts_resume, by = "term"
+    skill_counts_posting,
+    skill_counts_resume,
+    by = "term"
   ) %>%
     dplyr::mutate(
       dplyr::across(tidyselect::everything(), ~ ifelse(is.na(.), 0, .))
@@ -455,7 +451,7 @@ run_skill_report <- function(
 }
 
 
-# TODO: load log from app_period if log not provided
+# TODO: In check_skills: Load log from app_period if log not provided
 
 #' @rdname run_skill_count
 #' 
@@ -531,8 +527,6 @@ check_skills <- function(
 #' 
 #' @export
 count_terms_base <- function(
-    # target = c("base", "linkedin"),
-    # input_basename = c("resume", "resume_linkedin"),
     input_dir = "output",
     term_list_filename = "skill_list.txt",
     term_list_dir = "resources",
@@ -553,7 +547,6 @@ count_terms_base <- function(
   files <- c(term_list_filepath, input_filepath)
   for (file in files) {
     if (!file.exists(file)) {
-      # warn_file_missing(file, get_path_to(input_dir))
       warn_file_missing(file)
       return(invisible(FALSE))
     }
@@ -584,15 +577,9 @@ count_terms_base <- function(
       else
         dplyr::filter(., .data$in_base == "x")
     } %>%
-    # dplyr::filter(.data$in_profile) %>%
     dplyr::select(.data$skill) %>%
     dplyr::pull(.data$skill) %>%
     stringr::str_replace_all("\\s*\\([^\\)]*\\)\\s*", "")
-  
-  # TODO: omit this
-  # my_skills <- c(
-  #   skill_data$skill, unique(skill_data$category), unique(skill_data$alias)
-  # )
 
   output_df <- output_df %>% 
     dplyr::mutate(
@@ -608,15 +595,15 @@ count_terms_base <- function(
 # Helpers ----------------------------------------------------------------------
 
 
-# TODO: probably discard the following 2 functions
+# TODO: Probably archive: save_as_{txt, xlsx}
 
 #' Save term counts.
-#' 
-#' @description 
+#'
+#' @description
 #' `save_as_txt` saves term counts to a .txt file.
-#' 
+#'
 #' `save_as_xlsx` saves term counts to a .csv file.
-#' 
+#'
 #' @family report-dev
 #' @noRd
 save_as_txt <- function(output_filepath, terms, counts) {
@@ -633,18 +620,16 @@ save_as_txt <- function(output_filepath, terms, counts) {
 
 
 #' @rdname save_as_txt
-#' 
+#'
+#' @description
+#' Concatenate terms and counts where count is positive and save to file.
+#'
 #' @noRd
-save_as_xlsx <- function(output_filepath, terms, counts) {  
-  # Concatenate terms and counts where count is positive and save to file
+save_as_xlsx <- function(output_filepath, terms, counts) {
   counts_df <- dplyr::bind_cols(terms[counts > 0], counts[counts > 0])
   colnames(counts_df) <- c("terms", "counts")
-  
-  # Save to file
+
   con <- file(output_filepath, "w")
   writexl::write_xlsx(counts_df, output_filepath, col_names = TRUE)
   close(con)
 }
-
-
-# One-off tests ----------------------------------------------------------------

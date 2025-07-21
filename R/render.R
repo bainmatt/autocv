@@ -119,7 +119,7 @@ render_cv_as_pdf <- function(
     input = tmp_html_cv_loc,
     output = output_filepath
   )
-  fs::file_show(output_filepath)
+  # fs::file_show(output_filepath)
 }
 
 
@@ -230,14 +230,14 @@ render_resume <- function(
     ),
     quiet = TRUE
   )
-  fs::file_show(output_filepath)
+  # fs::file_show(output_filepath)
 }
 
 
 #' @rdname render_resume
-#' 
+#'
 #' @examples
-#' # TODO: just use templates & base
+#' # TODO: render_resume_plain example: Use templates & base
 #'
 #' @export
 render_resume_plain <- function(
@@ -297,7 +297,7 @@ render_resume_plain <- function(
     sort_appended = sort_appended
   )
   writeLines(resume_text, output_filepath)
-  fs::file_show(output_filepath)
+  # fs::file_show(output_filepath)
 }
 
 
@@ -401,7 +401,7 @@ render_cover <- function(
     ),
     quiet = TRUE
   )
-  fs::file_show(output_filepath)
+  # fs::file_show(output_filepath)
 }
 
 
@@ -415,10 +415,6 @@ render_cover_plain <- function(
     use_bullets = TRUE,
     bullet_style = c("-", "+"),
     type = c("cover", "email"),
-    
-    # data_filename = "cover_data.xlsx",
-    # output_basename = "cover",
-    
     app_dir = "applications",
     data_dir = "input",
     output_dir = "output"
@@ -427,7 +423,7 @@ render_cover_plain <- function(
   type <- match.arg(type)
   output_basename <- type
   
-  # Load application data
+  # Load application data and get metadata and paths
   if (target == "app") {
     log <- load_log(app_period = app_period, app_dir = app_dir)
     if (app_id == "latest") {
@@ -436,8 +432,7 @@ render_cover_plain <- function(
     } else {
       app_df <- log[log$id == app_id,]
     }
-    
-    # Get metadata and paths
+
     company         <- app_df$company
     position        <- app_df$position
     base_dir        <- app_df$app_path
@@ -452,7 +447,6 @@ render_cover_plain <- function(
     suffix <- paste0("_", str_to_filename(name, sep = ""))
     output_filename <- paste0(output_basename, suffix, ".txt")
     
-    # Get metadata and paths
     company         <- NULL
     position        <- NULL
     
@@ -463,7 +457,6 @@ render_cover_plain <- function(
   # Issue alerts
   cli::cli_text("")
   cli::cli_rule(cli::col_blue(paste0("Building ", output_basename, ".txt")))
-  # alert_writing_to(base_dir)
   
   if (file.exists(output_filepath)) {
     warn_file_exists(output_filepath, base_dir, action = "overwriting")
@@ -483,24 +476,21 @@ render_cover_plain <- function(
     type = type
   )
   
-  # output_filepath <- paste0(fs::path_ext_remove(output_filepath), ".txt")
-  
   writeLines(cover_text, output_filepath)
-  fs::file_show(output_filepath)
+  # fs::file_show(output_filepath)
 }
 
 
 # Compose ----------------------------------------------------------------------
 
 
-# TODO: put load_log() call in these functions and pass log unless base
-# TODO: add option for particular rendering option
+# TODO: In render_app: arg docs: (resume, cover, both)
 
-#' Run each resume/CV rendering option in sequence. 
-#' 
+#' Run each resume or CV rendering step in sequence.
+#'
 #' @description
 #' `render_app` builds a pdf and plain text resume for a given application.
-#' 
+#'
 #' `render_base` builds an html CV, pdf and plain text resume from base data.
 #'
 #' `render_linkedin` builds a short resume suitable for professional profiles.
@@ -508,7 +498,7 @@ render_cover_plain <- function(
 #' @family cli
 #' @export
 render_app <- function(
-    app_id = "latest", 
+    app_id = "latest",
     app_period = "latest",
     cover = TRUE,
     email = TRUE,
@@ -524,38 +514,38 @@ render_app <- function(
       type = "email"
     )
   }
-  
+
   if (cover) {
     render_cover_plain(
       target = "app",
-      app_id = app_id, 
+      app_id = app_id,
       app_period = app_period,
       use_bullets = use_bullets,
       bullet_style = "+"
     )
     render_cover(
       target = "app",
-      app_id = app_id, 
-      app_period = app_period, 
+      app_id = app_id,
+      app_period = app_period,
       use_bullets = use_bullets,
       bullet_style = "-"
     )
   }
-  
+
   render_resume_plain(
     target = "app",
-    app_id = app_id, 
+    app_id = app_id,
     app_period = app_period
   )
   render_resume(
-    target = "app", 
-    app_id = app_id, 
+    target = "app",
+    app_id = app_id,
     app_period = app_period
   )
 }
 
 
-# TODO: add loc cover_base_{opening, body, closing, ps} to temp_cover_data
+# TODO: temp_cover_data new loc rows: cover_base_{opening, body, closing, ps}
 
 #' @rdname render_app
 #'
@@ -564,22 +554,22 @@ render_base <- function(
     report_counts = TRUE,
     cover = FALSE
 ) {
-  # NOTE: set target to "app" for a 1-page resume;
+  # NOTE: Set target to "app" for a 1-page resume;
   # enable latex stylesheet header (name) and footer (page numbers) otherwise.
   render_cv_as_html()
   # render_cv_as_pdf()
   render_resume_plain(target = "base")
   render_resume(target = "base")
-  
+
   if (cover) {
     render_cover(target = "base", use_bullets = FALSE)
     render_cover_plain(target = "base", type = "cover", use_bullets = FALSE)
   }
-  
+
   if (report_counts) {
     cli::cli_text("")
     cli::cli_rule(cli::col_blue(paste0("Checking keywords")))
-    
+
     output_df <- count_terms_base()
     print(output_df, n = max(nrow(output_df), 50))
   }
@@ -600,11 +590,11 @@ render_linkedin <- function(report_counts = TRUE) {
     use_abridged = TRUE,
     sort_appended = FALSE
   )
-  
+
   if (report_counts) {
     cli::cli_text("")
     cli::cli_rule(cli::col_blue(paste0("Checking keywords")))
-    
+
     output_df <- count_terms_base(use_abridged = TRUE)
     print(output_df, n = max(nrow(output_df), 50))
   }

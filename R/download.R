@@ -1,8 +1,6 @@
 # Download job postings from a supplied url.
 
 
-# TODO: ?add support for app dirs
-
 #' Save the text from a webpage url.
 #' 
 #' @description 
@@ -50,7 +48,7 @@ download_webpage_txt <- function(
 }
 
 
-# TODO: probably deprecate this
+# TODO: Probably deprecate download_webpage_pdf
 
 #' @rdname download_webpage_txt
 #' 

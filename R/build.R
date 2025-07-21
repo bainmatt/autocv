@@ -6,8 +6,8 @@ library(dplyr)
 # Construct --------------------------------------------------------------------
 
 
-# TODO: func to handle (call in load_job_info) validation of:
-# id/base_id (existing or "/")/period, co/pos (str), links (urls or "/").
+# TODO: validate_ (call from load_job_info): {base}_id (exists or "/"),
+# period, Co/pos (strings), links (urls or "/").
 
 #' Read user-defined metadata for the present job.
 #'
@@ -39,7 +39,7 @@ load_job_info <- function(
 }
 
 
-# TODO: deprecate this!! redundant
+# TODO: Deprecate construct_app_path: Redundant
 
 #' Take an application config object and produce the target dir.
 #'
@@ -113,7 +113,6 @@ construct_app_path <- function(app_info = load_job_info(), log = NA) {
 #' @family build-dev
 #' @export
 construct_app_metadata <- function(app_info = load_job_info(open = TRUE)) {
-  # Check to see if log exists
   log_path <- get_path_to("applications")
   app_period <- app_info$period
   log_filepath <- file.path(log_path, app_period, "log.rds")
@@ -126,7 +125,7 @@ construct_app_metadata <- function(app_info = load_job_info(open = TRUE)) {
     log <- readRDS(log_filepath)
     id_exists <- any(app_info$id %in% log$id)
 
-    # TODO: run this AFTER metadata constructed? to avoid circ dependency
+    # TODO: In construct_app_meta: Run id validation outside to avoid circ dep?
     id_is_valid <- validate_id(log = log, app_df = app_info)
     if (!id_is_valid) { return(invisible(FALSE)) }
   }
@@ -148,14 +147,11 @@ construct_app_metadata <- function(app_info = load_job_info(open = TRUE)) {
       ifelse(rlang::is_empty(today_seqs), 1, max(today_seqs) + 1)
     )
 
-    # date_count <- sum(stringr::str_detect(log$date_created, current_date)) + 1
-    # date_seq <- sprintf("%02d", date_count)
-
   } else {
     date_seq <- "01"
   }
 
-  # TODO: ensure comp name does not have any "/" characters or convert to "-"
+  # TODO: In construct_app_meta: Validate Co name (no "/" or convert to "-"
 
   # Construct a path to the app
   company_formatted <- stringr::str_replace_all(
@@ -305,7 +301,7 @@ load_log <- function(
 }
 
 
-# TODO: if returning status maybe compute days_since_app col for all "applied"
+# TODO: If returning status maybe compute days_since_app col for all "applied"
 # (and hide "last_updated").
 
 #' Access application metadata.
@@ -329,14 +325,11 @@ get_app_info <- function(
     app_period = "latest",
     app_dir = "applications"
 ) {
-  # Load log
   log <- load_log(app_period = app_period, app_dir = app_dir)
-
-  # Get valid args
   ids <- get_valid_opts(log = log, arg = "id")
   fields <- get_valid_opts(log = log, arg = "field")
 
-  # Validate args
+  # Validate
   if (any(id %in% c("all", "latest"))) {
     id <- match.arg(id)
   } else {
@@ -361,16 +354,14 @@ get_app_info <- function(
     app_df = app_df[app_df$status %in% status,]
   }
 
-  # Select fields
+  # Select fields (return only non-path and non-url fields by default)
   if (all(field == "all")) {
-    # Return only non-path and non-url fields by default
     app_df <- app_df %>%
       select(., !tidyselect::ends_with(c(
         "path", "url", "email", "date_seq", "period", "base_id",
         "date_created", "last_updated"
       )))
 
-    # Add days since column for viewing time elapsed since applied
     days_since <- ifelse(
       app_df$date_applied == "/",
       "/",
@@ -435,7 +426,7 @@ get_status_report <- function(app_period = "latest") {
 }
 
 
-# TODO: deprecate this! Redundant
+# TODO: Deprecate get_app_path_to: Redundant and calls get_app_info > load_log
 
 #' @rdname get_app_info
 #'
@@ -558,8 +549,6 @@ open_app <- function(
 }
 
 
-# TODO: add log as arg to open_app to prevent 2 calls to load_log
-
 #' @rdname open_app
 #'
 #' @export
@@ -570,6 +559,8 @@ edit_app <- function(id = "latest", app_period = "latest") {
   open_app(doc = "resume_data", id = id, app_period = app_period)
 }
 
+
+# TODO: Add log as arg to open_app to prevent 2 calls to load_log
 
 #' @rdname open_app
 #'
@@ -659,8 +650,6 @@ delete_app <- function(app_id, log = load_log()) {
 # Build ------------------------------------------------------------------------
 
 
-# TODO: probably don't overwrite this (redundant with id validation)
-
 #' Store metadata for a new application.
 #'
 #' @description
@@ -693,7 +682,6 @@ write_app_metadata <- function(app_df = construct_app_metadata()) {
   app_df <- app_df %>%
     dplyr::select(., -dplyr::ends_with("path"))
 
-  # Check that folder exists
   if (!dir.exists(app_path)) {
     warn_folder_missing(app_path, action = "aborting, must build app first")
     return(invisible(FALSE))
@@ -775,7 +763,7 @@ write_log_entry <- function(app_df = construct_app_metadata()) {
 }
 
 
-# TODO: allow app_df to be constructed from metadata (pass id; i.e., rebuild)
+# TODO: In build_app_dir: Allow to make app_df from meta (pass id ie rebuild)
 
 #' Create the file tree and data files for the present application.
 #'
@@ -814,7 +802,7 @@ build_app_directory <- function(
   df <- app_df
   base_dir <- df$app_path
 
-  # TODO: just handle id validation in construct_app_meta/validate_id
+  # PERF: In build_app_dir: Just handle id validation in construct_app_meta
   # Verify uniqueness of id (in case non-default app_df value given)
   log_exists <- file.exists(df$log_path)
   if (log_exists) {
@@ -1008,7 +996,7 @@ update_app_info <- function(app_id = "latest", ..., log = load_log()) {
   metadata_path <- old_entry$metadata_path
   metadata <- yaml::read_yaml(metadata_path)
 
-  # TODO: possibly add "mutable" option to get_valid_opts
+  # TODO: To update_app_info: Possibly add "mutable" option to get_valid_opts
   # Get available fields to modify and filter out immutable ones
   fields <- names(metadata)
   immutable_fields <- c(
@@ -1123,7 +1111,7 @@ str_to_filename <- function(string, sep = "-", lower = TRUE) {
 }
 
 
-# TODO: rename this parts_to_path or make_path
+# TODO: as_filename: Rename to parts_to_path or make_path
 
 #' Construct a file name given a folder path, base name, id, and extension.
 #'
@@ -1154,9 +1142,6 @@ truncate_string <- function(str, max_length = 20) {
 #' @export
 validate_id <- function(log = load_log(), app_df = construct_app_metadata()) {
   # If app_df constructed by construct_app_metadata, will fail on invalid id
-  # TODO: resolve circular dependency (workaround for construct_app_meta call
-  # OR run validation AFTER meta constructed).
-  # if (all(app_df == FALSE)) { return(invisible(TRUE)) }
   new_app_id <- app_df$id
 
   id_exists <- new_app_id %in% log$id
@@ -1330,6 +1315,20 @@ in_tmp_env <- function(expr) {
 }
 
 
+#' Capture user input in both interactive and non-interactive sessions.
+#'
+#' @keywords internal
+user.input <- function(prompt) {
+  if (interactive()) {
+    readline(prompt)
+  } else {
+    cat(prompt)
+    flush.console()
+    readLines(con = "stdin", n = 1)
+  }
+}
+
+
 #' Open an application document and pause execution until a key is entered.
 #'
 #' @family build-dev
@@ -1345,7 +1344,8 @@ open_doc_and_wait <- function(
 
   response <- ""
   while (tolower(response) != "y") {
-    response <- readline(prompt)
+    response <- user.input(prompt)
+    # response <- readline(prompt)
   }
   message("Continuing...")
 }
