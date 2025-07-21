@@ -77,7 +77,7 @@ links_text <- autocv::print_contact_info(
 
 ```{r cover, include=FALSE}
 
-cover_text <- print_cover_body(
+cover_text <- autocv::print_cover_body(
   target = target,
   text_data,
   position = position,

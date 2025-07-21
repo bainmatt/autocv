@@ -1,56 +1,41 @@
-% TODO: archive?
-% Conditional header and footer (enabled by default)
-% \newif\ifcustomshowheaders
-% \customshowheaderstrue
-% \customshowheadersfalse
+\usepackage{fancyhdr}        % headers/footers
+\usepackage{titlesec}        % titles
+\usepackage{enumitem}        % lists
+\usepackage{fontspec}        % font face
+\usepackage{xcolor}          % colours
+\usepackage[normalem]{ulem}  % hyperlink formatting
 
-% Header/footer
-\usepackage{fancyhdr}
-\usepackage{xcolor}
 \pagestyle{fancy}
 \fancyhf{}
 
-% TODO: archive?
-% Conditional fancy headers and footers
-% \ifcustomshowheaders
-%   \fancyhead[R]{\color{gray}Matthew Bain}
-%   \fancyfoot[R]{\color{gray}\thepage {} / \pageref{LastPage}}
-% \else
-%   \fancyhf{}
-% \fi
-
-% NOTE: uncomment 2 lines below to enable head/footer for long resumes
+% NOTE: Uncomment 2 lines below to enable head/footer for long resumes
 % \fancyhead[R]{\color{gray}Matthew Bain}
 % \fancyfoot[R]{\color{gray}\thepage {} / \pageref{LastPage}}
-\fancyfoot[L]{
-  \color{gray}Built with 
-  \myhref{https://bainmatt.github.io/autocv/}{autocv}, 
-  an R package by Matthew Bain
-}
+
+% NOTE: Uncomment block below to enable a watermark
+% \fancyfoot[L]{
+%   \color{gray}Built with 
+%   \myhref{https://bainmatt.github.io/autocv/}{autocv}, 
+%   an R package by Matthew Bain
+% }
+
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{14pt}
 \setlength{\headheight}{14pt}
 
-% Remove page numbers
-% - \pagenumbering{gobble}
-
 % Header padding
-\usepackage{titlesec}
 % \titlespacing{\section}{0pt}{12pt plus 4pt minus 3pt}{4pt plus 2pt minus 2pt}
 % \titlespacing{\subsection}{0pt}{12pt plus 4pt minus 3pt}{4pt plus 2pt minus 2pt}
 
 % Bullets alignment/padding
-\usepackage{enumitem}
 \setlist{left=0pt, topsep=-4pt}
 
 % Set font (Helvetica Neue, Avenir, Gill Sans)
-\usepackage{fontspec}
 \setmainfont{Helvetica Neue}
 
 % Custom text colours
-\usepackage{xcolor}
 \definecolor{myblue}{RGB}{0, 76, 153}
-% \definecolor{mylinkblue}{RGB}{36, 86, 129}
 \definecolor{mygreen}{RGB}{0, 115, 76}
 
 % Ensure text is left aligned
@@ -59,7 +44,6 @@
 % Custom macros ----------------------------------------------------------------
 
 % Custom hyperlink formatting
-\usepackage[normalem]{ulem}
 \newcommand{\myhref}[2]{\href{#1}{\textcolor{blue}{\uline{#2}}}}
 
 % Custom width-spanning horizontal rules
@@ -80,7 +64,7 @@
 \newcommand{\myrole}[1]{\vspace{-10pt}\color{myblue}{#1}}
 
 % Custom section headers (within level 2 markdown header environment)
-\newcommand{\mysection}[1]{\vspace{-6pt}\color{mygreen}{#1}}
+\newcommand{\mysection}[1]{\vspace{-12pt}\color{mygreen}{#1}}
 
 % Custom bio block
 \newcommand{\mybio}[1]{%

@@ -39,7 +39,7 @@ render_resume_plain(
 \code{render_resume_plain} constructs a plain text resume for analysis.
 }
 \examples{
-# TODO: just use templates & base
+# TODO: render_resume_plain example: Use templates & base
 
 }
 \seealso{
