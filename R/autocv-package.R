@@ -22,9 +22,10 @@
 #' @importFrom glue glue glue_collapse
 #' @importFrom yaml read_yaml write_yaml
 #' @importFrom rlang has_name sym ":=" .data
-#' @importFrom utils read.csv write.csv View
 #' @importFrom fs is_dir is_file path_dir path_rel
+#' @importFrom utils View flush.console read.csv write.csv
 #' @importFrom stringr fixed str_c str_detect str_match_all
+#' @importFrom optparse OptionParser make_option parse_args
 #' @importFrom cli cli_alert_danger cli_alert_success cli_alert_warning
 #' @importFrom ggplot2
 #'  aes coord_flip expand_limits
