@@ -5,12 +5,12 @@ library(dplyr)
 
 
 #' Build a two-column table of skills.
-#' 
+#'
 #' @description Returns a string of text that can be rendered as LaTeX.
-#' 
+#'
 #' @param skill_data A data frame containing skill data.
 #' @returns A LaTeX string.
-#' 
+#'
 #' @examples
 #' # Define some data ----------------------------------------------------------
 #' library(dplyr, warn.conflicts = FALSE)
@@ -19,17 +19,17 @@ library(dplyr)
 #' skill_data <- dplyr::bind_cols(alias, skill)
 #' colnames(skill_data) <- c("alias", "skill")
 #' print(skill_data)
-#' 
-#' 
+#'
+#'
 #' # Render --------------------------------------------------------------------
 #' skill_table <- build_skill_table(skill_data)
 #' paste(skill_table)
-#' 
+#'
 #' # With a larger dataset -----------------------------------------------------
 #' data("example_skill_data", package = "autocv")
 #' skill_table <- build_skill_table(example_skill_data)
 #' paste(skill_table)
-#' 
+#'
 #' @family build
 #' @export
 build_skill_table <- function(skill_data) {
@@ -84,21 +84,13 @@ print_latex_section <- function(
         (target == "base" & .data$in_base %in% c("x", "~") & use_abridged)
       )
     )
-  # if (target == "app") {
-  #   position_data <- position_data %>% 
-  #     filter(.data$section == section_id & .data$include == "x")
-  #   
-  # } else if (target == "base") {
-  #   position_data <- position_data %>% 
-  #     filter(.data$section == section_id & .data$in_base == "x")
-  # }
   
   # Construct
   position_data <- position_data %>% 
     # filter(.data$section == section_id & .data$include == "x") %>%
     mutate(
       # Handle missing entry elements
-      # TODO: put in prep func along w/ md (prepare NA fields) (OR .na = TRUE!)
+      # TODO: From print_latex_section: prepare_na_fields
       dates = if_else(
         !is.na(.data$timeline), glue("\\textit{{{timeline}}}"), ""
       ),
@@ -116,7 +108,7 @@ print_latex_section <- function(
       ),
       
       # Handle spacing around entry elements
-      # TODO: put in prep func, args txt size/scale/short entries (prep_padding)
+      # TODO: From print_latex_section: prep_padding: args txt size/scale/short
       row_id = row_number(),
       no_inst = .data$inst == "",
       no_loc = .data$loc == "",
@@ -131,7 +123,7 @@ print_latex_section <- function(
       entry_prepadding = if_else(
         .data$row_id != min(.data$row_id), 
         "\\vspace{3pt}",
-        "\\vspace{-3pt}"
+        "\\vspace{-7pt}"
       ),
       bullets_prepadding = if_else(
         .data$no_inst_or_loc,
@@ -140,7 +132,7 @@ print_latex_section <- function(
       ),
       entry_postpadding = if_else(
         .data$no_bullets & .data$row_id != max(.data$row_id), 
-        "\\vspace{-9pt}\n\n",
+        "\\vspace{-7pt}\n\n",
         "\n\n"
       ),
       
@@ -149,7 +141,7 @@ print_latex_section <- function(
         short_entries == TRUE ~ glue(
           "{entry_prepadding}",
           # Underline work entries
-          # TODO: put in prep func with args underline/ital above (format title)
+          # TODO: From print_latex_section: format_heading (args ul/ital)
           ifelse(
             section_id == "work",
             "**\\uline{{{title}}}**",
@@ -190,11 +182,3 @@ print_latex_section <- function(
     pull(.data$latex_output) %>% 
     cat(sep = "\n")
 }
-
-
-# position_data <- load_application_data(
-#   filename = "resume_data.xlsx",
-#   sheet = "entries",
-#   skip = 1
-# ) %>% preprocess_entries(., style = "latex", bullet_style = "-")
-# print_latex_section(position_data, "education")

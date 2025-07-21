@@ -4,7 +4,7 @@
 \alias{render_app}
 \alias{render_base}
 \alias{render_linkedin}
-\title{Run each resume/CV rendering option in sequence.}
+\title{Run each resume or CV rendering step in sequence.}
 \usage{
 render_app(
   app_id = "latest",
