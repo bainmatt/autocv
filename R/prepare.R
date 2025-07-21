@@ -7,36 +7,36 @@ library(assertthat)
 # Basics -----------------------------------------------------------------------
 
 
-#' Prepare bio. 
-#' 
+#' Prepare bio.
+#'
 #' @param text_data A spreadsheet containing resume text data.
-#' 
+#'
 #' @family prepare
 prepare_bio <- function(
-    text_data, 
+    text_data,
     use_abridged = FALSE
 ) {
   prefix <- ifelse(use_abridged, "short_summary", "bio")
-  
+
   # Build bio
-  bio <- text_data %>% 
+  bio <- text_data %>%
     filter(
       stringr::str_detect(.data$loc, prefix),
       .data$include == "x"
     ) %>%
-    arrange(.data$order) %>% 
-    pull(.data$text) %>% 
+    arrange(.data$order) %>%
+    pull(.data$text) %>%
     glue::glue_collapse(" ")
-  
+
   # Initialize new row and add bio
-  text_data <- text_data %>% 
+  text_data <- text_data %>%
     add_row(
-      loc = "bio", 
-      text = as.character(bio), 
-      include = "x", 
+      loc = "bio",
+      text = as.character(bio),
+      include = "x",
       order = max(text_data$order) + 1
     )
-  
+
   return(text_data)
 }
 
@@ -100,7 +100,7 @@ prepare_timeline <- function(
 }
 
 
-# TODO: #1 add function (render_links()) to detect links (of the style []())
+# TODO: *Add function (render_links()) to detect links (of the style []())
 # + extract text/link in raw resume/cover body text
 # + format as either markdown, latex, or txt by calling prepare_links
 # (call render_links() first in preprocess_text/_entries).
@@ -256,10 +256,9 @@ append_skills_to_bullets <- function(
 }
 
 
-# TODO: simplify this...
+# PERF: Optimize prepare_description_bullets w/ tidyr::unite,starts_with. Use:
 # use tidyr::unite(tidyr::starts_with('description'), 
 # col = "description_bullets", sep = "\n- ", na.rm = TRUE) as in:
-
 # cv$entries_data %<>%
 #   tidyr::unite(
 #     tidyr::starts_with('description'),
@@ -325,10 +324,10 @@ prepare_description_bullets <- function(
 }
 
 
-# TODO: add latex/plain option here
+# TODO: To omit_hidden_fields: Add latex/plain option
 
 #' Omit spreadsheet entries beginning with a preset prefix.
-#' 
+#'
 #' @family prepare-dev
 omit_hidden_fields <- function(
     data,
@@ -349,16 +348,16 @@ omit_hidden_fields <- function(
 
 
 #' Prepare individual entry in contact info card.
-#' 
+#'
 #' @description 
 #' `make_markdown_contacts` prepares an individual markdown entry.
-#' 
+#'
 #' `make_latex_contacts` prepares an individual LaTeX entry.
-#' 
+#'
 #' `make_txt_contacts` prepares an individual plain text entry.
-#' 
+#'
 #' @param contact_data A data frame containing the contact data.
-#' 
+#'
 #' @family prepare-dev
 make_markdown_contacts <- function(contact_data) {
   contact_data <- contact_data %>% 
@@ -398,14 +397,13 @@ make_txt_contacts <- function(contact_data) {
       is.na(.data$address) ~ .data$address_text,
       .data$loc %in% c("email", "phone") ~ .data$address_text,
       .default = stringr::str_c(.data$address_text, ": ", .data$address)
-      # stringr::str_c(.data$loc, ": ", .data$address)
     ))
   return(contact_data$contact_text)
 }
 
 
 #' Sort and filter skills.
-#' 
+#'
 #' @family prepare-dev
 #' @export
 sort_skills <- function(
@@ -414,10 +412,9 @@ sort_skills <- function(
     use_abridged = FALSE
 ) {
   target <- match.arg(target)
-  
+
   if (use_abridged) { target = "abridged" }
-  
-  # Filter
+
   skill_data <- skill_data %>% 
     filter(
       (
@@ -441,8 +438,6 @@ sort_skills <- function(
 # Load -------------------------------------------------------------------------
 
 
-# TODO: workaround constructing data path to avoid load_log call or pass log
-
 #' Load application data.
 #' 
 #' @family data
@@ -451,29 +446,26 @@ load_application_data <- function(
     target = c("app", "base"),
     filename = c("resume_data.xlsx", "cover_data.xlsx"),
     sheet = c("entries", "skills", "contact_info", "text_blocks"),
-    # skip = 1,
     data_dir = "input",
     app_id = "latest",
     app_period = "latest"
 ) {
   target <- match.arg(target)
   sheet <- match.arg(sheet)
-  
-  # Set filename and number of header rows dynamically
+
+  # Set number of header rows dynamically
   if (sheet %in% c("entries", "skills")) {
-    # filename = "resume_data.xlsx"
     skip = 2
-    
+
   } else if (sheet %in% c("contact_info", "text_blocks")) {
-    # filename = "cover_data.xlsx"
     skip = 1
   }
-  
+
   if (target == "app") {
     assert_that(all(!is.na(c(app_id, app_period))))
   }
-    
-  # TODO: !!remove get_app_path_to call here
+
+  # PERF: !In load_app_data: Construct data path w/o get_app_path_to call
   # Get path to application data
   if (target == "app") {
     doc <- fs::path_ext_remove(filename)
@@ -490,7 +482,6 @@ load_application_data <- function(
   if (!all(file.exists(data_filepath))) {
     warn_file_missing(data_filepath)
     stop("Missing data file")
-    # return(invisible(FALSE))
   }
     
   data <- readxl::read_excel(
@@ -499,9 +490,6 @@ load_application_data <- function(
     na = c("", "NA", "na"),
     skip = skip
   )
-  # cli::cli_alert_success(
-  #   paste0("loading '", data_filepath, "'")
-  # )
   return(data)
 }
 
@@ -558,7 +546,7 @@ preprocess_entries <- function(
 
 
 #' Prepare contact info card.
-#' 
+#'
 #' @family pipeline
 #' @export
 preprocess_contacts <- function(
@@ -573,16 +561,16 @@ preprocess_contacts <- function(
   contact_data <- contact_data %>% 
     arrange(.data$order) %>%
     mutate(contact_text = NA)
-  
+
   # Use default photo if invalid or null path provided
-  # TODO: FINISH THIS ***
+  # PERF: Check complete: Use default photo if invalid or null path provided
   if (!file.exists(contact_data[contact_data$loc == "pic",]$address)) {
     default_pic_path <- system.file(
       "extdata", "figures", "user-profile-default.png", package = "autocv"
     )
     contact_data[contact_data$loc == "pic",]$address <- default_pic_path
   }
-  
+
   # Populate name/pic fields manually
   contact_data[contact_data$loc == "name",] <- contact_data %>% 
     filter(., .data$loc == "name") %>% 
@@ -593,7 +581,7 @@ preprocess_contacts <- function(
     mutate(contact_text = glue('
       ![{address_text}]({address}){{.circular-frame}}
     '))
-  
+
   # Populate links 
   entries <- contact_data %>% 
     filter(!.data$loc %in% c("name", "pic")) %>%
@@ -620,13 +608,13 @@ preprocess_text <- function(
     use_abridged = FALSE
 ) {
   style <- match.arg(style)
-  
+
   text_data <- text_data %>%
     dplyr::mutate(
       text = vapply(text, render_links, character(1), style = style)
     ) %>%
     prepare_bio(use_abridged = use_abridged)
-  
+
   return(text_data)
 }
 
@@ -646,7 +634,7 @@ print_contact_info <- function(
 ) {
   section <- match.arg(section)
   # sep <- match.arg(sep)
-  
+
   info_fields <- if (anonymize) {
     "location"
   } else {
@@ -664,7 +652,7 @@ print_contact_info <- function(
     both = all_fields,
     signoff = signoff_fields
   )
-  
+
   contact_text <- contact_data %>% 
     filter(.data$loc %in% entries) %>%
     pull(contact_text) %>%
@@ -674,7 +662,7 @@ print_contact_info <- function(
 
 
 #' Build skill list.
-#' 
+#'
 #' @family build
 #' @export
 build_skill_list <- function(
@@ -687,15 +675,15 @@ build_skill_list <- function(
 ) {
   sep <- match.arg(sep)
   bullet_style <- match.arg(bullet_style)
-  
+
   assert_that(is.logical(bold_headers))
   assert_that(is.logical(separate_competencies))
   assert_that(is.na(competencies_header) | is.character(competencies_header))
-  
+
   if (bullet_style != "") {
     bullet_style = paste0(bullet_style, " ")
   }
-  
+
   # Filter skill_data by tools and get competencies to append to end of list
   core_skills_data <- if (separate_competencies) {
     skill_data[!is.na(skill_data$is_a_tool), ]
@@ -704,13 +692,13 @@ build_skill_list <- function(
   }
   extra_skills_list <- if (separate_competencies) {
     stringr::str_c(
-      skill_data[is.na(skill_data$is_a_tool),]$skill, 
+      skill_data[is.na(skill_data$is_a_tool),]$skill,
       collapse = ", "
     )
   } else {
     NA
   }
-  
+
   # Get section headers and format
   sections <- unique(core_skills_data$alias)
   sections_combined <- c(sections, competencies_header)
@@ -719,7 +707,7 @@ build_skill_list <- function(
   } else {
     paste0(sections_combined, ": ")
   }
-  
+
   # Build list
   final_section <- if(is.na(extra_skills_list)) {
     ""
@@ -729,28 +717,22 @@ build_skill_list <- function(
     )
   }
   skill_list <- ""
-  
+
   for (i in seq_along(sections)) {
-    
     # Concatenate skills
     skills <- stringr::str_c(
       core_skills_data[core_skills_data$alias == sections[i],]$skill, 
       collapse = ", "
     )
-    
     # Concatenate section header and skills
     skill_list <- paste0(
       skill_list,
       bullet_style,
-      formatted_headers[i], 
+      formatted_headers[i],
       skills,
-      
       # Add separator if not the last section; otherwise append competencies
       ifelse(i < length(sections), sep, final_section)
     )
   }
   return(skill_list)
 }
-
-
-# One-off tests ----------------------------------------------------------------

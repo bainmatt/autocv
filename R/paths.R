@@ -35,7 +35,7 @@ autocv_resources <- function(
 }
 
 
-# TODO: ?accept additional directory names to append to path + check they exist
+# PERF: Accept additional directory names to append to path + check they exist
 
 #' Construct an absolute path to a project directory for saving and loading.
 #' 

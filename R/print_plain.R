@@ -5,7 +5,7 @@ library(dplyr)
 
 
 #' Print sections of a plain text resume.
-#' 
+#'
 #' @family print
 #' @export
 print_txt_section <- function(
@@ -19,8 +19,7 @@ print_txt_section <- function(
 ) {
   section_id <- match.arg(section_id)
   target     <- match.arg(target)
-  
-  # Filter
+
   position_data <- position_data %>% 
     filter(
       .data$section == section_id & (
@@ -29,7 +28,7 @@ print_txt_section <- function(
         (target == "base" & .data$in_base %in% c("x", "~") & use_abridged)
       )
     )
-  
+
   # Construct
   position_data <- position_data %>%
     # filter(.data$section == section_id & .data$include == "x") %>%
@@ -39,7 +38,7 @@ print_txt_section <- function(
       # loc = if_else(is.na(.data$loc), "", glue(" - {loc}", "\n\n")),
 
       # Remove additional newlines around entry elements lacking descriptions
-      # TODO: put in prep func (prep_padding)
+      # TODO: From print_latex_section: prep_padding
       no_inst_or_loc = (is.na(.data$institution) & is.na(.data$loc)),
       no_bullets = grepl("^\\s+$", .data$description_bullets),
       bullets_prepadding = if_else(.data$no_inst_or_loc, "", "\n\n"),
