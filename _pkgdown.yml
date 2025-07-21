@@ -6,7 +6,7 @@ repo:
     issue: https://github.com/bainmatt/autocv/issues/
     user: https://github.com/bainmatt
 
-# TODO: set dark mode highlight style to default...workflow screws it up
+# TODO: Set dark mode highlight style to default (gh workflow changes contrast)
 template:
   bootstrap: 5
   light-switch: true
@@ -64,8 +64,8 @@ figures:
   bg: NA
   other.parameters: []
 
+# TODO: Make titles build/edit/render/report/review (cli-bld/edit/rend/rep/rev)
 reference:
-# TODO: make titles build/edit/render/report/review (cli-bld/edit/rend/rep/rev)
 - title: The essentials
   desc: Helpers for an efficient, end-to-end command line workflow.
 - contents:
@@ -106,12 +106,15 @@ reference:
   - has_concept("build-dev")
 - subtitle: Check
 - contents:
-  # TODO: probably change 'report' to 'check'
+  # TODO: Probably change 'report' family to 'check'
   - has_concept("report-dev")
 - subtitle: I/O
 - contents:
   - has_concept("data-dev")
 - subtitle: CLI
 - contents:
-  # TODO: probably change to just 'cli'
+  # TODO: Probably change 'cli-dev' family to just 'cli'
   - has_concept("cli-dev")
+- subtitle: CLI handlers
+- contents:
+  - has_concept("cli-handlers")

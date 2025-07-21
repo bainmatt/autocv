@@ -35,6 +35,7 @@ Imports:
     stringr,
     ggplot2,
     usethis,
+    optparse,
     magrittr,
     graphics,
     pagedown,

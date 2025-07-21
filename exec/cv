@@ -1,0 +1,43 @@
+#!/usr/bin/env Rscript
+
+suppressPackageStartupMessages({
+  library(optparse)
+  library(autocv)
+})
+
+args <- commandArgs(trailingOnly = TRUE)
+
+# Show help if no subcommand or global help
+if (length(args) == 0 || args[1] %in% c("-h", "--help")) {
+  cat("Usage: cv <command> [options]\n\n")
+  cat("Available commands:\n")
+  cat("  build     Build an application directory\n")
+  cat("  edit      Edit the application data files\n")
+  cat("  render    Render your application documents\n")
+  cat("  check     Check application keywords\n")
+  cat("  review    Review job application data\n")
+  cat("\nRun 'cv <command> --help' for command-specific options.\n")
+  quit(status = 0)
+}
+
+cmd <- args[1]
+sub_args <- args[-1]
+
+# Dispatch to the appropriate CLI handler
+dispatch_command <- function(cmd, sub_args) {
+  switch(
+    cmd,
+    build  = autocv::cli_build(sub_args),
+    edit   = autocv::cli_edit(sub_args),
+    render = autocv::cli_render(sub_args),
+    check  = autocv::cli_check(sub_args),
+    review = autocv::cli_review(sub_args),
+    {
+      cat(sprintf("Unknown command: '%s'\n", cmd))
+      cat("Run 'cv --help' to see available commands.\n")
+      quit(status = 1)
+    }
+  )
+}
+
+dispatch_command(cmd, sub_args)
