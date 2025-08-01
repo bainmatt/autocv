@@ -38,6 +38,7 @@ check:
 
 # Preview docs
 docs:
+	# Rscript -e "pkgdown::build_home_index()"
 	Rscript -e "pkgdown::build_site()"
 
 check-typos:

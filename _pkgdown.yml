@@ -22,7 +22,7 @@ navbar:
     #     href: articles
     #   - text: "Example CV"
     #     href: cv_yourname.html
-    left:  [reference, datasets, articles, example-cv]
+    left: [reference, datasets, articles, example-cv]
     right: [search, github, lightswitch]
   components:
     github:
