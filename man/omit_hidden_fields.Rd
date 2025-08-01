@@ -2,12 +2,12 @@
 % Please edit documentation in R/prepare.R
 \name{omit_hidden_fields}
 \alias{omit_hidden_fields}
-\title{Omit spreadsheet entries beginning with a preset prefix.}
+\title{Omit (nullify) spreadsheet cells beginning with a given prefix.}
 \usage{
 omit_hidden_fields(data, style = "markdown", prefix = "/")
 }
 \description{
-Omit spreadsheet entries beginning with a preset prefix.
+Omit (nullify) spreadsheet cells beginning with a given prefix.
 }
 \seealso{
 Other prepare-dev: 

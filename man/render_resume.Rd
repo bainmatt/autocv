@@ -17,7 +17,8 @@ render_resume(
   data_dir = "input",
   output_dir = "output",
   use_abridged = FALSE,
-  sort_appended = FALSE
+  sort_appended = FALSE,
+  show = FALSE
 )
 
 render_resume_plain(
@@ -29,7 +30,8 @@ render_resume_plain(
   data_dir = "input",
   output_dir = "output",
   use_abridged = FALSE,
-  sort_appended = FALSE
+  sort_appended = FALSE,
+  show = FALSE
 )
 }
 \description{

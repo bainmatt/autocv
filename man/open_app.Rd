@@ -9,9 +9,13 @@
 \usage{
 open_app(doc = "resume", id = "latest", app_period = "latest")
 
-edit_app(id = "latest", app_period = "latest")
+edit_app(
+  id = "latest",
+  app_period = "latest",
+  docs = c("resume", "all", "cover", "qa")
+)
 
-edit_base()
+edit_base(docs = c("resume", "all", "cover", "qa"))
 
 delete_app(app_id, log = load_log())
 }

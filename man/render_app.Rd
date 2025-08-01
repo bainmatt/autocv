@@ -3,25 +3,30 @@
 \name{render_app}
 \alias{render_app}
 \alias{render_base}
+\alias{render_cv}
 \alias{render_linkedin}
 \title{Run each resume or CV rendering step in sequence.}
 \usage{
 render_app(
   app_id = "latest",
   app_period = "latest",
-  cover = TRUE,
-  email = TRUE,
-  use_bullets = TRUE
+  docs = c("resume", "all", "cover"),
+  use_bullets = TRUE,
+  show = FALSE
 )
 
-render_base(report_counts = TRUE, cover = FALSE)
+render_base(report_counts = TRUE, cover = FALSE, show = FALSE)
 
-render_linkedin(report_counts = TRUE)
+render_cv(show = FALSE)
+
+render_linkedin(report_counts = TRUE, show = FALSE)
 }
 \description{
 \code{render_app} builds a pdf and plain text resume for a given application.
 
 \code{render_base} builds an html CV, pdf and plain text resume from base data.
+
+\code{render_cv} builds an html CV and converts it to pdf.
 
 \code{render_linkedin} builds a short resume suitable for professional profiles.
 }

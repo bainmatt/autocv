@@ -60,6 +60,7 @@ Other build-dev:
 \code{\link{get_latest_entry}()},
 \code{\link{get_valid_opts}()},
 \code{\link{open_doc_and_wait}()},
+\code{\link{open_with_application}()},
 \code{\link{set_project_paths}()},
 \code{\link{str_to_filename}()},
 \code{\link{truncate_string}()},

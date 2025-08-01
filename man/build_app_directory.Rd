@@ -24,7 +24,8 @@ in_tmp_env({
 
   message("")
   message("3. Rendering application...")
-  render_app(cover = FALSE, email = FALSE)
+  # render_app()
+  # render_app(cover = FALSE, email = FALSE)
 
   message("")
   message("4. Checking keywords...")
