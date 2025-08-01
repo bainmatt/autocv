@@ -47,6 +47,7 @@ render_cv_as_html <- function(
   # Render
   cli::cli_text("")
   cli::cli_rule(cli::col_blue(paste0("Building ", output_filename)))
+  backup_file(output_filepath)
 
   rmarkdown::render(
     input = input_filepath,
@@ -75,7 +76,8 @@ render_cv_as_pdf <- function(
     data_dir = "input",
     output_dir = "output",
     stylesheets = list("custom_resume.css", "styles_pdf.css"),
-    sort_appended = FALSE
+    sort_appended = FALSE,
+    show = FALSE
 ) {
   # Prep
   name <- load_job_info("name")
@@ -98,6 +100,7 @@ render_cv_as_pdf <- function(
 
   cli::cli_text("")
   cli::cli_rule(cli::col_blue(paste0("Building ", output_filename)))
+  backup_file(output_filepath)
 
   # Knit the PDF version to a temporary html location
   tmp_html_cv_loc <- fs::file_temp(ext = ".html")
@@ -119,6 +122,7 @@ render_cv_as_pdf <- function(
     input = tmp_html_cv_loc,
     output = output_filepath
   )
+  if (show) { fs::file_show(output_filepath) }
   # fs::file_show(output_filepath)
 }
 
@@ -149,7 +153,8 @@ render_resume <- function(
     data_dir = "input",
     output_dir = "output",
     use_abridged = FALSE,
-    sort_appended = FALSE
+    sort_appended = FALSE,
+    show = FALSE
 ) {
   target <- match.arg(target)
   suffix_abridged <- ifelse(use_abridged, "_linkedin", "")
@@ -157,10 +162,11 @@ render_resume <- function(
   if (target == "app") {
     assert_that(all(!is.na(c(app_id, app_period, app_dir))))
 
-  } else if (target == "base") {
-    unused_args <- c('app_id', 'app_period', 'app_dir')
-    cli::cli_li(paste0("Unused argument: ", cli::col_blue(unused_args)))
   }
+  # } else if (target == "base") {
+  #   unused_args <- c('app_id', 'app_period', 'app_dir')
+  #   cli::cli_li(paste0("Unused argument: ", cli::col_blue(unused_args)))
+  # }
 
   # Get paths to application data and output files
   if (target == "app") {
@@ -206,6 +212,7 @@ render_resume <- function(
 
   if (file.exists(output_filepath)) {
     warn_file_exists(output_filepath, base_dir, action = "overwriting")
+    backup_file(output_filepath)
   } else {
     alert_file_created(output_filepath, base_dir)
   }
@@ -230,6 +237,7 @@ render_resume <- function(
     ),
     quiet = TRUE
   )
+  if (show) { fs::file_show(output_filepath) }
   # fs::file_show(output_filepath)
 }
 
@@ -252,7 +260,8 @@ render_resume_plain <- function(
     data_dir = "input",
     output_dir = "output",
     use_abridged = FALSE,
-    sort_appended = FALSE
+    sort_appended = FALSE,
+    show = FALSE
 ) {
   target <- match.arg(target)
   suffix_abridged <- ifelse(use_abridged, "_linkedin", "")
@@ -284,6 +293,7 @@ render_resume_plain <- function(
 
   if (file.exists(output_filepath)) {
     warn_file_exists(output_filepath, base_dir, action = "overwriting")
+    backup_file(output_filepath)
   } else {
     alert_file_created(output_filepath, base_dir)
   }
@@ -297,6 +307,7 @@ render_resume_plain <- function(
     sort_appended = sort_appended
   )
   writeLines(resume_text, output_filepath)
+  if (show) { fs::file_show(output_filepath) }
   # fs::file_show(output_filepath)
 }
 
@@ -328,7 +339,8 @@ render_cover <- function(
     app_dir = "applications",
     input_dir = "notebooks",
     data_dir = "input",
-    output_dir = "output"
+    output_dir = "output",
+    show = FALSE
 ) {
   target <- match.arg(target)
 
@@ -376,6 +388,7 @@ render_cover <- function(
 
   if (file.exists(output_filepath)) {
     warn_file_exists(output_filepath, base_dir, action = "overwriting")
+    backup_file(output_filepath)
     # update_datestamp(app_id = app_id)
   } else {
     alert_file_created(output_filepath, base_dir)
@@ -401,6 +414,7 @@ render_cover <- function(
     ),
     quiet = TRUE
   )
+  if (show) { fs::file_show(output_filepath) }
   # fs::file_show(output_filepath)
 }
 
@@ -417,7 +431,8 @@ render_cover_plain <- function(
     type = c("cover", "email"),
     app_dir = "applications",
     data_dir = "input",
-    output_dir = "output"
+    output_dir = "output",
+    show = FALSE
 ) {
   target <- match.arg(target)
   type <- match.arg(type)
@@ -460,6 +475,7 @@ render_cover_plain <- function(
 
   if (file.exists(output_filepath)) {
     warn_file_exists(output_filepath, base_dir, action = "overwriting")
+    backup_file(output_filepath)
   } else {
     alert_file_created(output_filepath, base_dir)
   }
@@ -475,8 +491,8 @@ render_cover_plain <- function(
     bullet_style = bullet_style,
     type = type
   )
-
   writeLines(cover_text, output_filepath)
+  if (show) { fs::file_show(output_filepath) }
   # fs::file_show(output_filepath)
 }
 
@@ -493,6 +509,8 @@ render_cover_plain <- function(
 #'
 #' `render_base` builds an html CV, pdf and plain text resume from base data.
 #'
+#' `render_cv` builds an html CV and converts it to pdf.
+#'
 #' `render_linkedin` builds a short resume suitable for professional profiles.
 #'
 #' @family cli
@@ -500,48 +518,85 @@ render_cover_plain <- function(
 render_app <- function(
     app_id = "latest",
     app_period = "latest",
-    cover = TRUE,
-    email = TRUE,
-    use_bullets = TRUE
+    docs = c("resume", "all", "cover"),
+    # cover = TRUE,
+    # email = TRUE,
+    use_bullets = TRUE,
+    show = FALSE
 ) {
-  if (email) {
+  docs <- match.arg(docs, several.ok = TRUE)
+
+  app_df <- get_app_info(
+    id = app_id,
+    app_period = app_period,
+    field = c("period_path", "output_path", "status")
+  )
+
+  # Don't permit re-rendering if app is already submitted
+  stop_statuses <- c(
+    "applied", "rejected", "interviewed_then_rejected", "closed"
+  )
+  if (app_df$status %in% stop_statuses) {
+    cli::cli_alert_danger(
+      "Status is {.val {app_df$status}}. Must be {.val ipr} to render. (aborting)"
+    )
+    return(invisible(FALSE))
+    # stop(glue::glue("Status is '{app_df$status}', stopping execution."))
+  }
+
+  if ("cover" %in% docs || "all" %in% docs) {
+  # if (email) {
     render_cover_plain(
       target = "app",
       app_id = app_id,
       app_period = app_period,
       use_bullets = FALSE,
       bullet_style = "+",
-      type = "email"
+      type = "email",
+      show = show
     )
-  }
+  # }
 
-  if (cover) {
+  # if (cover) {
     render_cover_plain(
       target = "app",
       app_id = app_id,
       app_period = app_period,
       use_bullets = use_bullets,
-      bullet_style = "+"
+      bullet_style = "+",
+      show = show
     )
     render_cover(
       target = "app",
       app_id = app_id,
       app_period = app_period,
       use_bullets = use_bullets,
-      bullet_style = "-"
+      bullet_style = "-",
+      show = show
     )
+  # }
   }
 
-  render_resume_plain(
-    target = "app",
-    app_id = app_id,
-    app_period = app_period
-  )
-  render_resume(
-    target = "app",
-    app_id = app_id,
-    app_period = app_period
-  )
+  if ("resume" %in% docs || "all" %in% docs) {
+    render_resume_plain(
+      target = "app",
+      app_id = app_id,
+      app_period = app_period,
+      show = show
+    )
+    render_resume(
+      target = "app",
+      app_id = app_id,
+      app_period = app_period,
+      show = show
+    )
+  }
+  
+  if (!show) {
+    # alert_opening(app_df$output_path, base_dir = app_df$period_path)
+    alert_opening(app_df$output_path)
+    fs::file_show(app_df$output_path)
+  }
 }
 
 
@@ -552,18 +607,39 @@ render_app <- function(
 #' @export
 render_base <- function(
     report_counts = TRUE,
-    cover = FALSE
+    cover = FALSE,
+    show = FALSE
 ) {
   # NOTE: Set target to "app" for a 1-page resume;
   # enable latex stylesheet header (name) and footer (page numbers) otherwise.
-  render_cv_as_html()
-  # render_cv_as_pdf()
-  render_resume_plain(target = "base")
-  render_resume(target = "base")
+  # render_cv_as_html(
+  #   show = show
+  # )
+  # render_cv_as_pdf(
+  #   show = show
+  # )
+
+  render_resume_plain(
+    target = "base",
+    show = show
+  )
+  render_resume(
+    target = "base",
+    show = show
+  )
 
   if (cover) {
-    render_cover(target = "base", use_bullets = FALSE)
-    render_cover_plain(target = "base", type = "cover", use_bullets = FALSE)
+    render_cover(
+      target = "base",
+      use_bullets = FALSE,
+      show = show
+    )
+    render_cover_plain(
+      target = "base",
+      type = "cover",
+      use_bullets = FALSE,
+      show = show
+    )
   }
 
   if (report_counts) {
@@ -573,22 +649,52 @@ render_base <- function(
     output_df <- count_terms_base()
     print(output_df, n = max(nrow(output_df), 50))
   }
+
+  if (!show) {
+    output_path <- get_path_to("output")
+    alert_opening(output_path)
+    fs::file_show(output_path)
+  }
 }
 
 
 #' @rdname render_app
 #'
 #' @export
-render_linkedin <- function(report_counts = TRUE) {
+render_cv <- function(show = FALSE) {
+  render_cv_as_html(
+    show = show
+  )
+  render_cv_as_pdf(
+    show = show
+  )
+  
+  if (!show) {
+    output_path <- get_path_to("output")
+    alert_opening(output_path)
+    fs::file_show(output_path)
+  }
+}
+
+
+#' @rdname render_app
+#'
+#' @export
+render_linkedin <- function(
+    report_counts = TRUE,
+    show = FALSE
+) {
   render_resume_plain(
     target = "base",
     use_abridged = TRUE,
-    sort_appended = FALSE
+    sort_appended = FALSE,
+    show = show
   )
   render_resume(
     target = "base",
     use_abridged = TRUE,
-    sort_appended = FALSE
+    sort_appended = FALSE,
+    show = show
   )
 
   if (report_counts) {
@@ -598,4 +704,54 @@ render_linkedin <- function(report_counts = TRUE) {
     output_df <- count_terms_base(use_abridged = TRUE)
     print(output_df, n = max(nrow(output_df), 50))
   }
+
+  if (!show) {
+    output_path <- get_path_to("output")
+    alert_opening(output_path)
+    fs::file_show(output_path)
+  }
+}
+
+
+# Helpers ----------------------------------------------------------------------
+
+
+#' Transfer existing files to a backup directory Before overwriting.
+#'
+#' @family cli-dev
+#' @export
+backup_file <- function(path) {
+  if (!file.exists(path)) {
+    return(invisible(FALSE))
+  }
+  
+  # Ensure path is absolute and normalize
+  path <- normalizePath(path, winslash = "/", mustWork = TRUE)
+  base_dir <- get_path_to(dir = "src")
+  
+  # Create backup directory
+  backup_dir <- file.path(dirname(path), ".backup")
+  if (!dir.exists(backup_dir)) {
+    dir.create(backup_dir, recursive = TRUE)
+  }
+  
+  # Create timestamped filename
+  timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
+  file_name <- basename(path)
+  backup_path <- file.path(backup_dir, paste0(timestamp, "_", file_name))
+  
+  # Move the file
+  cli::cli_alert_info(
+    paste0(
+      "Moving ", cli::col_green(file_name),
+      " from: ", cli::col_green("output/"),
+      " to: ", cli::col_green("output/.backup/")
+      # " from: ", cli::col_green(
+      #   fs::path_dir(fs::path_rel(path, start = base_dir))),
+      # " to: ", cli::col_green(
+      #   fs::path_dir(fs::path_rel(backup_path, start = base_dir)))
+    )
+  )
+  file.rename(from = path, to = backup_path)
+  return(invisible(TRUE))
 }

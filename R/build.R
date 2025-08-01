@@ -369,9 +369,15 @@ get_app_info <- function(
         difftime(Sys.Date(), as.Date(app_df$date_applied), units = "days")
       )
     )
+    # app_df <- tibble::add_column(
+    #   app_df, days_since = days_since, .after = "date_applied"
+    # )
     app_df <- tibble::add_column(
-      app_df, days_since = days_since, .after = "date_applied"
+      app_df, since = days_since, .after = "date_applied"
     )
+    # Remove date for compact output
+    app_df <- app_df %>%
+      select(-ends_with("date_applied"))
 
   } else {
     app_df <- app_df %>%
@@ -384,7 +390,8 @@ get_app_info <- function(
       c("company", "position"),
       c("notes")
     )
-    max_lengths <- c(15, 20)
+    # max_lengths <- c(15, 20)
+    max_lengths <- c(15, 14)
 
     for (i in seq_along(columns_to_truncate)) {
       app_df[columns_to_truncate[[i]]] <- lapply(
@@ -526,6 +533,12 @@ open_app <- function(
 
     return(df %>% select(-.data$X))
 
+  # Open yaml files with TextEdit if available (skip for now)
+  } else if (fs::path_ext(path) %in% c("yaml", "yml")) {
+    alert_opening(path, base_dir)
+    open_with_application(path, "Visual Studio Code")
+    return(invisible(FALSE))
+    
   # Open all other file types (pdf, xlsx, txt, yaml) in the default apps
   } else {
     alert_opening(path, base_dir)
@@ -544,7 +557,7 @@ open_app <- function(
     }
 
     fs::file_show(path)
-    return(invisible(FALSE))
+    invisible(TRUE)
   }
 }
 
@@ -552,31 +565,88 @@ open_app <- function(
 #' @rdname open_app
 #'
 #' @export
-edit_app <- function(id = "latest", app_period = "latest") {
-  open_app(doc = "qa", id = id, app_period = app_period)
+edit_app <- function(
+    id = "latest",
+    app_period = "latest",
+    docs = c("resume", "all", "cover", "qa")
+) {
+  valid_docs <- c("resume", "cover", "qa")
+  docs <- match.arg(docs, several.ok = TRUE)
+
+  if ("all" %in% docs) {
+    docs <- valid_docs
+  }
+
+  # Don't permit editing if app is already submitted
+  app_df <- get_app_info(
+    id = id,
+    app_period = app_period,
+    field = c("status")
+  )
+  stop_statuses <- c(
+    "applied", "rejected", "interviewed_then_rejected", "closed"
+  )
+  if (app_df$status %in% stop_statuses) {
+    cli::cli_alert_danger(
+      "Status is {.val {app_df$status}}. Must be {.val ipr} to edit. (aborting)"
+    )
+    return(invisible(FALSE))
+    # stop(glue::glue("Status is '{app_df$status}', stopping execution."))
+  }
+  
+  for (doc in docs) {
+    if (doc %in% c("resume", "cover")) {
+      doc <- stringr::str_c(doc, "_data")
+    }
+    open_app(doc = doc, id = id, app_period = app_period)
+  }
   open_app(doc = "posting", id = id, app_period = app_period)
-  open_app(doc = "cover_data", id = id, app_period = app_period)
-  open_app(doc = "resume_data", id = id, app_period = app_period)
+  # open_app(doc = "qa", id = id, app_period = app_period)
+  # open_app(doc = "cover_data", id = id, app_period = app_period)
+  # open_app(doc = "resume_data", id = id, app_period = app_period)
 }
 
 
 # TODO: Add log as arg to open_app to prevent 2 calls to load_log
 
+# TODO: edit_base: Opening one+ of docs = c("resume", "all", "cover", "qa")
+
 #' @rdname open_app
 #'
 #' @export
-edit_base <- function() {
-  path <- get_path_to(dir = "input")
-  filepaths <- c(
-    file.path(path, "qa.yml"),
-    file.path(path, "cover_data.xlsx"),
-    file.path(path, "resume_data.xlsx")
-  )
+edit_base <- function(docs = c("resume", "all", "cover", "qa")) {
+  valid_docs <- c("resume", "cover", "qa")
+  docs <- match.arg(docs, several.ok = TRUE)
 
-  for (path in filepaths) {
-    alert_opening(path)
-    fs::file_show(path)
+  if ("all" %in% docs) {
+    docs <- valid_docs
   }
+
+  path <- get_path_to(dir = "input")
+
+  for (doc in docs) {
+    filename <- switch(
+      doc,
+      resume = "resume_data.xlsx",
+      cover  = "cover_data.xlsx",
+      qa     = "qa.yml"
+    )
+    
+    filepath <- file.path(path, filename)
+    alert_opening(filepath)
+    fs::file_show(filepath)
+  }
+
+  # filepaths <- c(
+  #   file.path(path, "qa.yml"),
+  #   file.path(path, "cover_data.xlsx"),
+  #   file.path(path, "resume_data.xlsx")
+  # )
+  # 
+  # for (path in filepaths) {
+  #   alert_opening(path)
+  #   fs::file_show(path)
+  # }
 }
 
 
@@ -782,7 +852,8 @@ write_log_entry <- function(app_df = construct_app_metadata()) {
 #'
 #'   message("")
 #'   message("3. Rendering application...")
-#'   render_app(cover = FALSE, email = FALSE)
+#'   # render_app()
+#'   # render_app(cover = FALSE, email = FALSE)
 #'
 #'   message("")
 #'   message("4. Checking keywords...")
@@ -860,8 +931,8 @@ build_app_directory <- function(
 
   check_skills(app_id = df$id, log = df, orderby = "doc", check_resume = FALSE)
 
-  cli::cli_text("")
-  open_app(doc = "app", id = app_df$id, app_period = app_df$period)
+  # cli::cli_text("")
+  # open_app(doc = "app", id = app_df$id, app_period = app_df$period)
 }
 
 
@@ -1254,6 +1325,39 @@ create_folders <- function(target_paths, base_dir = ".") {
       alert_folder_created(target_path, base_dir)
     }
   }
+}
+
+
+#' Open the document at a path with a given application.
+#'
+#' @description
+#' Checks if the user is on macOS and `app` is supplied, and uses the 'open'
+#' system command if so. Falls back to `fs::file_show()` otherwise.
+#'
+#' @param path Path to the file to open.
+#' @param app Optional. Name of the application to open with (macOS only).
+#'
+#' @family build-dev
+#' @export
+open_with_application <- function(path, app = NULL) {
+  if (!(file.exists(path))) {
+    warn_file_missing(
+      path,
+      action = "aborting"
+    )
+    return(invisible(FALSE))
+  }
+
+  if (
+    .Platform$OS.type == "unix" &&
+    Sys.info()[["sysname"]] == "Darwin" &&
+    !is.null(app)
+  ) {
+    system2("open", c("-a", shQuote(app), shQuote(path)))
+  } else {
+    fs::file_show(path)
+  }
+  invisible(TRUE)
 }
 
 

@@ -23,7 +23,8 @@ render_cv_as_pdf(
   data_dir = "input",
   output_dir = "output",
   stylesheets = list("custom_resume.css", "styles_pdf.css"),
-  sort_appended = FALSE
+  sort_appended = FALSE,
+  show = FALSE
 )
 }
 \description{

@@ -29,6 +29,7 @@ alert_folder_created(folder, base_dir = ".", action = "")
 Other cli-dev: 
 \code{\link{alert_opening}()},
 \code{\link{alert_writing_to}()},
+\code{\link{backup_file}()},
 \code{\link{format_action}()},
 \code{\link{warn_file_exists}()},
 \code{\link{warn_file_missing}()}

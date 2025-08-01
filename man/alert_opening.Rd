@@ -16,6 +16,7 @@ Issue an alert that a file or folder is opening from the provided path.
 Other cli-dev: 
 \code{\link{alert_file_created}()},
 \code{\link{alert_writing_to}()},
+\code{\link{backup_file}()},
 \code{\link{format_action}()},
 \code{\link{warn_file_exists}()},
 \code{\link{warn_file_missing}()}
