@@ -76,21 +76,268 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The <code>autocv</code> package provides a simple, unified workflow for constructing a curriculum vitae (and related job application documents) from data stored in spreadsheets.</p>
+<p>The <code>autocv</code> package provides a straightforward, unified, data-driven workflow for constructing, tailoring, and maintaining a curriculum vitae (and related job application documents) from data stored in spreadsheets.</p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <div class="section level3">
-<h3 id="user-interface">User Interface<a class="anchor" aria-label="anchor" href="#user-interface"></a>
+<h3 id="user-interface">User interface<a class="anchor" aria-label="anchor" href="#user-interface"></a>
 </h3>
-<p>The core of the user interface is encapsulated in the following sequence of commands for building and fine-tuning a job application:</p>
+<p>The core interface of <code>autocv</code> is encapsulated in the following functions:</p>
 <ol style="list-style-type: decimal">
 <li><p><a href="https://bainmatt.github.io/autocv/reference/build_app_directory.html">Build</a> an application directory. Given a job of interest, construct a directory containing the template data files and folders required to build a tailored job application.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/open_app.html">Edit</a> the application data files. Open the data files for a given job of interest and select the information (sections, entries, skills, ordering) to include or exclude from your application.</p></li>
-<li><p><a href="https://bainmatt.github.io/autocv/reference/render_app.html">Render</a> your application documents. For a given job of interest, use the tailored data files to generate the requested application documents (plain text and/or PDF resume, PDF or HTML curriculum vitae, cover letter, etc.).</p></li>
+<li><p><a href="https://bainmatt.github.io/autocv/reference/render_app.html">Render</a> your application documents. For a given job of interest, use the tailored data files to generate the requested application documents (plain text and/or PDF résumé, PDF or HTML curriculum vitae, cover letter, etc.).</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/run_skill_count.html">Check</a> application keywords. Given a term bank of relevant job keywords as well as a job posting and the application documents for a given job of interest, extract keywords from your job application and cross-check them against the job posting.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/get_app_info.html">Review</a> job application data. Retrieve information about your existing job applications.</p></li>
 </ol>
+</div>
+<div class="section level3">
+<h3 id="command-line-interface">Command-line interface<a class="anchor" aria-label="anchor" href="#command-line-interface"></a>
+</h3>
+<p>The <code>autocv</code> package comes with a built-in CLI called <code>cv</code> which exposes its core functionality in a compact, user-friendly way:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cv <span class="ex">--help</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">Usage:</span> cv <span class="op">&lt;</span>command<span class="op">&gt;</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">Available</span> commands:</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="ex">build</span>     Build an application directory.</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="ex">edit</span>      Edit the application data files.</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="ex">render</span>    Render your application documents.</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="ex">check</span>     Check application keywords.</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  <span class="ex">review</span>    Review job application data.</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="ex">apply</span>     Set the status of a submitted application.</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="ex">open</span>      Open a job output directory.</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="ex">Run</span> <span class="st">'cv &lt;command&gt; --help'</span> for command-specific options.</span></code></pre></div>
+<details><summary>
+build
+</summary><div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cv <span class="ex">build</span> <span class="at">--help</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">Usage:</span> cv build</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">[STEP</span> 1/4] Build an application directory.</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="ex">Options:</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="ex">-h,</span> <span class="at">--help</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>        <span class="ex">Show</span> this help message and exit</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="ex">Details:</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="ex">1.</span>  Opens <span class="st">'input/job_metadata.yml'</span> and prompts you to enter</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>        <span class="ex">metadata</span> for a job of interest, including:</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>        <span class="ex">-</span> a unique identifier <span class="kw">`</span><span class="fu">id</span><span class="kw">`</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>        <span class="ex">-</span> the current application period <span class="kw">`</span><span class="ex">period</span><span class="kw">`</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>        <span class="ex">-</span> hyperlinks to the job posting</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>        <span class="ex">Upon</span> confirmation, adds a logfile entry to the application directory</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>        <span class="cf">for</span> the <span class="ex">given</span> period and constructs the job directory from your base</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>        <span class="ex">data</span> files:</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>        <span class="ex">{applications/</span><span class="op">&lt;</span>period<span class="op">&gt;</span>/<span class="op">&lt;</span>job<span class="op">&gt;</span>/}</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="ex">2.</span>  Attempts to download the job posting and waits for you to</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>        <span class="fu">make</span> edits to the retrieved text. Once confirmed, generates keyword</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>        <span class="ex">reports</span> for your reference.</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="ex">See</span> also:</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>    <span class="ex">{autocv::build_base_directory}</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>        <span class="ex">Creates</span> the required stylesheets, notebooks, and base data</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>        <span class="ex">files</span> inside the <span class="st">'input/'</span> directory, including:</span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>        <span class="ex">{cover_data.xlsx}</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>        <span class="ex">{resume_data.xlsx}</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>        <span class="ex">{qa.yml}</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>        <span class="ex">{job_metadata.yml}</span></span></code></pre></div>
+</details><details><summary>
+edit
+</summary><div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cv <span class="ex">edit</span> <span class="at">--help</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">Usage:</span> cv edit <span class="pp">[</span><span class="ss">id=</span><span class="st">'latest'</span><span class="pp">]</span> [--period PERIOD=<span class="st">'latest'</span>] [--doc DOCUMENT=<span class="st">'resume'</span>] <span class="pp">[--</span><span class="ss">base</span><span class="pp">]</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">[STEP</span> 2/4] Edit application data files.</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="ex">Options:</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="ex">-p</span> PERIOD, <span class="at">--period</span><span class="op">=</span>PERIOD</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>        <span class="ex">Application</span> period [default latest]</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="ex">-d</span> DOCUMENT, <span class="at">--doc</span><span class="op">=</span>DOCUMENT</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>        <span class="ex">Document</span> to edit: one of all, resume, cover, qa. Ignored with <span class="at">--base.</span> [default resume]</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    <span class="ex">-b,</span> <span class="at">--base</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>        <span class="ex">Edit</span> the base application data instead of a specific period/job</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>    <span class="ex">-h,</span> <span class="at">--help</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>        <span class="ex">Show</span> this help message and exit</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="ex">Details:</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>    <span class="ex">a.</span>  Opens the following documents inside the</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>        <span class="st">'application/&lt;period&gt;/&lt;job&gt;/input/'</span> directory for editing purposes:</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>        <span class="ex">{posting_</span><span class="op">&lt;</span>id<span class="op">&gt;</span>.txt}</span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>        <span class="ex">{resume_data_</span><span class="op">&lt;</span>id<span class="op">&gt;</span>.xlsx}       [--doc all<span class="kw">|</span><span class="ex">resume]</span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>        <span class="ex">{cover_data_</span><span class="op">&lt;</span>id<span class="op">&gt;</span>.xlsx}        [--doc all<span class="kw">|</span><span class="ex">cover]</span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>        <span class="ex">{qa_</span><span class="op">&lt;</span>id<span class="op">&gt;</span>.yml}                 [--doc all<span class="kw">|</span><span class="ex">qa]</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>    </span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>        <span class="ex">Modify</span> these files to tailor résumé entries, bullet points, keywords,</span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>        <span class="ex">and</span> cover letter sections for a specific job application. Modify the</span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>        <span class="ex">following</span> fields to change the rendered outputs:</span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>        <span class="ex">include</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>            <span class="ex">Toggle</span> included résumé and cover letter entries.</span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>    </span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>    <span class="ex">b.</span>  With the <span class="at">--base</span> flag, opens the following documents inside the root</span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a>        <span class="st">'input/'</span> directory:</span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a>        <span class="ex">{resume_data.xlsx}</span>            [--doc all<span class="kw">|</span><span class="ex">resume]</span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a>        <span class="ex">{cover_data.xlsx}</span>             [--doc all<span class="kw">|</span><span class="ex">cover]</span></span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a>        <span class="ex">{qa.yml}</span>                      [--doc all<span class="kw">|</span><span class="ex">qa]</span></span>
+<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a>    </span>
+<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a>        <span class="ex">Modify</span> these files to maintain your base list of positions, projects,</span>
+<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a>        <span class="ex">and</span> skills <span class="er">(</span><span class="ex">from</span> which job-specific files are derived<span class="kw">)</span> <span class="fu">as</span> they grow</span>
+<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a>        <span class="ex">over</span> time. Modify the following fields to change the rendered outputs:</span>
+<span id="cb3-45"><a href="#cb3-45" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a>        <span class="ex">in_base</span></span>
+<span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a>            <span class="ex">Toggle</span> included base résumé entries.</span>
+<span id="cb3-48"><a href="#cb3-48" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a>        <span class="ex">core_tools</span></span>
+<span id="cb3-50"><a href="#cb3-50" tabindex="-1"></a>        <span class="ex">current_tech</span></span>
+<span id="cb3-51"><a href="#cb3-51" tabindex="-1"></a>        <span class="ex">key_competency</span></span>
+<span id="cb3-52"><a href="#cb3-52" tabindex="-1"></a>            <span class="ex">Modify</span> CV-specific details.</span>
+<span id="cb3-53"><a href="#cb3-53" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" tabindex="-1"></a>        <span class="ex">short_summary</span></span>
+<span id="cb3-55"><a href="#cb3-55" tabindex="-1"></a>        <span class="ex">tool_*</span></span>
+<span id="cb3-56"><a href="#cb3-56" tabindex="-1"></a>        <span class="ex">competency_*</span></span>
+<span id="cb3-57"><a href="#cb3-57" tabindex="-1"></a>            <span class="ex">Modify</span> LinkedIn-specific details.</span>
+<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" tabindex="-1"></a><span class="ex">See</span> also:</span>
+<span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a>    <span class="ex">{cv</span> build}</span>
+<span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a>        <span class="ex">Must</span> be run as a prerequisite to construct the application directory.</span></code></pre></div>
+</details><details><summary>
+render
+</summary><div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cv <span class="ex">render</span> <span class="at">--help</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">Usage:</span> cv render <span class="pp">[</span><span class="ss">id=</span><span class="st">'latest'</span><span class="pp">]</span> [--period PERIOD=<span class="st">'latest'</span>] [--doc DOCUMENT=<span class="st">'resume'</span>] <span class="pp">[--</span><span class="ss">base</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">cv</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">linkedin</span><span class="pp">]</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">[STEP</span> 3/4] Render application documents.</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="ex">Options:</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="ex">-p</span> PERIOD, <span class="at">--period</span><span class="op">=</span>PERIOD</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>        <span class="ex">Application</span> period. Ignored with <span class="at">--base,</span> <span class="at">--cv,</span> or <span class="at">--linkedin.</span> [default latest]</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="ex">-d</span> DOCUMENT, <span class="at">--doc</span><span class="op">=</span>DOCUMENT</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>        <span class="ex">Document</span> to render: one of all, resume, cover. Ignored with <span class="at">--base,</span> <span class="at">--cv,</span> or <span class="at">--linkedin.</span> [default resume]</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>    <span class="ex">-s,</span> <span class="at">--show</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>        <span class="ex">Open</span> the rendered documents instead of showing them in the file explorer</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    <span class="ex">-a,</span> <span class="at">--achievements</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>        <span class="ex">Use</span> a list of achievements in place of the cover letter body text. Ignored unless <span class="at">--doc</span> cover<span class="kw">|</span><span class="ex">all</span> supplied.</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>    <span class="ex">-b,</span> <span class="at">--base</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>        <span class="ex">Render</span> the base résumé <span class="er">(</span><span class="fu">as</span> both a PDF and plain text file<span class="kw">)</span> <span class="ex">instead</span> of those for a specific period/job</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>    <span class="ex">-c,</span> <span class="at">--cv</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>        <span class="ex">Render</span> the base, web-optimized CV <span class="er">(</span><span class="fu">as</span> both an HTML and PDF file<span class="kw">)</span> <span class="ex">instead</span> of those for a specific period/job</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>    <span class="ex">-l,</span> <span class="at">--linkedin</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>        <span class="ex">Render</span> the base résumé <span class="er">(</span><span class="fu">as</span> both a PDF and plain text file<span class="kw">)</span> <span class="ex">using</span> the <span class="kw">`</span><span class="ex">short_summary</span><span class="kw">`</span> and <span class="kw">`</span><span class="ex">linkedin_*</span><span class="kw">`</span> fields instead of those for a specific period/job</span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>    <span class="ex">-h,</span> <span class="at">--help</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>        <span class="ex">Show</span> this help message and exit</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="ex">Details:</span></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>    <span class="ex">a.</span>  Using the applicable input data files and stylesheets <span class="er">(</span><span class="ex">see</span> <span class="kw">`</span><span class="ex">cv</span> edit<span class="kw">`</span></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>        <span class="ex">and</span> <span class="kw">`</span><span class="ex">cv</span> base<span class="kw">`)</span><span class="ex">,</span> generates the following documents inside the</span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>        <span class="st">'application/&lt;period&gt;/&lt;job&gt;/output/'</span> directory:</span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a>        <span class="ex">{resume_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>_<span class="op">&lt;</span>id<span class="op">&gt;</span>.pdf}    [--doc all<span class="kw">|</span><span class="ex">resume]</span></span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>        <span class="ex">{resume_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>_<span class="op">&lt;</span>id<span class="op">&gt;</span>.txt}    [--doc all<span class="kw">|</span><span class="ex">resume]</span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>        <span class="ex">{cover_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>_<span class="op">&lt;</span>id<span class="op">&gt;</span>.pdf}     [--doc all<span class="kw">|</span><span class="ex">cover]</span></span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>        <span class="ex">{cover_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>_<span class="op">&lt;</span>id<span class="op">&gt;</span>.txt}     [--doc all<span class="kw">|</span><span class="ex">cover]</span></span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a>        <span class="ex">{email_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>_<span class="op">&lt;</span>id<span class="op">&gt;</span>.txt}     [--doc all<span class="kw">|</span><span class="ex">cover]</span></span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a>    <span class="ex">b.</span>  With the <span class="at">--base</span> flag, renders the following documents and saves</span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a>        <span class="ex">them</span> inside the root <span class="st">'output/'</span> directory:</span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a>        <span class="ex">{resume_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>.pdf}</span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a>        <span class="ex">{resume_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>.txt}</span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a>    <span class="ex">c.</span>  With the <span class="at">--cv</span> flag, generates the following documents inside</span>
+<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a>        <span class="ex">the</span> root <span class="st">'output/'</span> directory:</span>
+<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a>        <span class="ex">{cv_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>.html}</span>
+<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a>        <span class="ex">{cv_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>.pdf}</span>
+<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a>    <span class="ex">d.</span>  With the <span class="at">--linkedin</span> flag, generates the following documents inside</span>
+<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a>        <span class="ex">the</span> root <span class="st">'output/'</span> directory:</span>
+<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a>        <span class="ex">{resume_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>_linkedin.pdf}</span>
+<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a>        <span class="ex">{resume_</span><span class="op">&lt;</span>yourname<span class="op">&gt;</span>_linkedin.txt}</span>
+<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a><span class="ex">See</span> also:</span>
+<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a>    <span class="ex">{cv</span> edit}</span>
+<span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a>        <span class="ex">Run</span> this first to tailor data files as desired.</span></code></pre></div>
+</details><details><summary>
+check
+</summary><div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cv <span class="ex">check</span> <span class="at">--help</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">Usage:</span> cv check <span class="pp">[</span><span class="ss">id=</span><span class="st">'latest'</span><span class="pp">]</span> [--period PERIOD=<span class="st">'latest'</span>] <span class="pp">[--</span><span class="ss">base</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">linkedin</span><span class="pp">]</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="ex">[STEP</span> 4/4] Check application keywords.</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="ex">Options:</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="ex">-p</span> PERIOD, <span class="at">--period</span><span class="op">=</span>PERIOD</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>        <span class="ex">Application</span> period. Ignored with <span class="at">--base</span> or <span class="at">--linkedin.</span> [default latest]</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    <span class="ex">-b,</span> <span class="at">--base</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>        <span class="ex">Count</span> skills in the base résumé instead of those for a specific period/job</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    <span class="ex">-l,</span> <span class="at">--linkedin</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>        <span class="ex">Count</span> skills in the LinkedIn-appropriate base résumé instead of those for a specific period/job</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    <span class="ex">-h,</span> <span class="at">--help</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>        <span class="ex">Show</span> this help message and exit</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="ex">Details:</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>    <span class="ex">a.</span>  Extract job-relevant terms from a résumé and cross-check them against</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>        <span class="ex">the</span> job posting. The term bank is a plain text file with each term</span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>        <span class="kw">(</span><span class="ex">case-sensitive</span><span class="kw">)</span> <span class="ex">defined</span> on a new line. By default, it is located</span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>        <span class="ex">inside</span> the <span class="st">'inst/extdata/resources/'</span> directory:</span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>    </span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>        <span class="ex">{skill_list.txt}</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>        <span class="ex">{keyword_list.txt}</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>        <span class="ex">This</span> step generates CSV files inside the</span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>        <span class="st">'application/&lt;period&gt;/&lt;job&gt;/output/'</span> directory, namely:</span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a>        <span class="ex">{keyword_counts_</span><span class="op">&lt;</span>id<span class="op">&gt;</span>.csv}</span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a>        <span class="ex">{skill_counts_posting_</span><span class="op">&lt;</span>id<span class="op">&gt;</span>.csv}</span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a>        <span class="ex">{skill_counts_resume_</span><span class="op">&lt;</span>id<span class="op">&gt;</span>.csv}</span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a>        <span class="ex">{skill_report_</span><span class="op">&lt;</span>id<span class="op">&gt;</span>.csv}</span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a>    <span class="ex">b.</span>  With the <span class="at">--base</span> flag, only prints skill counts based on the base</span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a>        <span class="ex">résumé</span> With the <span class="at">--linkedin</span> flag, only prints skill counts based on</span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a>        <span class="ex">the</span> LinkedIn-appropriate base résumé</span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="ex">See</span> also:</span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a>    <span class="ex">{cv</span> render}</span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a>        <span class="ex">Run</span> this first to generate the résumé to check.</span></code></pre></div>
+</details><details><summary>
+review
+</summary><div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cv <span class="ex">review</span> <span class="at">--help</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">Usage:</span> cv review <span class="pp">[</span><span class="ss">id=</span><span class="st">'latest'</span><span class="pp">]</span> [--period PERIOD=<span class="st">'latest'</span>] [--field FIELD=<span class="st">'all'</span>] [--status STATUS=<span class="st">'all'</span>] <span class="pp">[--</span><span class="ss">report</span><span class="pp">]</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="ex">Review</span> application details.</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="ex">Options:</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    <span class="ex">-p</span> PERIOD, <span class="at">--period</span><span class="op">=</span>PERIOD</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>        <span class="ex">Application</span> period [default latest]</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    <span class="ex">-r,</span> <span class="at">--report</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>        <span class="ex">Summarize</span> the application log by status</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>    <span class="ex">-h,</span> <span class="at">--help</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>        <span class="ex">Show</span> this help message and exit</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="ex">See</span> also:</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>    <span class="ex">{cv</span> check}</span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>        <span class="ex">Generate</span> keyword reports.</span></code></pre></div>
+</details>
 </div>
 <div class="section level3">
 <h3 id="api-reference">API reference<a class="anchor" aria-label="anchor" href="#api-reference"></a>
@@ -100,12 +347,12 @@
 <div class="section level3">
 <h3 id="data-reference">Data reference<a class="anchor" aria-label="anchor" href="#data-reference"></a>
 </h3>
-<p>Included with the package are several template data files which the user should modify to reflect their work experience, skills, application text, and metadata for any job of interest. The core data files are:</p>
+<p>The <code>autocv</code> package includes template data files which the user should modify to reflect their work experience, skills, application text, and metadata for any job of interest. The core data files are:</p>
 <ol style="list-style-type: decimal">
-<li><p><a href="https://bainmatt.github.io/autocv/reference/example_skill_data.html"><code>example_skill_data</code></a>: A table with rows representing job-relevant skills, along with ratings of skill level and flags indicating whether or not to include each skill in the present job application.</p></li>
+<li><p><a href="https://bainmatt.github.io/autocv/reference/example_skill_data.html"><code>example_skill_data</code></a>: A table with rows representing job-relevant skills, along with ratings of skill level and flags indicating whether to include each skill in the present job application.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/example_position_data.html"><code>example_position_data</code></a>: A table with rows representing professional roles, degrees and certificates earned, professional projects, etc., with optional fields including title, company, timeline, and description text.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/example_contact_data.html"><code>example_contact_data</code></a>: A table with rows containing personal contact information and associated links (address, email, personal website, etc.).</p></li>
-<li><p><a href="https://bainmatt.github.io/autocv/reference/example_text_data.html"><code>example_text_data</code></a>: A table with rows containing the textual building blocks of a job application, such as a resume bio or a cover letter.</p></li>
+<li><p><a href="https://bainmatt.github.io/autocv/reference/example_text_data.html"><code>example_text_data</code></a>: A table with rows containing the textual building blocks of a job application, such as a résumé bio or a cover letter.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/example_job_metadata.html"><code>example_job_metadata</code></a>: A named list with fields containing the details of a given job application, such as the company, position, associated URLs, and a unique identifier.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/example_posting.html"><code>example_posting</code></a>: A string containing the text of an example job posting.</p></li>
 </ol>
@@ -113,15 +360,15 @@
 <div class="section level3">
 <h3 id="example-documents">Example documents<a class="anchor" aria-label="anchor" href="#example-documents"></a>
 </h3>
-<p>The autocv package includes functions and dynamic spreadsheets for generating the following documents:</p>
+<p>The <code>autocv</code> package includes functions and dynamic spreadsheets for generating the following documents:</p>
 <ol style="list-style-type: decimal">
-<li><p><a href="https://bainmatt.github.io/autocv/reference/render_resume.html">PDF resume</a> Either a general (“base”) resume for the role you are pursuing or a tailored resume, built upon the base, modified to suit a specific job to which you are applying. Uses the notebook <code>resume.Rmd</code> (see <a href="https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume.Rmd" class="external-link">template</a>) and the spreadsheet <code>resume_data.xlsx</code> (see <a href="https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx" class="external-link">template</a>, as well as the corresponding example datasets <a href="https://bainmatt.github.io/autocv/reference/example_skill_data.html">example_skill_data</a> and <a href="https://bainmatt.github.io/autocv/reference/example_position_data.html">example_position_data</a>). View an example <a href="https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.pdf" class="external-link">here</a>.</p></li>
+<li><p><a href="https://bainmatt.github.io/autocv/reference/render_resume.html">PDF resume</a> Either a general (‘base’) résumé for the role you are pursuing or a tailored résumé, built upon the base, modified to suit a specific job to which you are applying. Uses the notebook <code>resume.Rmd</code> (see <a href="https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume.Rmd" class="external-link">template</a>) and the spreadsheet <code>resume_data.xlsx</code> (see <a href="https://github.com/bainmatt/autocv/blob/main/inst/templates/template_resume_data.xlsx" class="external-link">template</a>, as well as the corresponding example datasets <a href="https://bainmatt.github.io/autocv/reference/example_skill_data.html">example_skill_data</a> and <a href="https://bainmatt.github.io/autocv/reference/example_position_data.html">example_position_data</a>). View an <a href="https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.pdf" class="external-link">example</a>.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/render_cover.html">PDF cover letter</a>: A cover letter containing the company and position information for a job of interest. Uses the spreadsheet <code>cover_data.xlsx</code> (see <a href="https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cover_data.xlsx" class="external-link">template</a>, as well as the corresponding example datasets <a href="https://bainmatt.github.io/autocv/reference/example_contact_data.html">example_contact_data</a> and <a href="https://bainmatt.github.io/autocv/reference/example_text_data.html">example_text_data</a>).</p></li>
-<li><p><a href="https://bainmatt.github.io/autocv/reference/render_resume.html">Plain text resume</a>: A resume containing the same information as the PDF resume and relying on the same template files but rendered in a plain text format for simplicity and ease of data entry. View an <a href="https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.txt" class="external-link">example</a>.</p></li>
+<li><p><a href="https://bainmatt.github.io/autocv/reference/render_resume.html">Plain text résumé</a>: A resume containing the same information as the PDF résumé and relying on the same template files but rendered in a plain text format for simplicity and ease of data entry. View an <a href="https://github.com/bainmatt/autocv/blob/main/vignettes/output/resume_yourname_AB.txt" class="external-link">example</a>.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/render_cover.html">Plain text cover letter</a>: A cover letter containing the same information as the PDF cover letter and relying on the same template files but rendered in a plain text format for simplicity and ease of data entry.</p></li>
-<li><p><a href="https://bainmatt.github.io/autocv/reference/render_cv_as_html.html">HTML curriculum vitae</a>: An informal, web-friendly curriculum vitae containing an ongoing record of your professional history, a graphical breakdown of your skill set, and a space to include an image. Relies on the notebook <code>cv.Rmd</code> (see <a href="https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cv.Rmd" class="external-link">template</a>) and the same spreadsheet files as the PDF and plain text resume. View an <a href="https://bainmatt.github.io/autocv/cv_yourname.html">example</a>.</p></li>
+<li><p><a href="https://bainmatt.github.io/autocv/reference/render_cv_as_html.html">HTML curriculum vitae</a>: An informal, web-friendly curriculum vitae containing an ongoing record of your professional history, a graphical breakdown of your skill set, and a space to include an image. Relies on the notebook <code>cv.Rmd</code> (see <a href="https://github.com/bainmatt/autocv/blob/main/inst/templates/template_cv.Rmd" class="external-link">template</a>) and the same spreadsheet files as the PDF and plain text résumé. View an <a href="https://bainmatt.github.io/autocv/cv_yourname.html">example</a>.</p></li>
 <li><p><a href="https://bainmatt.github.io/autocv/reference/render_cv_as_html.html">PDF curriculum vitae</a>: A curriculum vitae containing the same information as the HTML version and relying on the same template files but rendered as a PDF document for offline distribution.</p></li>
-<li><p><a href="https://bainmatt.github.io/autocv/reference/render_resume.html">Professional profile curriculum vitae</a>: A streamlined curriculum vitae, rendered as a PDF using the PDF resume styling, based on concise information, provided in the data spreadsheet, intended for compatibility with an online professional profile such as LinkedIn. Relies on the same template files as the PDF and plain text resume.</p></li>
+<li><p><a href="https://bainmatt.github.io/autocv/reference/render_resume.html">Professional profile curriculum vitae</a>: A streamlined curriculum vitae, rendered as a PDF using the PDF resume styling, based on concise information, provided in the data spreadsheet, intended for compatibility with an online professional profile such as LinkedIn. Relies on the same template files as the PDF and plain text résumé.</p></li>
 </ol>
 </div>
 </div>
@@ -129,7 +376,7 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>This package is not on CRAN. If you would like to use it, you can install it directly from GitHub by running the following in your console:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"bainmatt/autocv"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">remotes::install_github</span><span class="er">(</span><span class="st">"bainmatt/autocv"</span><span class="kw">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -139,7 +386,7 @@
 <div class="section level2">
 <h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
 </h2>
-<p>This project is inspired by Nick Strayer’s <a href="https://github.com/nstrayer/datadrivencv/tree/master/inst/templates" title="dd template" class="external-link">data-driven cv</a> template (<a href="https://nickstrayer.me/cv/" title="Nick Strayer’s data-driven CV" class="external-link">exemplar</a>), which extends the <a href="https://github.com/rstudio/pagedown/tree/main" title="pagedown package" class="external-link">pagedown</a> <code>html_resume</code> template. Further inspiration and design refinements were borrowed from Matt Leary’s <a href="https://github.com/mleary/resume" title="Matt Leary template" class="external-link">resume</a> repository (<a href="https://mleary.github.io/resume/" title="Matt Leary’s data-driven CV" class="external-link">examplar</a>). Thank you to the creators of these projects.</p>
+<p>This project is inspired by Nick Strayer’s <a href="https://github.com/nstrayer/datadrivencv/tree/master/inst/templates" title="dd template" class="external-link">data-driven cv</a> template (<a href="https://nickstrayer.me/cv/" title="Nick Strayer’s data-driven CV" class="external-link">exemplar</a>), which extends the <a href="https://github.com/rstudio/pagedown/tree/main" title="pagedown package" class="external-link">pagedown</a> <code>html_resume</code> template. Further inspiration and design refinements are borrowed from Matt Leary’s <a href="https://github.com/mleary/resume" title="Matt Leary template" class="external-link">resume</a> repository (<a href="https://mleary.github.io/resume/" title="Matt Leary’s data-driven CV" class="external-link">exemplar</a>). Thank you to the creators of these projects.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
