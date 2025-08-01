@@ -17,7 +17,8 @@ render_cover(
   app_dir = "applications",
   input_dir = "notebooks",
   data_dir = "input",
-  output_dir = "output"
+  output_dir = "output",
+  show = FALSE
 )
 
 render_cover_plain(
@@ -29,7 +30,8 @@ render_cover_plain(
   type = c("cover", "email"),
   app_dir = "applications",
   data_dir = "input",
-  output_dir = "output"
+  output_dir = "output",
+  show = FALSE
 )
 }
 \description{
