@@ -11,7 +11,11 @@ CLI handler for 'build'.
 }
 \seealso{
 Other cli-handlers: 
+\code{\link{cli_apply}()},
+\code{\link{cli_check}()},
 \code{\link{cli_edit}()},
-\code{\link{cli_render}()}
+\code{\link{cli_open}()},
+\code{\link{cli_render}()},
+\code{\link{cli_review}()}
 }
 \concept{cli-handlers}

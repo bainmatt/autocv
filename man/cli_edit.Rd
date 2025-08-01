@@ -11,7 +11,11 @@ CLI handler for 'edit'.
 }
 \seealso{
 Other cli-handlers: 
+\code{\link{cli_apply}()},
 \code{\link{cli_build}()},
-\code{\link{cli_render}()}
+\code{\link{cli_check}()},
+\code{\link{cli_open}()},
+\code{\link{cli_render}()},
+\code{\link{cli_review}()}
 }
 \concept{cli-handlers}
