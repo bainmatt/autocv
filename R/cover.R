@@ -14,7 +14,8 @@ print_achievements <- function(text_data, bullet_style = c("-", "+")) {
     ) %>%
     arrange(.data$order) %>%
     pull(.data$text) %>%
-    {glue::glue_collapse(glue::glue(bullet_style, " { . }"), "\n")}
+    # { glue::glue_collapse(glue::glue(bullet_style, " { . }"), "\n") }
+    { paste(paste0(bullet_style, " ", .), collapse = "\n") }
 
   return(achivements)
 }
@@ -55,10 +56,18 @@ print_cover_body <- function(
 
   if (use_bullets) {
     achievements_preamble <- text_data[
-      text_data$loc == "achievements_preamble",]$text
-    achivements <- print_achievements(text_data, bullet_style = bullet_style)
+      text_data$loc == "achievements_preamble",
+      "text",
+      drop = TRUE
+    ]
+    achievements <- print_achievements(text_data, bullet_style = bullet_style)
+    body <- glue::glue("{achievements_preamble}\n\n{achievements}\n")
 
-    body <- glue::glue(achievements_preamble, achivements, .sep = sep)
+    # achievements_preamble <- text_data[
+    #   text_data$loc == "achievements_preamble",
+    # ]$text
+    # achievements <- print_achievements(text_data, bullet_style = bullet_style)
+    # body <- glue::glue(achievements_preamble, achievements, .sep = sep)
 
   } else {
     body <- text_data[text_data$loc == paste0(type, "_body"),]$text

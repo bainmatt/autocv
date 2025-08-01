@@ -1,14 +1,15 @@
+\usepackage{fontspec}        % font face
+\usepackage{xcolor}          % colours
+\usepackage[normalem]{ulem}  % hyperlink formatting
+
 % Remove page numbers
 \pagenumbering{gobble}
 
 % Set font (Helvetica Neue, Avenir, Gill Sans)
-\usepackage{fontspec}
 \setmainfont{Helvetica Neue}
 
 % Custom text colours
-\usepackage{xcolor}
 \definecolor{myblue}{RGB}{0, 76, 153}
-% \definecolor{mylinkblue}{RGB}{36, 86, 129}
 \definecolor{mygreen}{RGB}{0, 115, 76}
 
 % Ensure text is left aligned
@@ -17,7 +18,6 @@
 % Custom macros ----------------------------------------------------------------
 
 % Custom hyperlink formatting
-\usepackage[normalem]{ulem}
 \newcommand{\myhref}[2]{\href{#1}{\textcolor{blue}{\uline{#2}}}}
 
 % Custom width-spanning horizontal rules

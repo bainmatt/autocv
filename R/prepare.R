@@ -100,12 +100,6 @@ prepare_timeline <- function(
 }
 
 
-# TODO: *Add function (render_links()) to detect links (of the style []())
-# + extract text/link in raw resume/cover body text
-# + format as either markdown, latex, or txt by calling prepare_links
-# (call render_links() first in preprocess_text/_entries).
-
-
 #' Prepare formatted links with custom text.
 #'
 #' @description
@@ -131,7 +125,7 @@ prepare_links <- function(
       formatted_link = dplyr::case_when(
         is.na(.data$link) ~ NA,
         style == "markdown" ~ stringr::str_c(
-          "[[", .data$link_text, "](", .data$link, ")]"
+          " [[", .data$link_text, "](", .data$link, ")]"
         ),
         style == "latex" ~ stringr::str_c(
           " [\\", macro, "{", .data$link, "}{", .data$link_text, "}]"
@@ -156,12 +150,14 @@ render_links <- function(
   style <- match.arg(style)
   macro <- match.arg(macro)
 
-  links <- stringr::str_match_all(text, "\\[([^\\]]+)\\]\\(([^\\)]+)\\)")[[1]]
+  # PERF: render_links: match space before links b/c prepare_links adds one
+  links <- stringr::str_match_all(text, " \\[([^\\]]+)\\]\\(([^\\)]+)\\)")[[1]]
 
   if (nrow(links) == 0) {
     return(text)
   }
 
+  # df <- tibble::tibble(
   df <- tibble(
     full_match = links[, 1],
     link_text = links[, 2],
@@ -326,7 +322,7 @@ prepare_description_bullets <- function(
 
 # TODO: To omit_hidden_fields: Add latex/plain option
 
-#' Omit spreadsheet entries beginning with a preset prefix.
+#' Omit (nullify) spreadsheet cells beginning with a given prefix.
 #'
 #' @family prepare-dev
 omit_hidden_fields <- function(
@@ -335,11 +331,19 @@ omit_hidden_fields <- function(
     prefix = "/"
   ) {
   pattern <- paste0("^", prefix)
-  data <- data %>%
-    dplyr::mutate(dplyr::across(
-      dplyr::where(is.character),
-      ~ ifelse(stringr::str_detect(., pattern), NA, .)
-    ))
+
+  suppressMessages({
+    data <- data %>%
+      dplyr::mutate(dplyr::across(
+        dplyr::where(is.character),
+        ~ ifelse(stringr::str_detect(., pattern), NA, .)
+      ))
+  })
+  # data <- data %>%
+  #   dplyr::mutate(dplyr::across(
+  #     dplyr::where(is.character),
+  #     ~ ifelse(stringr::str_detect(., pattern), NA, .)
+  #   ))
   return(data)
 }
 
@@ -558,9 +562,10 @@ preprocess_contacts <- function(
   macro <- match.arg(macro)
 
   # Initialize a new column for processed contact info
-  contact_data <- contact_data %>%
+  suppressMessages({contact_data <- contact_data %>%
     arrange(.data$order) %>%
     mutate(contact_text = NA)
+  })
 
   # Use default photo if invalid or null path provided
   # PERF: Check complete: Use default photo if invalid or null path provided
@@ -611,7 +616,7 @@ preprocess_text <- function(
 
   text_data <- text_data %>%
     dplyr::mutate(
-      text = vapply(text, render_links, character(1), style = style)
+      text = vapply(text, render_links, character(1), style = style),
     ) %>%
     prepare_bio(use_abridged = use_abridged)
 
