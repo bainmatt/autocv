@@ -11,11 +11,13 @@ args <- commandArgs(trailingOnly = TRUE)
 if (length(args) == 0 || args[1] %in% c("-h", "--help")) {
   cat("Usage: cv <command> [options]\n\n")
   cat("Available commands:\n")
-  cat("  build     Build an application directory\n")
-  cat("  edit      Edit the application data files\n")
-  cat("  render    Render your application documents\n")
-  cat("  check     Check application keywords\n")
-  cat("  review    Review job application data\n")
+  cat("  build     Build an application directory.\n")
+  cat("  edit      Edit the application data files.\n")
+  cat("  render    Render your application documents.\n")
+  cat("  check     Check application keywords.\n")
+  cat("  review    Review job application data.\n")
+  cat("  apply     Set the status of a submitted application.\n")
+  cat("  open      Open a job output directory.\n")
   cat("\nRun 'cv <command> --help' for command-specific options.\n")
   quit(status = 0)
 }
@@ -32,6 +34,8 @@ dispatch_command <- function(cmd, sub_args) {
     render = autocv::cli_render(sub_args),
     check  = autocv::cli_check(sub_args),
     review = autocv::cli_review(sub_args),
+    apply  = autocv::cli_apply(sub_args),
+    open   = autocv::cli_open(sub_args),
     {
       cat(sprintf("Unknown command: '%s'\n", cmd))
       cat("Run 'cv --help' to see available commands.\n")
